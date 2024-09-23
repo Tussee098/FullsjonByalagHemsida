@@ -1,0 +1,17 @@
+.headerTitle {
+  font-size: larger;
+}
+
+.headerTitleContainer {
+  margin: auto;
+}
+
+header {
+  width: 100%;
+  height: 10rem;
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
