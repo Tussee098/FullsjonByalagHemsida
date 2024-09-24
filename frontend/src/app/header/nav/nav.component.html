@@ -1,1 +1,12 @@
-<a>hejhej</a>
+<nav class="navContainer">
+  <ul class="listContainer">
+    <li *ngFor="let item of list" class="listItem">
+      <a class="listText">{{item.title}}</a>
+      <ul class="hoverList" >
+        <li *ngFor="let navOptions of item.dropdown" class="hoverListItem">
+          <a class="hoverListText">{{navOptions}}</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>

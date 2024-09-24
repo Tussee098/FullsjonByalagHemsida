@@ -1,0 +1,53 @@
+$navHeight: 3rem;
+
+.navContainer {
+  height: $navHeight;
+  width: 100%;
+  background-color: rgb(206, 206, 206);
+  border-top: 2px solid white;
+
+  .listContainer {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+
+    .listItem {
+      position: relative;
+      display: flex;
+      width: 5rem;
+      border-left: solid 1px white;
+
+      &:last-child {
+        border-right: solid 1px white;
+      }
+
+      .listText {
+        margin: auto;
+      }
+
+      .hoverList {
+        display: none;
+        position: absolute;
+        top: $navHeight;
+        flex-direction: column;
+        min-width: 9.6rem;
+        background-color: rgb(155, 155, 155);
+        padding: 0.4rem;
+        row-gap: 0.4rem;
+
+        .hoverListText:hover {
+          background-color: rgb(175, 175, 175);
+          cursor: pointer;
+        }
+      }
+    }
+
+    .listItem:hover {
+      .hoverList {
+        display: flex;
+      }
+    }
+  }
+}
+
+
