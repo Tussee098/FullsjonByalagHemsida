@@ -1,0 +1,11 @@
+<h2>Admin Panel</h2>
+
+<!-- Textarea for input -->
+<textarea
+  class="text-input"
+  placeholder="Type your text here..."
+  [(ngModel)]="inputText"
+  (input)="adjustHeight($event)">
+</textarea>
+<br>
+<button (click)="submitText()">Submit</button>

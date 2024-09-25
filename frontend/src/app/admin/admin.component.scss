@@ -1,0 +1,34 @@
+/* Example styles for the admin panel */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-right: 5px;
+}
+
+/* Style for the textarea */
+.text-input {
+  width: 50%;  /* Takes up 50% of the screen width */
+  height: 200px;  /* Set an initial height */
+  margin-left: 10%;  /* Start 10% from the left */
+  padding: 10px;  /* Padding inside the textarea */
+  box-sizing: border-box;  /* Ensures padding is included in width/height */
+  border: 1px solid #ccc;  /* Border style */
+  border-radius: 4px;  /* Rounded corners */
+  font-size: 16px;  /* Font size */
+  resize: none;  /* Disable manual resizing */
+}
+
+/* Optional: Style to enhance the appearance on focus */
+.text-input:focus {
+  border-color: #66afe9;  /* Change border color on focus */
+  outline: none;  /* Remove default outline */
+  box-shadow: 0 0 5px rgba(102, 175, 233, .5);  /* Add a shadow effect */
+}
