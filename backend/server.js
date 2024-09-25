@@ -5,7 +5,7 @@ import mongoose from'mongoose';
 
 const app = express();
 const port = process.env.PORT || 5000;
-const DBUrl = 'mongodb://localhost:27017/about_us_posts';
+const DBUrl = 'mongodb://localhost:27017/FullsjonWebsite';
 
 // Middleware
 app.use(cors());  // Enable CORS for all routes
@@ -29,7 +29,7 @@ mongoose.connect(DBUrl)
 
 
 const postSchema = new mongoose.Schema({
-    name: {type: String, required: true},
+    text: {type: String, required: true},
     author: {type: String, required: false}
 
 }, { timestamps: true });
@@ -39,7 +39,7 @@ const Post = mongoose.model('Post', postSchema, 'post'); // Create the Post mode
 // Create a POST route to save the post
 app.post('/api/posts', async (req, res) => {
   const newPost = new Post({
-    name: req.body.name, // Directly access name
+    text: req.body.text, // Directly access name
     author: req.body.author // Directly access author 
   });
   try {

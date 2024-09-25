@@ -26,7 +26,7 @@ export class AdminComponent {
             'Content-Type': 'application/json', // Specify that you're sending JSON
         },
         body: JSON.stringify({
-            name: "My First Post",   // This is where you include the post name
+            text: this.inputText,   // This is where you include the post name
             author: "John Doe"       // This is where you include the author
         }),
     });
