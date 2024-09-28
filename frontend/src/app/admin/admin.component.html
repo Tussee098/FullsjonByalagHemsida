@@ -9,3 +9,23 @@
 </textarea>
 <br>
 <button (click)="submitText()">Submit</button>
+
+<h3>Posts</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Text</th>
+      <th>Author</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let post of posts">
+      <td>{{ post.text }}</td>
+      <td>{{ post.author }}</td>
+      <td>
+        <button (click)="deletePost(post._id)">X</button> <!-- Delete button -->
+      </td>
+    </tr>
+  </tbody>
+</table>

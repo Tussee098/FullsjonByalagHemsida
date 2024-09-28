@@ -1,39 +1,28 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
+  standalone: true, // Mark the component as standalone
+  imports: [CommonModule, ReactiveFormsModule], // Import CommonModule and ReactiveFormsModule
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  imports: [FormsModule, CommonModule],
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  loginForm: FormGroup;
 
-  email: string = '';
-  password: string = '';
-
-
-  // Placeholder login function simulating authentication
-  login(): boolean {
-    console.log("Login attempt:", { email: this.email, password: this.password });
-
-    // Mock validation for testing
-    if (this.email === 'test@example.com' && this.password === 'password123') {
-      return true; // Login successful
-    } else {
-      return false; // Login failed
-    }
+  constructor(private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      email: ['', Validators.email],
+      password: ['', Validators.required]
+    });
   }
 
-  // Handle form submission
-  onSubmit(): void {
-    const isLoginSuccessful = this.login();
-
-    if (isLoginSuccessful) {
-      alert('Login successful!');
-      // Implement redirection logic here (e.g., route to dashboard)
+  onSubmit() {
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
+      // Handle login logic
     }
   }
 }

@@ -1,0 +1,44 @@
+[
+  {
+    "category": "Kontakta",
+    "items": [
+      {
+        "title": "kontakta mig",
+        "path": "kontakta-mig"
+      },
+      {
+        "title": "kontakta dig",
+        "path": "kontakta-dig"
+      },
+      {
+        "title": "kontakta anka",
+        "path": "kontakta-anka"
+      },
+      {
+        "title": "kontakta annan anka",
+        "path": "kontakta-annan-anka"
+      }
+    ]
+  },
+  {
+    "category": "Spela",
+    "items": [
+      {
+        "title": "spela mig",
+        "path": "spela-mig"
+      },
+      {
+        "title": "spela dig",
+        "path": "spela-dig"
+      },
+      {
+        "title": "spela anka",
+        "path": "spela-anka"
+      },
+      {
+        "title": "spela annan anka",
+        "path": "spela-annan-anka"
+      }
+    ]
+  }
+]
