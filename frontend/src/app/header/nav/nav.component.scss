@@ -26,7 +26,7 @@ $navHeight: 3rem;
       }
 
       .hoverList {
-        display: none;
+        display: none;  // Default is hidden; controlled by Angular
         position: absolute;
         top: $navHeight;
         flex-direction: column;
@@ -40,14 +40,14 @@ $navHeight: 3rem;
           cursor: pointer;
         }
       }
+
+      // Remove the hover logic here for .hoverList
+      // The visibility of .hoverList is controlled by Angular logic now
     }
 
-    .listItem:hover {
-      .hoverList {
-        display: flex;
-      }
+    // Optionally, add hover effect for the list item if needed
+    .listItem:hover .listText {
+      background-color: rgba(175, 175, 175, 0.5); // Optional hover effect
     }
   }
 }
-
-
