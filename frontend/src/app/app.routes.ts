@@ -4,11 +4,12 @@ import { NormalPage } from './normal-page/normal-page.component'; // Import the 
 import { HeaderComponent } from './header/header.component'
 import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
+import { NavComponent } from './header/nav/nav.component';
 
 export const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'login', component: LoginComponent},
-  { path: '', component: HeaderComponent }, // Default route
+  { path: '', component: NavComponent }, // Default route
   { path: '**', redirectTo: '' } // Wildcard route
 ];
 

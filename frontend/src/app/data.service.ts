@@ -24,6 +24,12 @@ export class DataService {
 
   // Fetch categories from the JSON file
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.dataUrl); // Fetch the data from the JSON file
+    console.log(this.dataUrl)
+    return this.http.request<Category[]>('GET', this.dataUrl, {
+      responseType: 'json', // The response type is JSON (default for `get`)
+    });
+
+    //return this.http.get<Category[]>(this.dataUrl); // Fetch the data from the JSON file
+
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../data.service'; // Adjust the import as necessary
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
 
 interface Item {
   title: string; // Ensure this matches the JSON structure
@@ -16,7 +18,7 @@ interface DropdownItem {
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, NgIf, RouterLink ],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
