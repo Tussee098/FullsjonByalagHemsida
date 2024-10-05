@@ -25,24 +25,38 @@ $navHeight: 3rem;
         margin: auto;
       }
 
+      // Dropdown list - hidden by default, Angular will handle showing it via classes or logic
       .hoverList {
-        display: none;  // Default is hidden; controlled by Angular
+        //display: none;  // Hidden by default, make visible when class 'show' is added
         position: absolute;
         top: $navHeight;
-        flex-direction: column;
+        left: 0; // Align dropdown with the parent list item
         min-width: 9.6rem;
         background-color: rgb(155, 155, 155);
         padding: 0.4rem;
         row-gap: 0.4rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Add shadow for better visibility
+        z-index: 100; // Ensure it appears on top of other elements
 
-        .hoverListText:hover {
-          background-color: rgb(175, 175, 175);
-          cursor: pointer;
+        // When Angular toggles a 'show' class (or similar), display the dropdown
+        &.show {
+          display: flex; // Show the dropdown when Angular logic adds 'show' class
+          flex-direction: column;
+        }
+
+        .hoverListItem {
+          .hoverListText {
+            color: white; // Optional: adjust text color for better contrast
+            text-decoration: none;
+            padding: 0.2rem 0.4rem; // Padding for hoverListText
+          }
+
+          .hoverListText:hover {
+            background-color: rgb(175, 175, 175);
+            cursor: pointer;
+          }
         }
       }
-
-      // Remove the hover logic here for .hoverList
-      // The visibility of .hoverList is controlled by Angular logic now
     }
 
     // Optionally, add hover effect for the list item if needed

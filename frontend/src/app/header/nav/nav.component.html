@@ -1,10 +1,10 @@
 <nav class="navContainer">
   <ul class="listContainer">
-    <li *ngFor="let item of list" (click)="test()" class="listItem">
+    <li *ngFor="let item of list" (click)="toggleDropdown(item)" class="listItem">
       <a class="listText" >{{ item.category}}</a> <!-- Click to toggle dropdown -->
-      <ul class="hoverList" *ngIf="item.showDropdown"> <!-- Show dropdown if showDropdown is true -->
+      <ul class="hoverList" *ngIf="item.showDropdown" ><!-- Show dropdown if showDropdown is true -->
         <li *ngFor="let navOption of item.items" class="hoverListItem">
-          <a class="hoverListText" [routerLink]="navOption.path">{{ navOption.title }}</a> <!-- Ensure navOption has title -->
+            <a class="hoverListText" [routerLink]="'/' + navOption.title">{{ navOption.title }}</a> <!-- Ensure navOption has title -->
         </li>
       </ul>
     </li>

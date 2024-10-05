@@ -1,32 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-normal-page',
-  template: `<h1>{{ title }}</h1>`,
+  standalone: true,
+  imports: [HeaderComponent],
+  templateUrl: './normal-page.component.html',
+  styleUrl: './normal-page.component.scss'
 })
 export class NormalPage implements OnInit {
-  title: string = '';
-
-  // List of items for reference
-  list = [
-    { title: 'kontakta mig', path: 'kontakta-mig' },
-    { title: 'kontakta dig', path: 'kontakta-dig' },
-    { title: 'kontakta anka', path: 'kontakta-anka' },
-    { title: 'kontakta annan anka', path: 'kontakta-annan-anka' },
-    { title: 'spela mig', path: 'spela-mig' },
-    { title: 'spela dig', path: 'spela-dig' },
-    { title: 'spela anka', path: 'spela-anka' },
-    { title: 'spela annan anka', path: 'spela-annan-anka' },
-  ];
+  title: string | undefined = ""
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    const currentPath = this.route.snapshot.url[0].path;
-    const item = this.list.find(i => i.path === currentPath);
-    if (item) {
-      this.title = item.title; // Set the title to be displayed
-    }
+    // Access the title from the route itself
+    const currentRoute = this.route.snapshot; // Get the current route snapshot
+    this.title = currentRoute.title; // Set the title directly from the route
   }
 }
