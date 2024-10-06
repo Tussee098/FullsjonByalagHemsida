@@ -1,11 +1,11 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { DataService } from './app/data.service';
+import { DataService } from './app/services/data.service';
 import { Router } from '@angular/router';
 import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
-import { initializeRoutes } from './app/initialize-routes.service';
+import { initializeRoutes } from './app/services/initialize-routes.service';
 
 bootstrapApplication(AppComponent, {
   providers: [

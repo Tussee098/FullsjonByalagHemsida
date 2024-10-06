@@ -1,22 +1,33 @@
+/* Styling for the header */
+header {
+  width: 100%;
+  height: 6rem; /* Adjust this as necessary */
+  background-color: gray; /* Matching background color */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center items horizontally */
+  flex-direction: column;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for separation from the page */
+}
+
 .headerTitle {
-  font-size: larger;
+  font-size: 24px;
+  color: black; /* White text for the title */
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .headerTitleContainer {
-  margin: auto;
+  margin-bottom: 10px; /* Slight margin between title and nav */
+  text-align: center;
 }
 
-header {
-  width: 100%;
-  height: 10rem;
-  background-color: gray;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
-}
-
-// i hate this but i dont want to put more time on trying to fix it
+/* Navigation container inside the header */
 app-nav {
   width: 100%;
+  max-width: 800px; /* Limiting the width of the navigation */
+  display: flex;
+  justify-content: center;
 }

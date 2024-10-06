@@ -1,67 +1,86 @@
-$navHeight: 3rem;
-
+/* Ensure the nav container is properly styled and blends with the header */
 .navContainer {
-  height: $navHeight;
-  width: 100%;
-  background-color: rgb(206, 206, 206);
-  border-top: 2px solid white;
+  display: flex;
+  justify-content: center; /* Centers the list horizontally */
+  padding: 0;
+  background-color: transparent; /* Matches header background */
+}
 
-  .listContainer {
-    display: flex;
-    height: 100%;
-    justify-content: center;
+.listContainer {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 30px; /* Space between each category */
+}
 
-    .listItem {
-      position: relative;
-      display: flex;
-      width: 5rem;
-      border-left: solid 1px white;
+/* The listItem itself will act as a box */
+.listItem {
+  position: relative;
+  padding: 10px 20px; /* Add padding to create the box around the text */
+  border: 2px solid white; /* White borders around the nav items */
+  background-color: transparent; /* Transparent background to blend with the header */
+  border-radius: 8px; /* Rounded corners for a nicer look */
+  cursor: pointer; /* Entire box is clickable */
+  transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
 
-      &:last-child {
-        border-right: solid 1px white;
-      }
+/* Style the text inside the listItem */
+.listText {
+  font-size: 18px;
+  font-weight: bold;
+  color: black; /* Darker text color */
+  text-decoration: none;
+}
 
-      .listText {
-        margin: auto;
-      }
+/* Hover effect for the entire listItem (box around the text) */
+.listItem:hover {
+  background-color: white; /* Change background on hover */
+  transform: translateY(-3px); /* Slightly lift the item on hover */
+  color: gray; /* Change text color */
+}
 
-      // Dropdown list - hidden by default, Angular will handle showing it via classes or logic
-      .hoverList {
-        //display: none;  // Hidden by default, make visible when class 'show' is added
-        position: absolute;
-        top: $navHeight;
-        left: 0; // Align dropdown with the parent list item
-        min-width: 9.6rem;
-        background-color: rgb(155, 155, 155);
-        padding: 0.4rem;
-        row-gap: 0.4rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Add shadow for better visibility
-        z-index: 100; // Ensure it appears on top of other elements
+/* Initially hide the dropdown */
+.hoverList {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: grey; /* Grey background for the dropdown */
+  border: 2px solid white;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the dropdown */
+  z-index: 1000;
+  min-width: 150px;
+  opacity: 0;
+  transform: translateY(5px); /* Start with a slight offset */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
 
-        // When Angular toggles a 'show' class (or similar), display the dropdown
-        &.show {
-          display: flex; // Show the dropdown when Angular logic adds 'show' class
-          flex-direction: column;
-        }
+/* Show the dropdown when hovering over the parent listItem */
+.listItem:hover .hoverList {
+  display: block;
+  opacity: 1;
+  transform: translateY(0); /* Smooth entrance */
+}
 
-        .hoverListItem {
-          .hoverListText {
-            color: white; // Optional: adjust text color for better contrast
-            text-decoration: none;
-            padding: 0.2rem 0.4rem; // Padding for hoverListText
-          }
+.hoverListItem {
+  padding: 8px 12px;
+}
 
-          .hoverListText:hover {
-            background-color: rgb(175, 175, 175);
-            cursor: pointer;
-          }
-        }
-      }
-    }
+.hoverListText {
+  text-decoration: none;
+  color: white; /* White text for dropdown items */
+  background-color: gray; /* Match background to header */
+  font-size: 16px;
+  font-weight: 500;
+}
 
-    // Optionally, add hover effect for the list item if needed
-    .listItem:hover .listText {
-      background-color: rgba(175, 175, 175, 0.5); // Optional hover effect
-    }
-  }
+/* Hover effect for dropdown items */
+.hoverListItem:hover .hoverListText {
+  background-color: white; /* White background on hover */
+  color: gray; /* Gray text on hover */
 }

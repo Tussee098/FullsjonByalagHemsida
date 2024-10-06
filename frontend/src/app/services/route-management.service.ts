@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Router, Routes } from '@angular/router';
 import { Subject } from 'rxjs';
-import { NormalPage } from './normal-page/normal-page.component';
+import { NormalPage } from '../normal-page/normal-page.component';
 
 @Injectable({
   providedIn: 'root',

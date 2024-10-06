@@ -1,10 +1,11 @@
 import { NgModule} from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { NormalPage } from './normal-page/normal-page.component'; // Import the standalone component
-import { RouteManagementService } from './route-management.service';
-import { DataService } from './data.service';
+import { RouteManagementService } from './services/route-management.service';
+import { DataService } from './services/data.service';
 import { APP_INITIALIZER } from '@angular/core';
 import { LoginComponent } from './login/login.component';
+import { AdminComponent } from './admin/admin.component';
 
 export function getDynamicRoutes(dataService: DataService): Promise<Routes> {
   console.log("Fetching dynamic routes...");
@@ -17,9 +18,10 @@ export function getDynamicRoutes(dataService: DataService): Promise<Routes> {
         });
       });
       routes.push(
-        { path: '', component: NormalPage },  // Placeholder for Home component
-        { path: 'login', component: LoginComponent }, // Placeholder for About component
-        { path: '**', component: NormalPage } // Placeholder for Contact component
+        { path: '', component: NormalPage, title: "main"},
+        { path: 'login', component: LoginComponent, title: "login"},
+        { path: 'admin', component: AdminComponent, title: "admin"},
+        { path: '**', component: NormalPage, title: "main"}
       );
       console.log('Generated routes:', routes);
       resolve(routes); // Return the dynamically generated routes

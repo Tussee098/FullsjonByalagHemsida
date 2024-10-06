@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { DataService } from '../../data.service'; // Adjust the import as necessary
+import { DataService } from '../../services/data.service'; // Adjust the import as necessary
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink , Router} from '@angular/router';
 
@@ -40,11 +40,6 @@ export class NavComponent implements OnInit {
     console.log('Current Routes:', this.router.config);
   }
 
-  toggleDropdown(item: DropdownItem): void {
-    console.log('Dropdown toggle clicked for:', item.category); // Log category clicked
-    item.showDropdown = !item.showDropdown; // Toggle dropdown visibility
-    console.log(`Toggled ${item.category} to ${item.showDropdown}`); // Log the toggle state
-  }
 
   test(): void {
     // Your logic for the test function
