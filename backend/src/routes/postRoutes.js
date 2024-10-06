@@ -5,8 +5,10 @@ const router = express.Router();
 
 // Get all posts
 router.get('/', async (req, res, next) => {
+  const { category } = req.query;
+  console.log(`Fetching posts with category: ${category}`);
   try {
-    const posts = await Post.find();
+    const posts = await Post.find(category);
     res.json(posts);
   } catch (error) {
     next(error);

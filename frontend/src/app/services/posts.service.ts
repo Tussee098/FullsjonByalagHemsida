@@ -11,7 +11,7 @@ export class PostService {
 
   /**
    * Write 'all' in case you want to retrieve all posts
-   * @param category The category of posts, what page.
+   * @param category The category of posts (what page).
    * @returns The promise kekw
    */
   async fetchPosts(category: string): Promise<any[]> {

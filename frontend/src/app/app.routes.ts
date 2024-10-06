@@ -12,18 +12,18 @@ export function getDynamicRoutes(dataService: DataService): Promise<Routes> {
   return new Promise((resolve) => {
     dataService.getCategories().subscribe(categories => {
       const routes: Routes = [];
+      routes.push(
+        {title: "main", path: '', component: NormalPage},
+        {title: "login", path: 'login', component: LoginComponent},
+        {title: "admin", path: 'admin', component: AdminComponent},
+        //{ path: '**', component: NormalPage, title: "main"}
+      );
       categories.forEach(category => {
         category.items.forEach(item => {
           routes.push({title: item.title, path: item.path, component: NormalPage });
         });
       });
-      routes.push(
-        { path: '', component: NormalPage, title: "main"},
-        { path: 'login', component: LoginComponent, title: "login"},
-        { path: 'admin', component: AdminComponent, title: "admin"},
-        { path: '**', component: NormalPage, title: "main"}
-      );
-      console.log('Generated routes:', routes);
+      console.log('Generated routessdfsdfsdf:', routes);
       resolve(routes); // Return the dynamically generated routes
     });
   });

@@ -4,7 +4,7 @@
       <a class="listText" >{{ item.category}}</a> <!-- Click to toggle dropdown -->
       <ul class="hoverList" ><!-- Show dropdown if showDropdown is true -->
         <li *ngFor="let navOption of item.items" class="hoverListItem">
-            <a class="hoverListText" [routerLink]="'/' + navOption.title">{{ navOption.title }}</a> <!-- Ensure navOption has title -->
+            <a class="hoverListText" [routerLink]="'/' + navOption.path">{{ navOption.title }}</a> <!-- Ensure navOption has title -->
         </li>
       </ul>
     </li>

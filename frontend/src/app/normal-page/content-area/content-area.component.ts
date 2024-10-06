@@ -19,6 +19,8 @@ export class ContentAreaComponent {
     const currentRoute = this.route.snapshot;
     this.title = currentRoute.title || 'Default Title'; // Provide a default title
     this.posts = await this.postService.fetchPosts(this.title);
+    console.log(this.title)
+    console.log(this.posts)
   }
 
 }
