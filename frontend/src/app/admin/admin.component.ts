@@ -1,8 +1,10 @@
+import { DataService, DropdownItem } from './../services/data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { PostService } from '../services/posts.service'; // Import the PostService
+import { Data } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -11,15 +13,20 @@ import { PostService } from '../services/posts.service'; // Import the PostServi
   styleUrls: ['./admin.component.scss'],
   imports: [FormsModule, HeaderComponent, CommonModule]
 })
+
 export class AdminComponent implements OnInit {
   inputText: string = '';
   posts: any[] = [];
-
-  constructor(private postService: PostService) {} // Inject PostService
+  categories: DropdownItem[] = [];
+  selectedCategory: string = '';
+  constructor(private postService: PostService, private dataService: DataService) {} // Inject PostService
 
   async ngOnInit() {
     this.posts = await this.postService.fetchPosts("all"); // Use service to fetch posts
+    console.log(this.posts)
   }
+
+
 
   adjustHeight(event: Event): void {
     const textarea = event.target as HTMLTextAreaElement;

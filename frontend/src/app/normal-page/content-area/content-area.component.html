@@ -1,1 +1,7 @@
-<p>content-area works!</p>
+<div class="content-area">
+  <app-content-box
+    *ngFor="let post of posts"
+    [text]="post.text"
+    [author]="post.author">
+  </app-content-box>
+</div>

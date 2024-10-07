@@ -32,3 +32,28 @@ button {
   outline: none;  /* Remove default outline */
   box-shadow: 0 0 5px rgba(102, 175, 233, .5);  /* Add a shadow effect */
 }
+.dropdown {
+  margin: 20px; // Margin around the dropdown
+  display: flex;
+  flex-direction: column; // Stack label and select vertically
+  align-items: flex-start; // Align to the start
+
+  label {
+    margin-bottom: 8px; // Space between label and dropdown
+    font-size: 1.1em; // Slightly larger font for the label
+  }
+
+  select {
+    padding: 8px; // Padding inside the dropdown
+    font-size: 1em; // Font size of the dropdown text
+    border: 1px solid #ccc; // Light border
+    border-radius: 4px; // Rounded corners
+    transition: border-color 0.3s; // Smooth transition for border color
+
+    &:focus {
+      border-color: #007bff; // Change border color on focus
+      outline: none; // Remove default outline
+    }
+  }
+}
+

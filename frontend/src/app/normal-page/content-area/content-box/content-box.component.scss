@@ -1,0 +1,18 @@
+.content-box {
+  background-color: #f9f9f9; /* Light background */
+  border: 1px solid #e0e0e0; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 16px; /* Padding around content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  width: 100%; /* Full width of the container */
+  max-width: 600px; /* Maximum width for large screens */
+  margin: 10px 0; /* Space between boxes */
+  text-align: left; /* Align text to the left */
+}
+
+.author {
+  font-weight: bold; /* Make author name bold */
+  font-size: 0.9em; /* Slightly smaller font for the author */
+  color: #555; /* Grey color for author */
+  margin-top: 8px; /* Space above author */
+}

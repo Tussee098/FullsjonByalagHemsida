@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { PostService } from '../../services/posts.service';
 import { ActivatedRoute } from '@angular/router';
+import { NgFor } from '@angular/common';
+import { ContentBoxComponent } from './content-box/content-box.component';
 
 @Component({
   selector: 'app-content-area',
   standalone: true,
-  imports: [],
+  imports: [NgFor, ContentBoxComponent],
   templateUrl: './content-area.component.html',
   styleUrl: './content-area.component.scss'
 })

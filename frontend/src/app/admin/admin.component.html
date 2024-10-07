@@ -9,7 +9,13 @@
 </textarea>
 <br>
 <button (click)="submitText()">Submit</button>
-
+<div class="dropdown">
+  <label for="category-select">Choose a category:</label>
+  <select id="category-select" [(ngModel)]="selectedCategory"> <!-- Two-way data binding -->
+    <option value="" disabled selected>Select a category</option> <!-- Default option -->
+    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+  </select>
+</div>
 <h3>Posts</h3>
 <table>
   <thead>
