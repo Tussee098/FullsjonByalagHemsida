@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 export interface Item {
   title: string; // Title for each item
@@ -23,5 +23,15 @@ export class DataService {
   // Fetch categories from the JSON file
   getCategories(): Observable<DropdownItem[]> {
     return this.http.get<DropdownItem[]>(this.dataUrl);
+  }
+
+  getAllItems(): Observable<Item[]> {
+    return this.getCategories().pipe(
+      map(categories => {
+        return categories.reduce((acc: Item[], cat) => {
+          return acc.concat(cat.items);
+        }, []);
+      })
+    );
   }
 }

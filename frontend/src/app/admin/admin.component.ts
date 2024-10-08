@@ -1,4 +1,4 @@
-import { DataService, DropdownItem } from './../services/data.service';
+import { DataService, DropdownItem, Item } from './../services/data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -17,14 +17,27 @@ import { Data } from '@angular/router';
 export class AdminComponent implements OnInit {
   inputText: string = '';
   posts: any[] = [];
-  categories: DropdownItem[] = [];
+  items: any[] = [];
   selectedCategory: string = '';
   constructor(private postService: PostService, private dataService: DataService) {} // Inject PostService
 
   async ngOnInit() {
     this.posts = await this.postService.fetchPosts("all"); // Use service to fetch posts
-    console.log(this.posts)
+    this.getAllItems(); // Load items when the component initializes
   }
+
+  getAllItems(): void {
+  this.dataService.getAllItems().subscribe(
+    (items: Item[]) => {
+      console.log('All items:', items);
+      this.items = items
+      console.log(this.items)
+    },
+    error => {
+      console.error('Error fetching all items:', error);
+    }
+  );
+}
 
 
 
@@ -35,7 +48,7 @@ export class AdminComponent implements OnInit {
   }
 
   async submitText(): Promise<void> {
-    const newPost = await this.postService.submitPost(this.inputText); // Use service to submit post
+    const newPost = await this.postService.submitPost(this.inputText, this.selectedCategory); // Use service to submit post
     if (newPost) {
       this.posts.push(newPost);
       this.inputText = '';

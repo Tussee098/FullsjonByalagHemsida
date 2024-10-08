@@ -40,13 +40,13 @@ export class PostService {
   }
 
   // Submit a new post
-  async submitPost(text: string, author: string = 'John Doe'): Promise<any> {
+  async submitPost(text: string, category: string, author: string = 'John Doe'): Promise<any> {
     const response = await fetch(this.baseUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ text, author }),
+      body: JSON.stringify({ text, category,author }),
     });
 
     if (response.ok) {

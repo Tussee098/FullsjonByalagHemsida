@@ -13,7 +13,7 @@
   <label for="category-select">Choose a category:</label>
   <select id="category-select" [(ngModel)]="selectedCategory"> <!-- Two-way data binding -->
     <option value="" disabled selected>Select a category</option> <!-- Default option -->
-    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    <option *ngFor="let category of items" [value]="category.title">{{ category.title }}</option>
   </select>
 </div>
 <h3>Posts</h3>
