@@ -30,7 +30,6 @@ export class ContentBoxComponent {
  async deletePost(postId: string): Promise<void> {
     const deleted = await this.postService.deletePost(postId); // Use service to delete post
     if (deleted) {
-      console.log("Delted")
       this.postDeleted.emit();
     }
   }

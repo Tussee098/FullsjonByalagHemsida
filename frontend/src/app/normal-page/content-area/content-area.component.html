@@ -4,6 +4,7 @@
     [_id]="post._id"
     [text]="post.text"
     [author]="post.author"
-    [isAdmin]="isAdmin">
+    [isAdmin]="isAdmin"
+    (postDeleted)="onPostDeleted()">
   </app-content-box>
 </div>
