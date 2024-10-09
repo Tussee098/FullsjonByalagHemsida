@@ -1,7 +1,9 @@
 <div class="content-area">
   <app-content-box
     *ngFor="let post of posts"
+    [_id]="post._id"
     [text]="post.text"
-    [author]="post.author">
+    [author]="post.author"
+    [isAdmin]="isAdmin">
   </app-content-box>
 </div>

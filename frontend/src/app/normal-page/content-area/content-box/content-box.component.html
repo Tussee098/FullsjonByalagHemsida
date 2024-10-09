@@ -1,3 +1,7 @@
 <div class="content-box">
   <p>{{ text }}</p>
+  <div *ngIf="isAdmin" class="admin-actions">
+    <button (click)="editPost()">Edit</button>
+    <button (click)="deletePost(this._id)">Delete</button>
+  </div>
 </div>

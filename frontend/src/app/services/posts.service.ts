@@ -41,10 +41,12 @@ export class PostService {
 
   // Submit a new post
   async submitPost(text: string, category: string, author: string = 'John Doe'): Promise<any> {
+    const token = localStorage.getItem('token');
     const response = await fetch(this.baseUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({ text, category,author }),
     });
@@ -59,8 +61,12 @@ export class PostService {
 
   // Delete a post by ID
   async deletePost(postId: string): Promise<boolean> {
+    const token = localStorage.getItem('token');
     const response = await fetch(`${this.baseUrl}/${postId}`, {
       method: 'DELETE',
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
     });
 
     if (response.ok) {
