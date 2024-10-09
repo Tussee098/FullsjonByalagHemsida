@@ -1,17 +1,12 @@
 import app from './app.js'; // Import the app
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import express from 'express'
-import authRoutes from './routes/authorization.js'
-
-// Load environment variables
-
-dotenv.config();
+import config from './config.js';
 
 // Connect to MongoDB
-const DBUrl = process.env.DB_URL
-const JWT_SECRET = process.env.JWT_SECRET
-const port = process.env.PORT || 5000;
+const DBUrl = config.dbUrl
+const JWT_SECRET = config.JWT_SECRET
+const port = config.PORT
 
 
 mongoose.connect(DBUrl)

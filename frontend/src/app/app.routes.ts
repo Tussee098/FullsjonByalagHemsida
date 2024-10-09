@@ -1,11 +1,9 @@
-import { NgModule} from '@angular/core';
-import { Routes, RouterModule, Router } from '@angular/router';
+import { Routes, Router } from '@angular/router';
 import { NormalPage } from './normal-page/normal-page.component'; // Import the standalone component
-import { RouteManagementService } from './services/route-management.service';
 import { DataService } from './services/data.service';
-import { APP_INITIALIZER } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
+import { AuthGuard } from './guards/auth.guard.service';
 
 export function getDynamicRoutes(dataService: DataService): Promise<Routes> {
   console.log("Fetching dynamic routes...");
@@ -15,7 +13,7 @@ export function getDynamicRoutes(dataService: DataService): Promise<Routes> {
       routes.push(
         {title: "main", path: '', component: NormalPage},
         {title: "login", path: 'login', component: LoginComponent},
-        {title: "admin", path: 'admin', component: AdminComponent},
+        {title: "admin", path: 'admin', component: AdminComponent, canActivate:[AuthGuard]},
         //{ path: '**', component: NormalPage, title: "main"}
       );
       categories.forEach(category => {
