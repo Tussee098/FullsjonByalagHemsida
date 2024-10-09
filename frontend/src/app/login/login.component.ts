@@ -29,6 +29,7 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value; // Extract values from form
+      console.log(email, password)
       this.authService.login(email, password).subscribe(response => {
         localStorage.setItem('token', response.token);
         // Redirect to admin panel or show success message

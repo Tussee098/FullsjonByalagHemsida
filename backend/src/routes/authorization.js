@@ -12,7 +12,7 @@ const JWT_SECRET = config.jwtSecret
 
 
 // Register User
-router.post('/register', authorization, async (req, res) => {
+router.post('/register', /*authorization,*/ async (req, res) => {
   const { email, password } = req.body;
   
   try {
@@ -21,7 +21,9 @@ router.post('/register', authorization, async (req, res) => {
     console.log(email, hashedPassword)
     // Save new user to the database
     const newUser = new User({ email, password: hashedPassword });
+    console.log(newUser)
     await newUser.save();
+    console.log("4")
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
     res.status(500).json({ error: 'Error registering user' });
@@ -31,6 +33,7 @@ router.post('/register', authorization, async (req, res) => {
 // Login User
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password)
   try {
     // Find user in the database
     const user = await User.findOne({ email });
