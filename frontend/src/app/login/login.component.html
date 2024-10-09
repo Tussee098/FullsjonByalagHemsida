@@ -15,3 +15,22 @@
 
   <button type="submit" [disabled]="loginForm.invalid">Login</button>
 </form>
+
+<h2>Register</h2>
+
+<!-- Registration Form -->
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <label for="register-email">Email</label>
+  <input id="register-email" formControlName="email" type="email">
+  <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+    Email is required
+  </div>
+
+  <label for="register-password">Password</label>
+  <input id="register-password" type="password" formControlName="password">
+  <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+    Password is required
+  </div>
+
+  <button type="submit" [disabled]="registerForm.invalid">Register</button>
+</form>
