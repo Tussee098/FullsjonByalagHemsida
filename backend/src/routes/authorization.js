@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';  // Import bcrypt
 import jwt from 'jsonwebtoken';  // Import jsonwebtoken
 import User from '../models/User.js';  // Import User model (ensure the correct path and extension)
 import config from '../config.js';
+import authorization from '../middleware/authorization.js';
 
 
 const router = express.Router();
@@ -11,7 +12,7 @@ const JWT_SECRET = config.jwtSecret
 
 
 // Register User
-router.post('/register', async (req, res) => {
+router.post('/register', authorization, async (req, res) => {
   const { email, password } = req.body;
   
   try {

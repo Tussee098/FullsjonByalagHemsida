@@ -1,5 +1,6 @@
 import express from 'express';
 import Post from '../models/Post.js'; // Assuming you have a Post model
+import authorization from '../middleware/authorization.js';
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.get('/', async (req, res, next) => {
 });
 
 // Create a new post
-router.post('/', async (req, res, next) => {
+router.post('/', authorization, async (req, res, next) => {
   const newPost = new Post(req.body);
   try {
     const savedPost = await newPost.save();
@@ -27,7 +28,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // Delete a post by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authorization, async (req, res) => {
   try {
     const deletedPost = await Post.findByIdAndDelete(req.params.id);
     if (deletedPost) {
