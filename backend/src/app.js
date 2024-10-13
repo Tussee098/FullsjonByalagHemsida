@@ -3,6 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import postRoutes from './routes/postRoutes.js'; // Import your routes
 import authRoutes from './routes/authorization.js'
+import categoriesRoutes from './routes/categoriesRoutes.js'
 
 const app = express();
 
@@ -11,8 +12,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
-app.use('/api/posts', postRoutes); // Mount routes under /api/posts
+app.use('/api/posts', postRoutes);
 app.use('/auth', authRoutes);
+app.use('/api', categoriesRoutes);
 
 // Example route
 app.get('/', (req, res) => {

@@ -27,14 +27,13 @@ export class ContentAreaComponent {
     const currentRoute = this.route.snapshot;
     this.title = currentRoute.title || 'Default Title'; // Provide a default title
     this.posts = await this.postService.fetchPosts(this.title);
-    this.isAdmin = this.authService.isLoggedIn();
+    this.isAdmin = this.authService.isLoggedIn(); // Extra stuff here, check if token is valid?
     console.log(this.title)
     console.log(this.posts)
   }
 
 // Event handler for post deletion
   async onPostDeleted() {
-    console.log('A post was deleted. Refreshing the list...');
     await this.loadPosts(); // Reload the posts after deletion
   }
 }

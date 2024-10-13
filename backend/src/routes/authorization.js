@@ -12,7 +12,7 @@ const JWT_SECRET = config.jwtSecret
 
 
 // Register User
-router.post('/register', /*authorization,*/ async (req, res) => {
+router.post('/register', authorization, async (req, res) => {
   const { email, password } = req.body;
   
   try {
