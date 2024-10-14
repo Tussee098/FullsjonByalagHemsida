@@ -17,7 +17,7 @@ import CategoryService from '../../services/pathdata.service';
 export class ContentAreaComponent {
   title: string = "";
   posts: any[] = [];
-  category: any;
+  option: any;
   isAdmin: boolean = false;
   constructor(private postService: PostService, private route: ActivatedRoute, private authService: AuthService, private pathdataService: CategoryService) {}
 
@@ -28,9 +28,10 @@ export class ContentAreaComponent {
   async loadPosts(){
     const currentRoute = this.route.snapshot;
     this.title = currentRoute.title || 'Default Title'; // Provide a default title
-    this.category = await this.pathdataService.getCategoryByName(this.title)
+    this.option = await this.pathdataService.getOptionsByName(this.title)
     this.posts = await this.postService.fetchPosts(this.title);
     this.isAdmin = this.authService.isLoggedIn(); // Extra stuff here, check if token is valid?
+    console.log("Content-area")
     console.log(this.title)
     console.log(this.posts)
   }

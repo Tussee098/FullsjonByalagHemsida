@@ -17,19 +17,6 @@ router.get('/categories', async (req, res) => {
   }
 });
 
-// GET category by name
-router.get('/categories/:name', async (req, res) => {
-  const { categoryName } = req.params;
-  console.log("Getting option with id: " + categoryName)
-  try {
-    const options = await NavBarOption.find({categoryName: categoryName });
-    res.status(200).json(options);
-  } catch (error) {
-    console.error('Error fetching options:', error);
-    res.status(500).json({ error: 'Failed to fetch options' });
-  }
-});
-
 // POST a new category
 router.post('/categories', async (req, res) => {
   const { name } = req.body;
