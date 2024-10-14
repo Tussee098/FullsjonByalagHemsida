@@ -13,9 +13,10 @@ export class DropdownService {
     try {
       // Step 1: Get all categories
       const categories = await this.categoryService.getAllCategories();
+      console.log("categories: ")
       console.log(categories)
       // Step 2: Iterate over each category and fetch options
-      /*for (const category of categories) {
+      for (const category of categories) {
         const options = await this.categoryService.getOptionsByCategoryId(category._id);
 
         // Step 3: Map the options to the desired structure
@@ -29,8 +30,7 @@ export class DropdownService {
           category: category.name, // Category name or ID
           options: formattedOptions, // Array of options for this category
         });
-      }*/
-      console.log(categoryOptionsList)
+      }
       return categoryOptionsList; // Return the structured list
 
     } catch (error) {

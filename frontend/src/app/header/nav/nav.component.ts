@@ -23,27 +23,43 @@ interface DropdownItem {
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  list: DropdownItem[] = []; // Initialize an empty array for items
   categoriesWithOptions: CategoryWithOptions[] = [];
+  list: DropdownItem[] = [];
 
   constructor(private dropdownService: DropdownService, private cdr: ChangeDetectorRef, private router: Router) {}
 
-  ngOnInit(): void {
-    this.loadItems(); // Load items when the component initializes
+  async ngOnInit() {
+    await this.loadItems(); // Load items when the component initializes
+
+    this.list = this.convertToDropdownItems(this.categoriesWithOptions)
+    console.log("sdfsdfsdfsdfsfdsdfsdfsdfsfd")
+    console.log(this.list)
   }
 
   async loadItems() {
     try {
       this.categoriesWithOptions = await this.dropdownService.getCategoriesWithOptions();
+      console.log("categoriesWithOptions: ")
+      console.log(this.categoriesWithOptions)
     } catch (error) {
       console.error('Error loading categories with options:', error);
     }
-    console.log(this.categoriesWithOptions)
+
   }
 
 
-  test(): void {
-    // Your logic for the test function
-    console.log('Test function executed');
+  convertToDropdownItems(categoriesWithOptions: any[]): DropdownItem[] {
+    return categoriesWithOptions.map(category => ({
+      category: category.category,        // Map the 'category' field directly
+      items: category.options.map((option: { name: any; path: any; }) => ({
+        title: option.name,               // Map 'name' to 'title'
+        path: option.path                 // Map 'path' directly
+      })),
+      showDropdown: false                 // Initialize showDropdown as false
+    }));
   }
+
+
+
+
 }

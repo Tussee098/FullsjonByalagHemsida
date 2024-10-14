@@ -39,11 +39,24 @@ class CategoryService {
   }
 
   async getAllCategories() {
-    const categoriesResponse = await fetch(`${this.BASE_URL}/categories`);
-    console.log("fdssdffsd")
-    console.log(categoriesResponse)
-    return categoriesResponse;
+    try {
+      const categoriesResponse = await fetch(`${this.BASE_URL}/categories`);
+
+      // Check if the response is ok (status code 200-299)
+      if (!categoriesResponse.ok) {
+        throw new Error(`Error: ${categoriesResponse.status}`);
+      }
+
+      // Parse the response as JSON
+      const categoriesData = await categoriesResponse.json();
+
+      // Return the parsed JSON data
+      return categoriesData;
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
   }
+
 
   // Add a new category
   async addCategory(categoryName: string) {
