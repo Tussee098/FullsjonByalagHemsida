@@ -1,6 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { DataService } from './app/services/data.service';
+import CategoryService from './app/services/pathdata.service';
 import { Router } from '@angular/router';
 import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,11 +10,11 @@ import { initializeRoutes } from './app/services/initialize-routes.service';
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(HttpClientModule),
-    DataService,
+    CategoryService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeRoutes,
-      deps: [DataService, Router],
+      deps: [CategoryService, Router],
       multi: true
     },
     provideRouter([]), // Initially provide an empty router array

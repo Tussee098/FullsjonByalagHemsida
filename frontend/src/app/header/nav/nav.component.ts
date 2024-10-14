@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { DataService } from '../../services/data.service'; // Adjust the import as necessary
+import { DropdownService } from '../../services/dropdown.service'; // Adjust the import as necessary
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink , Router} from '@angular/router';
+import { CategoryWithOptions } from '../../models/dropdownCategories';
 
 interface Item {
   title: string; // Ensure this matches the JSON structure
@@ -23,21 +24,21 @@ interface DropdownItem {
 })
 export class NavComponent implements OnInit {
   list: DropdownItem[] = []; // Initialize an empty array for items
+  categoriesWithOptions: CategoryWithOptions[] = [];
 
-  constructor(private dataService: DataService, private cdr: ChangeDetectorRef, private router: Router) {}
+  constructor(private dropdownService: DropdownService, private cdr: ChangeDetectorRef, private router: Router) {}
 
   ngOnInit(): void {
     this.loadItems(); // Load items when the component initializes
   }
 
-  loadItems(): void {
-    this.dataService.getCategories().subscribe(data => {
-      this.list = data.map(item => ({ ...item, showDropdown: false }));
-    },
-    error => {
-      console.error('Error fetching categories:', error); // Handle any potential errors
-    });
-    console.log('Current Routes:', this.router.config);
+  async loadItems() {
+    try {
+      this.categoriesWithOptions = await this.dropdownService.getCategoriesWithOptions();
+    } catch (error) {
+      console.error('Error loading categories with options:', error);
+    }
+    console.log(this.categoriesWithOptions)
   }
 
 

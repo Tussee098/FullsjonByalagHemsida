@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Routes, Router } from '@angular/router';
 import { NormalPage } from './normal-page/normal-page.component'; // Import the standalone component
-import { DataService } from './services/data.service';
+
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthGuard } from './guards/auth.guard.service';
 import CategoryService from './services/pathdata.service'
 
-export async function getDynamicRoutes(dataService: DataService): Promise<Routes> {
+export async function getDynamicRoutes(): Promise<Routes> {
   const categoryService = new CategoryService(); // Create an instance of CategoryService
 
   try {
@@ -37,12 +37,4 @@ export async function getDynamicRoutes(dataService: DataService): Promise<Routes
   }
 }
 
-export function initializeRoutes(dataService: DataService, router: Router): () => Promise<void> {
-  console.log("initializeRoutes called");
-  return () => {
-    return getDynamicRoutes(dataService).then(routes => {
-      router.resetConfig(routes); // Reset the router configuration dynamically
-      console.log("Routes initialized");
-    });
-  };
-}
+

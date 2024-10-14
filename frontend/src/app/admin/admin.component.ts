@@ -1,4 +1,4 @@
-import { DataService, DropdownItem, Item } from './../services/data.service';
+import { DropdownService } from '../services/dropdown.service';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -19,7 +19,7 @@ export class AdminComponent implements OnInit {
   posts: any[] = [];
   items: any[] = [];
   selectedCategory: string = '';
-  constructor(private postService: PostService, private dataService: DataService) {} // Inject PostService
+  constructor(private postService: PostService, private dataService: DropdownService) {} // Inject PostService
 
   async ngOnInit() {
     this.posts = await this.postService.fetchPosts("all"); // Use service to fetch posts
@@ -27,17 +27,8 @@ export class AdminComponent implements OnInit {
   }
 
   getAllItems(): void {
-  this.dataService.getAllItems().subscribe(
-    (items: Item[]) => {
-      console.log('All items:', items);
-      this.items = items
-      console.log(this.items)
-    },
-    error => {
-      console.error('Error fetching all items:', error);
-    }
-  );
-}
+
+  }
 
 
 

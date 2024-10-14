@@ -1,6 +1,11 @@
+import { Injectable } from "@angular/core";
+
+@Injectable({
+  providedIn: 'root'
+})
 class CategoryService {
 
-  BASE_URL = 'http://localhost:5000/api/'; // Replace with your actual backend URL
+  BASE_URL = 'http://localhost:5000/api'; // Replace with your actual backend URL
 
 
   // Fetch all categories
@@ -31,6 +36,13 @@ class CategoryService {
       console.error('Error in getAllPaths:', error);
       throw error; // Rethrow the error so it can be handled further up the call chain
     }
+  }
+
+  async getAllCategories() {
+    const categoriesResponse = await fetch(`${this.BASE_URL}/categories`);
+    console.log("fdssdffsd")
+    console.log(categoriesResponse)
+    return categoriesResponse;
   }
 
   // Add a new category
