@@ -17,6 +17,19 @@ router.get('/categories', async (req, res) => {
   }
 });
 
+// GET category by name
+router.get('/categories/:name', async (req, res) => {
+  const { categoryName } = req.params;
+  console.log("Getting option with id: " + categoryName)
+  try {
+    const options = await NavBarOption.find({categoryName: categoryName });
+    res.status(200).json(options);
+  } catch (error) {
+    console.error('Error fetching options:', error);
+    res.status(500).json({ error: 'Failed to fetch options' });
+  }
+});
+
 // POST a new category
 router.post('/categories', async (req, res) => {
   const { name } = req.body;
@@ -45,6 +58,18 @@ router.delete('/categories/:id', authorization, async (req, res) => {
   } catch (error) {
     console.error('Error deleting category:', error);
     res.status(500).json({ error: 'Failed to delete category' });
+  }
+});
+
+// GET all options for a category by category ID
+router.get('/options', async (req, res) => {
+  try {
+    console.log("fdssdfsdfsdf")
+    const options = await NavBarOption.find();
+    res.status(200).json(options);
+  } catch (error) {
+    console.error('Error fetching options:', error);
+    res.status(500).json({ error: 'Failed to fetch options' });
   }
 });
 

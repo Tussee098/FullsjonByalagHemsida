@@ -30,9 +30,7 @@ export class NavComponent implements OnInit {
 
   async ngOnInit() {
     await this.loadItems(); // Load items when the component initializes
-
     this.list = this.convertToDropdownItems(this.categoriesWithOptions)
-    console.log("sdfsdfsdfsdfsfdsdfsdfsdfsfd")
     console.log(this.list)
   }
 

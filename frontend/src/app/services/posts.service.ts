@@ -40,7 +40,7 @@ export class PostService {
   }
 
   // Submit a new post
-  async submitPost(text: string, category: string, author: string = 'John Doe'): Promise<any> {
+  async submitPost(text: string, optionId: string, author: string = 'John Doe'): Promise<any> {
     const token = localStorage.getItem('token');
     const response = await fetch(this.baseUrl, {
       method: 'POST',
@@ -48,7 +48,7 @@ export class PostService {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ text, category,author }),
+      body: JSON.stringify({ text, optionId, author }),
     });
 
     if (response.ok) {

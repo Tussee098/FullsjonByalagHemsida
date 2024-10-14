@@ -48,15 +48,21 @@ class CategoryService {
       }
 
       // Parse the response as JSON
-      const categoriesData = await categoriesResponse.json();
+      const categories = await categoriesResponse.json();
 
       // Return the parsed JSON data
-      return categoriesData;
+      return categories;
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
   }
 
+  // Fetch all options for a specific category
+  async getCategoryByName(categoryName: string) {
+    const response = await fetch(`${this.BASE_URL}/category/${categoryName}`);
+    if (!response.ok) throw new Error('Failed to fetch options');
+    return await response.json();
+  }
 
   // Add a new category
   async addCategory(categoryName: string) {
@@ -83,6 +89,12 @@ class CategoryService {
       },
     });
     if (!response.ok) throw new Error('Failed to delete category');
+    return await response.json();
+  }
+
+  async getAllOptions(){
+    const response = await fetch(`${this.BASE_URL}/options`);
+    if (!response.ok) throw new Error('Failed to fetch options');
     return await response.json();
   }
 

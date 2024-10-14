@@ -3,12 +3,12 @@
     <!-- Loop through categories -->
     <li *ngFor="let category of list" class="listItem">
       <!-- Category header -->
-      <a class="listText" (click)="category.showDropdown = !category.showDropdown">
+      <a class="listText">
         {{ category.category }}
       </a>
 
-      <!-- Options under the category, shown when the category is clicked -->
-      <ul class="hoverList" *ngIf="category.showDropdown">
+      <!-- Options under the category, dropdown shown on hover -->
+      <ul class="hoverList">
         <li *ngFor="let option of category.items" class="hoverListItem">
           <a class="hoverListText" [routerLink]="'/' + option.path">
             {{ option.title }}

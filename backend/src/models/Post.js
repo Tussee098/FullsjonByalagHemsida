@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema({
   text: { type: String, required: true },
-  category: { type: String, required: true },
+  optionId: { type: String, required: true },
   author: { type: String, required: false },
 }, { timestamps: true });
 

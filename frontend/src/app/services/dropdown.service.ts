@@ -37,6 +37,5 @@ export class DropdownService {
       console.error('Error fetching categories or options:', error);
       throw error; // Rethrow the error for further handling
     }
-      return categoryOptionsList; // Rethrow the error for further handling
   }
 }

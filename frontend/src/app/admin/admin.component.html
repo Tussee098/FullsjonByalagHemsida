@@ -9,11 +9,20 @@
 </textarea>
 <br>
 <button (click)="submitText()">Submit</button>
+
 <div class="dropdown">
   <label for="category-select">Choose a category:</label>
   <select id="category-select" [(ngModel)]="selectedCategory"> <!-- Two-way data binding -->
     <option value="" disabled selected>Select a category</option> <!-- Default option -->
-    <option *ngFor="let category of items" [value]="category.title">{{ category.title }}</option>
+    <option *ngFor="let category of categories" [value]="category">{{category.name}}</option>
+  </select>
+</div>
+
+<div class="dropdown">
+  <label for="option-select">Choose an option:</label>
+  <select id="option-select" [(ngModel)]="selectedOptionId"> <!-- Two-way data binding -->
+    <option value="" disabled selected>Select a category</option> <!-- Default option -->
+    <option *ngFor="let option of options" [value]="option.id">{{option.name}}</option>
   </select>
 </div>
 <h3>Posts</h3>

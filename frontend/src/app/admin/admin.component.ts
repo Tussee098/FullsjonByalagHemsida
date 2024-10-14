@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { PostService } from '../services/posts.service'; // Import the PostService
-import { Data } from '@angular/router';
+import CategoryService from '../services/pathdata.service'
+
 
 @Component({
   selector: 'app-admin',
@@ -17,17 +18,26 @@ import { Data } from '@angular/router';
 export class AdminComponent implements OnInit {
   inputText: string = '';
   posts: any[] = [];
-  items: any[] = [];
+  options: any[] = [];
+  categories: any[] = [];
   selectedCategory: string = '';
-  constructor(private postService: PostService, private dataService: DropdownService) {} // Inject PostService
+  selectedOptionId: string = '';
+  constructor(private postService: PostService, private categoryService: CategoryService) {} // Inject PostService
 
   async ngOnInit() {
     this.posts = await this.postService.fetchPosts("all"); // Use service to fetch posts
-    this.getAllItems(); // Load items when the component initializes
+    await this.getAllItems(); // Load items when the component initializes
+    console.log("Inside getopstions")
+    console.log(this.options)
   }
 
-  getAllItems(): void {
-
+  async getAllItems() {
+    this.categories = await this.categoryService.getAllCategories();
+    this.options = await this.categoryService.getAllOptions();
+    console.log("Categories")
+    console.log(this.categories)
+    console.log("options")
+    console.log(this.options)
   }
 
 
@@ -39,7 +49,7 @@ export class AdminComponent implements OnInit {
   }
 
   async submitText(): Promise<void> {
-    const newPost = await this.postService.submitPost(this.inputText, this.selectedCategory); // Use service to submit post
+    const newPost = await this.postService.submitPost(this.inputText, this.selectedOptionId); // Use service to submit post
     if (newPost) {
       this.posts.push(newPost);
       this.inputText = '';
