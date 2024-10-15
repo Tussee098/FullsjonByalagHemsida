@@ -29,10 +29,10 @@ export class RouteManagementService {
   }
 
   // Add a new route dynamically
-  addRoute(path: string) {
+  addRoute(path: string, Id: string) {
     const existingRoute = this.routes.find((route) => route.path === path);
     if (!existingRoute) {
-      const newRoute = { path, component: NormalPage };
+      const newRoute = { path, component: NormalPage, data: { id: Id}};
       this.routes.push(newRoute);
       this.routesChanged.next(this.routes); // Notify of route changes
       console.log('Route added:', path);

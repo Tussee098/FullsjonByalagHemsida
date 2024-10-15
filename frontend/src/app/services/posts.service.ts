@@ -14,11 +14,11 @@ export class PostService {
    * @param category The category of posts (what page).
    * @returns The promise kekw
    */
-  async fetchPosts(category: string): Promise<any[]> {
+  async fetchPosts(optionId: string): Promise<any[]> {
     let url = this.baseUrl;
 
     // If category is 'all' or true, we don't need to filter
-    if (category === 'all' || category === 'true') {
+    if (optionId === 'all' || optionId === 'true') {
       // Just fetch all posts
       const response = await fetch(url);
       if (response.ok) {
@@ -29,7 +29,7 @@ export class PostService {
       }
     } else {
       // Fetch posts by specific category
-      const response = await fetch(`${url}?category=${encodeURIComponent(category)}`);
+      const response = await fetch(`${url}?category=${encodeURIComponent(optionId)}`);
       if (response.ok) {
         return response.json(); // Return the list of filtered posts
       } else {

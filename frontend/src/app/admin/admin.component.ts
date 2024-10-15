@@ -49,7 +49,13 @@ export class AdminComponent implements OnInit {
   }
 
   async submitText(): Promise<void> {
+    console.log(this.selectedOptionId)
+    if (!this.selectedOptionId) {
+      console.error("No option selected");
+      return;
+    }
     const newPost = await this.postService.submitPost(this.inputText, this.selectedOptionId); // Use service to submit post
+
     if (newPost) {
       this.posts.push(newPost);
       this.inputText = '';

@@ -49,9 +49,21 @@ router.delete('/categories/:id', authorization, async (req, res) => {
 });
 
 // GET all options for a category by category ID
+router.get('/options/:name', async (req, res) => {
+  const { optionName } = req.params;
+  try {
+
+    const options = await NavBarOption.find(optionName);
+    res.status(200).json(options);
+  } catch (error) {
+    console.error('Error fetching options:', error);
+    res.status(500).json({ error: 'Failed to fetch options' });
+  }
+});
+
+// GET all options for a category by category ID
 router.get('/options', async (req, res) => {
   try {
-    console.log("fdssdfsdfsdf")
     const options = await NavBarOption.find();
     res.status(200).json(options);
   } catch (error) {

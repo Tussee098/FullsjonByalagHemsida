@@ -17,22 +17,24 @@ import CategoryService from '../../services/pathdata.service';
 export class ContentAreaComponent {
   title: string = "";
   posts: any[] = [];
-  option: any;
+  id: string = '';
   isAdmin: boolean = false;
-  constructor(private postService: PostService, private route: ActivatedRoute, private authService: AuthService, private pathdataService: CategoryService) {}
+  constructor(private postService: PostService, private route: ActivatedRoute, private authService: AuthService, private categoryService: CategoryService) {}
 
   async ngOnInit() {
-    this.loadPosts();
+    await this.loadPosts();
   }
 
   async loadPosts(){
+    await this.route.data.subscribe((data) => {
+      this.id = data['id'];
+    });
     const currentRoute = this.route.snapshot;
     this.title = currentRoute.title || 'Default Title'; // Provide a default title
-    this.option = await this.pathdataService.getOptionsByName(this.title)
-    this.posts = await this.postService.fetchPosts(this.title);
+    console.log("content-area")
+    this.posts = await this.postService.fetchPosts(this.id);
     this.isAdmin = this.authService.isLoggedIn(); // Extra stuff here, check if token is valid?
     console.log("Content-area")
-    console.log(this.title)
     console.log(this.posts)
   }
 

@@ -22,7 +22,7 @@
   <label for="option-select">Choose an option:</label>
   <select id="option-select" [(ngModel)]="selectedOptionId"> <!-- Two-way data binding -->
     <option value="" disabled selected>Select a category</option> <!-- Default option -->
-    <option *ngFor="let option of options" [value]="option.id">{{option.name}}</option>
+    <option *ngFor="let option of options" [value]="option._id">{{option.name}}</option>
   </select>
 </div>
 <h3>Posts</h3>

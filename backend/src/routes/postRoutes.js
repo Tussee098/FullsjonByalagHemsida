@@ -16,6 +16,18 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// Get all posts
+router.get('/:optionId', async (req, res, next) => {
+  const { optionId } = req.query;
+  console.log(`Fetching posts with category: ${optionId}`);
+  try {
+    const posts = await Post.find({optionId: optionId});
+    res.json(posts);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Create a new post
 router.post('/', authorization, async (req, res, next) => {
   const newPost = new Post(req.body);
