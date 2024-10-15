@@ -54,11 +54,11 @@ export class NavComponent implements OnInit {
     return categoriesWithOptions.map(category => ({
 
       category: category.category,       // Map the 'category' field directly
-      categoryId: category._id,
-      items: category.options.map((option: { name: any; path: any; _id: any}) => ({
+      categoryId: category.categoryId,
+      items: category.options.map((option: { name: any; path: any; id: any}) => ({
         title: option.name,               // Map 'name' to 'title'
         path: option.path,
-        id: option._id                // Map 'path' directly
+        id: option.id                // Map 'path' directly
       })),
       showDropdown: false                 // Initialize showDropdown as false
     }));
