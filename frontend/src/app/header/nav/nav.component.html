@@ -2,17 +2,26 @@
   <ul class="listContainer">
     <!-- Loop through categories -->
     <li *ngFor="let category of list" class="listItem">
-      <!-- Category header -->
-      <a class="listText">
-        {{ category.category }}
-      </a>
+      <div class="categoryHeader">
+        <a class="listText">
+          {{ category.category }}
+        </a>
+
+        <!-- Show delete button if logged in -->
+        <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteCategory(category.categoryId)">X</button>
+      </div>
 
       <!-- Options under the category, dropdown shown on hover -->
       <ul class="hoverList">
         <li *ngFor="let option of category.items" class="hoverListItem">
-          <a class="hoverListText" [routerLink]="'/' + option.path">
-            {{ option.title }}
-          </a>
+          <div class="optionHeader">
+            <a class="hoverListText" [routerLink]="'/' + option.path">
+              {{ option.title }}
+            </a>
+
+            <!-- Show delete button if logged in -->
+            <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteOption(option.id)">X</button>
+          </div>
         </li>
       </ul>
     </li>

@@ -18,7 +18,7 @@ router.get('/categories', async (req, res) => {
 });
 
 // POST a new category
-router.post('/categories', async (req, res) => {
+router.post('/categories', authorization, async (req, res) => {
   const { name } = req.body;
   try {
     const newCategory = new NavBarCategory({ name });
@@ -87,7 +87,7 @@ router.get('/options/:categoryId', async (req, res) => {
 });
 
 // POST a new option under a category
-router.post('/options', async (req, res) => {
+router.post('/options', authorization, async (req, res) => {
   const { name, categoryId, path} = req.body;
   try {
     const newOption = new NavBarOption({ name, categoryId, path});
@@ -100,7 +100,7 @@ router.post('/options', async (req, res) => {
 });
 
 // DELETE an option
-router.delete('/options/:id', async (req, res) => {
+router.delete('/options/:id', authorization, async (req, res) => {
   const optionId = req.params.id;
   try {
     const deletedOption = await NavBarOption.findByIdAndDelete(optionId);

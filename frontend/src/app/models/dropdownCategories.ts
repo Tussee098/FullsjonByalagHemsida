@@ -5,5 +5,6 @@ export interface Option {
 
 export interface CategoryWithOptions {
   category: string; // Category name or ID
+  categoryId: string;
   options: Option[]; // Array of options for this category
 }

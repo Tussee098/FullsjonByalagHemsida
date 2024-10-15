@@ -13,21 +13,21 @@ export class DropdownService {
     try {
       // Step 1: Get all categories
       const categories = await this.categoryService.getAllCategories();
-      console.log("categories: ")
-      console.log(categories)
       // Step 2: Iterate over each category and fetch options
       for (const category of categories) {
         const options = await this.categoryService.getOptionsByCategoryId(category._id);
 
         // Step 3: Map the options to the desired structure
-        const formattedOptions: Option[] = options.map((option: { name: any; path: any; }) => ({
+        const formattedOptions: Option[] = options.map((option: { name: string; path: string; _id: string}) => ({
           name: option.name, // Option name
-          path: option.path  // Option path
+          path: option.path,  // Option path
+          id: option._id
         }));
         console.log(category.name)
         // Step 4: Add the category and its options to the list
         categoryOptionsList.push({
           category: category.name, // Category name or ID
+          categoryId: category._id,
           options: formattedOptions, // Array of options for this category
         });
       }
