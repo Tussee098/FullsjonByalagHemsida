@@ -24,7 +24,7 @@ export async function getDynamicRoutes(): Promise<Routes> {
 
     // Dynamically generate routes based on categories
     paths.forEach(path => {
-      routes.push({title: path.name, path: path.path, component: NormalPage})
+      routes.push({title: path.name, path: path.path, component: NormalPage, data: {id: path._id}})
     });
 
     console.log('Generated routes:', routes);

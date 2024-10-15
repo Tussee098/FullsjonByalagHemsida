@@ -31,7 +31,6 @@ export class ContentAreaComponent {
     });
     const currentRoute = this.route.snapshot;
     this.title = currentRoute.title || 'Default Title'; // Provide a default title
-    console.log("content-area")
     this.posts = await this.postService.fetchPosts(this.id);
     this.isAdmin = this.authService.isLoggedIn(); // Extra stuff here, check if token is valid?
     console.log("Content-area")

@@ -4,27 +4,18 @@ import authorization from '../middleware/authorization.js';
 
 const router = express.Router();
 
-// Get all posts
-router.get('/', async (req, res, next) => {
-  const { category } = req.query;
-  console.log(`Fetching posts with category: ${category}`);
-  try {
-    const posts = await Post.find({category:category});
-    res.json(posts);
-  } catch (error) {
-    next(error);
-  }
-});
 
-// Get all posts
-router.get('/:optionId', async (req, res, next) => {
-  const { optionId } = req.query;
-  console.log(`Fetching posts with category: ${optionId}`);
+// Get all posts with a category passed as a query parameter
+router.get('/', async (req, res, next) => {
+  const { category } = req.query;  // Extract 'category' from the query parameters
+  console.log(`Fetching posts with category: ${category}`);
+  
   try {
-    const posts = await Post.find({optionId: optionId});
-    res.json(posts);
+    // Fetch posts based on the category (optionId)
+    const posts = await Post.find({ optionId: category });
+    res.json(posts);  // Send the filtered posts back as the response
   } catch (error) {
-    next(error);
+    next(error);  // Pass the error to the error-handling middleware
   }
 });
 

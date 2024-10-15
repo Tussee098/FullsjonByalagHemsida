@@ -27,17 +27,11 @@ export class AdminComponent implements OnInit {
   async ngOnInit() {
     this.posts = await this.postService.fetchPosts("all"); // Use service to fetch posts
     await this.getAllItems(); // Load items when the component initializes
-    console.log("Inside getopstions")
-    console.log(this.options)
   }
 
   async getAllItems() {
     this.categories = await this.categoryService.getAllCategories();
     this.options = await this.categoryService.getAllOptions();
-    console.log("Categories")
-    console.log(this.categories)
-    console.log("options")
-    console.log(this.options)
   }
 
 
@@ -54,6 +48,7 @@ export class AdminComponent implements OnInit {
       console.error("No option selected");
       return;
     }
+
     const newPost = await this.postService.submitPost(this.inputText, this.selectedOptionId); // Use service to submit post
 
     if (newPost) {
