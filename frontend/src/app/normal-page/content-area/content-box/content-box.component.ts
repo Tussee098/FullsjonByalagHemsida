@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { PostService } from '../../../services/posts.service'; // Import the PostService
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-content-box',
@@ -19,7 +20,9 @@ export class ContentBoxComponent {
 
   @Output() postDeleted: EventEmitter<void> = new EventEmitter();
 
-  constructor(private postService: PostService) {} // Inject PostService
+  constructor(private postService: PostService, private sanitizer: DomSanitizer) {} // Inject PostService
+
+
 
   // Function to handle edit
   editPost() {
@@ -28,10 +31,16 @@ export class ContentBoxComponent {
   }
 
   // Function to handle delete
- async deletePost(postId: string): Promise<void> {
+  async deletePost(postId: string): Promise<void> {
     const deleted = await this.postService.deletePost(postId); // Use service to delete post
     if (deleted) {
       this.postDeleted.emit();
     }
+  }
+
+  formatText(text: string): SafeHtml {
+    // Replace newline characters with <br> and sanitize the result
+    const formattedText = text.replace(/\n/g, '<br>');
+    return this.sanitizer.bypassSecurityTrustHtml(formattedText); // Bypass security for safe HTML
   }
 }
