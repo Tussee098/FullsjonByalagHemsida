@@ -20,9 +20,18 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, {email, password });
   }
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+  async isLoggedIn(): Promise<boolean> {
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+
+    try {
+      const response: any = await this.http.post(`${this.apiUrl}/validate-token`, { token }).toPromise();
+      return response.isValid; // Return the result from the server
+    } catch (error) {
+      return false; // If there's an error, assume the token is invalid
+    }
   }
+
 
   logout(): void {
     localStorage.removeItem('token');

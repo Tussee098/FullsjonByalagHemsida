@@ -2,6 +2,7 @@ import { AuthService } from './../services/authService';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', Validators.email],
       password: ['', Validators.required]
@@ -29,13 +30,19 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value; // Extract values from form
-      console.log(email, password)
-      this.authService.login(email, password).subscribe(response => {
-        localStorage.setItem('token', response.token);
-        // Redirect to admin panel or show success message
+      this.authService.login(email, password).subscribe({
+        next: (response) => {
+          localStorage.setItem('token', response.token);
+          this.router.navigate(['/admin']);
+        },
+        error: (err) => {
+          // Handle login error and update the error message
+          alert('Failed to login. Please try again.');
+        }
       });
     } else {
-      console.error('Form is invalid');
+      // Form is invalid, provide user feedback
+      alert('Please fill out the form correctly.');
     }
   }
 

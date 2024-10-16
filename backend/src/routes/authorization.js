@@ -52,11 +52,31 @@ router.post('/login', async (req, res) => {
 
 
     // Create a JWT
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '5h' });
     
     res.json({ token });
   } catch (err) {
     res.status(500).json({ error: 'Error logging in' });
+  }
+});
+
+// Token validation endpoint
+router.post('/validate-token', (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(400).json({ isValid: false, error: 'Token is required' });
+  }
+
+  try {
+    // Verify the token using the secret key
+    const decoded = jwt.verify(token, JWT_SECRET);
+
+    // If token is valid, send a response
+    return res.status(200).json({ isValid: true, decoded });
+  } catch (err) {
+    // If verification fails, return an invalid response
+    return res.status(401).json({ isValid: false, error: 'Invalid token' });
   }
 });
 
