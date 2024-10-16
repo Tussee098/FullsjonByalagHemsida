@@ -77,8 +77,6 @@ router.get('/options', async (req, res) => {
 router.get('/options/id/:categoryId', async (req, res) => {
  
   const { categoryId } = req.params;
-  console.log("Getting option with id: " + categoryId)
-  console.log("sdffsdsdfdsfsdfsdfsdfsdf")
   try {
     const options = await NavBarOption.find({categoryId: categoryId });
     res.status(200).json(options);

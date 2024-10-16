@@ -1,9 +1,11 @@
 /* Styling for the header */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
 header {
   //width: 100vw;
   max-width: 100vw;
   box-sizing: border-box;
-  height: 6rem; /* Adjust this as necessary */
+  height: 12rem; /* Adjust this as necessary */
   background-color: gray; /* Matching background color */
   display: flex;
   align-items: center;
@@ -15,15 +17,16 @@ header {
 }
 
 .headerTitle {
-  font-size: 24px;
+  font-size: 36px;
   color: black; /* White text for the title */
   text-transform: uppercase;
   font-weight: bold;
-  letter-spacing: 1px;
+  font-family: 'Dancing Script', cursive;
+  letter-spacing: 3px;
 }
 
 .headerTitleContainer {
-  margin-bottom: 10px; /* Slight margin between title and nav */
+  margin-bottom: 2%; /* Slight margin between title and nav */
   text-align: center;
 }
 

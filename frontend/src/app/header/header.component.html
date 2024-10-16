@@ -1,6 +1,7 @@
 <header>
+<button *ngIf="loggedIn" (click)="logout()" class="logoutButton">Logout</button>
     <div class="headerTitleContainer">
-      <a class="headerTitle">header wow cool stuff</a>
+      <a class="headerTitle">Fullsjön</a>
     </div>
     <app-nav></app-nav>
 </header>
