@@ -1,7 +1,8 @@
 .content-area {
   display: flex;
+  flex-wrap: nowrap;
   flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center horizontally */
+  align-items: stretch; /* Center horizontally */
   padding: 0 10%; /* 20% space from left and right */
   margin-top: 20px; /* Optional margin from the top */
 }
