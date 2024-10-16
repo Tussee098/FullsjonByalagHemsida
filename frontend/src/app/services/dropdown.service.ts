@@ -16,12 +16,13 @@ export class DropdownService {
       // Step 2: Iterate over each category and fetch options
       for (const category of categories) {
         const options = await this.categoryService.getOptionsByCategoryId(category._id);
-
+        console.log("category_id: ");
+        console.log(options);
         // Step 3: Map the options to the desired structure
-        const formattedOptions: Option[] = options.map((option: { name: string; path: string; _id: string}) => ({
+        const formattedOptions: Option[] = options.map((option: { name: string; path: string; categoryId: string}) => ({
           name: option.name, // Option name
           path: option.path,  // Option path
-          id: option._id
+          id: option.categoryId
         }));
         console.log(category.name)
         // Step 4: Add the category and its options to the list

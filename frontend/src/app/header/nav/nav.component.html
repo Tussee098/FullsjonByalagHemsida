@@ -25,7 +25,7 @@
             </a>
 
             <!-- Show delete button if logged in -->
-            <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteOption(option.id)">X</button>
+            <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteOption(option.parentCategoryId)">X</button>
           </div>
         </li>
       </ul>

@@ -108,7 +108,7 @@ class CategoryService {
 
   // Fetch all options for a specific category
   async getOptionsByCategoryId(categoryId: string) {
-    const response = await fetch(`${this.BASE_URL}/options/${categoryId}`);
+    const response = await fetch(`${this.BASE_URL}/options/id/${categoryId}`);
     if (!response.ok) throw new Error('Failed to fetch options');
     return await response.json();
   }

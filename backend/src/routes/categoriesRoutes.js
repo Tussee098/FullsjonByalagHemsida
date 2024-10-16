@@ -48,7 +48,7 @@ router.delete('/categories/:id', authorization, async (req, res) => {
   }
 });
 
-// GET all options for a category by category ID
+// GET all options for a category by name
 router.get('/options/:name', async (req, res) => {
   const { optionName } = req.params;
   try {
@@ -64,6 +64,7 @@ router.get('/options/:name', async (req, res) => {
 // GET all options for a category by category ID
 router.get('/options', async (req, res) => {
   try {
+    
     const options = await NavBarOption.find();
     res.status(200).json(options);
   } catch (error) {
@@ -73,10 +74,11 @@ router.get('/options', async (req, res) => {
 });
 
 // GET all options for a category by category ID
-router.get('/options/:categoryId', async (req, res) => {
+router.get('/options/id/:categoryId', async (req, res) => {
  
   const { categoryId } = req.params;
   console.log("Getting option with id: " + categoryId)
+  console.log("sdffsdsdfdsfsdfsdfsdfsdf")
   try {
     const options = await NavBarOption.find({categoryId: categoryId });
     res.status(200).json(options);

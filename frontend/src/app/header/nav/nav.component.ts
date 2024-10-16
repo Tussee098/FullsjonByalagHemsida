@@ -7,7 +7,7 @@ import { CategoryWithOptions } from '../../models/dropdownCategories';
 interface Item {
   title: string; // Ensure this matches the JSON structure
   path: string;  // Ensure this matches the JSON structure
-  id: string;
+  parentCategoryId: string;
 }
 
 interface DropdownItem {
@@ -57,10 +57,10 @@ export class NavComponent implements OnInit {
 
       category: category.category,       // Map the 'category' field directly
       categoryId: category.categoryId,
-      items: category.options.map((option: { name: any; path: any; id: any}) => ({
+      items: category.options.map((option: { name: any; path: any; parentCategoryId: any}) => ({
         title: option.name,               // Map 'name' to 'title'
         path: option.path,
-        id: option.id                // Map 'path' directly
+        parentCategoryId: option.parentCategoryId                // Map 'path' directly
       })),
       showDropdown: false                 // Initialize showDropdown as false
     }));
