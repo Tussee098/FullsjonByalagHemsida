@@ -28,6 +28,7 @@ export class NavComponent implements OnInit {
   categoriesWithOptions: CategoryWithOptions[] = [];
   list: DropdownItem[] = [];
   loggedIn = false;
+  loading = true;
 
   constructor(private dropdownService: DropdownService, private cdr: ChangeDetectorRef, private router: Router) {}
 
@@ -38,6 +39,7 @@ export class NavComponent implements OnInit {
     this.loggedIn = !!token;
     console.log(this.loggedIn)
     console.log(this.categoriesWithOptions)
+    this.loading = false
   }
 
   async loadItems() {

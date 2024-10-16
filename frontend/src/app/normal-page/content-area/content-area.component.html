@@ -1,10 +1,26 @@
 <div class="content-area">
+  <!-- Loop through posts -->
   <app-content-box
     *ngFor="let post of posts"
     [_id]="post._id"
+    [title]="post.title"
     [text]="post.text"
     [author]="post.author"
     [isAdmin]="isAdmin"
     (postDeleted)="onPostDeleted()">
   </app-content-box>
+
+  <!-- Button to toggle the form visibility -->
+  <div *ngIf="isAdmin" class="admin-section">
+    <button (click)="togglePostForm()">
+      {{ showPostForm ? 'Cancel' : 'Create new post' }}
+    </button>
+
+    <!-- Admin post creation form, only visible when 'showPostForm' is true -->
+    <div *ngIf="showPostForm" class="post-container">
+      <textarea [(ngModel)]="inputTitle" placeholder="Post title..."></textarea>
+      <textarea [(ngModel)]="inputText" placeholder="Write your post..."></textarea>
+      <button (click)="submitPost(inputTitle, inputText)">Submit Post</button>
+    </div>
+  </div>
 </div>

@@ -11,6 +11,7 @@ import { PostService } from '../../../services/posts.service'; // Import the Pos
 })
 export class ContentBoxComponent {
   @Input() _id: string = '';
+  @Input() title: string = '';
   @Input() text: string = '';
   @Input() author: string = '';
   @Input() isAdmin: boolean = false;  // Input to check if the user is admin

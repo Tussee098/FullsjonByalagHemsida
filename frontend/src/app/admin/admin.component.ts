@@ -49,7 +49,7 @@ export class AdminComponent implements OnInit {
       return;
     }
 
-    const newPost = await this.postService.submitPost(this.inputText, this.selectedOptionId); // Use service to submit post
+    const newPost = await this.postService.submitPost("title" ,this.inputText, this.selectedOptionId); // Use service to submit post
 
     if (newPost) {
       this.posts.push(newPost);

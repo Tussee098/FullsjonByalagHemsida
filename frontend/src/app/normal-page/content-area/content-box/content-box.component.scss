@@ -1,18 +1,54 @@
 .content-box {
-  background-color: #f9f9f9; /* Light background */
-  border: 1px solid #e0e0e0; /* Light border */
-  border-radius: 8px; /* Rounded corners */
-  padding: 16px; /* Padding around content */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  width: 100%; /* Full width of the container */
-  max-width: 600px; /* Maximum width for large screens */
-  margin: 10px 0; /* Space between boxes */
-  text-align: left; /* Align text to the left */
-}
+  width: 100%;            // Covers 80% of the screen width
+  margin: 20px auto;     // Center the content with automatic margins
+  padding: 20px;         // Padding around the content for space
+  background-color: #f9f9f9;  // Light background for readability
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+  border-radius: 8px;    // Rounded corners for a modern feel
+  font-family: 'Georgia', serif; // A serif font for a more classic blog feel
 
-.author {
-  font-weight: bold; /* Make author name bold */
-  font-size: 0.9em; /* Slightly smaller font for the author */
-  color: #555; /* Grey color for author */
-  margin-top: 8px; /* Space above author */
+  h1 {
+    font-weight: bold;
+    font-size: 2em;       // Title is twice the size of the normal text
+    color: #333;          // Dark color for the title
+    margin-bottom: 10px;  // Space between title and the text
+    border-bottom: 2px solid #ccc; // Light gray underline for emphasis
+    padding-bottom: 10px;
+  }
+
+  // The main text inside the content box
+  p, span, div {          // Bread text, you can specify <p> or use these general selectors
+    font-size: 1em;       // Normal text size
+    line-height: 1.6;     // Spacing between lines for readability
+    color: #555;          // Softer color for text, easier on the eyes
+    margin-bottom: 20px;  // Space after text block for separation
+  }
+
+  // Admin action buttons only visible to admins
+  .admin-actions {
+    display: flex;           // Flex layout for side-by-side buttons
+    justify-content: flex-end; // Align buttons to the right
+    margin-top: 20px;
+
+    button {
+      background-color: #007bff;   // Primary blue button
+      color: white;                // White text for contrast
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      cursor: pointer;
+      margin-left: 10px;           // Space between edit and delete buttons
+
+      &:hover {
+        background-color: #0056b3; // Darker blue on hover
+      }
+    }
+
+    button:last-child {
+      background-color: #dc3545;    // Red for delete button
+      &:hover {
+        background-color: #c82333;  // Darker red on hover
+      }
+    }
+  }
 }

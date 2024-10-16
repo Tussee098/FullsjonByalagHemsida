@@ -1,5 +1,10 @@
 <nav class="navContainer">
-  <ul class="listContainer">
+  <div *ngIf="loading" class="loading-container">
+    <!-- Loading Spinner or Placeholder Text -->
+    <p>Loading navbar...</p>
+  </div>
+
+  <ul *ngIf='!loading' class="listContainer">
     <!-- Loop through categories -->
     <li *ngFor="let category of list" class="listItem">
       <div class="categoryHeader">
