@@ -1,46 +1,52 @@
 <app-header></app-header>
 <h2>Admin Panel</h2>
-<!-- Textarea for input -->
-<textarea
-  class="text-input"
-  placeholder="Type your text here..."
-  [(ngModel)]="inputText"
-  (input)="adjustHeight($event)">
-</textarea>
-<br>
-<button (click)="submitText()">Submit</button>
 
+<!-- Dropdown for selecting categories -->
 <div class="dropdown">
   <label for="category-select">Choose a category:</label>
-  <select id="category-select" [(ngModel)]="selectedCategory"> <!-- Two-way data binding -->
-    <option value="" disabled selected>Select a category</option> <!-- Default option -->
-    <option *ngFor="let category of categories" [value]="category">{{category.name}}</option>
+  <select id="category-select" [(ngModel)]="selectedCategory">
+    <option value="" disabled selected>Select a category</option>
+    <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
   </select>
 </div>
 
+<!-- Dropdown for selecting options -->
 <div class="dropdown">
   <label for="option-select">Choose an option:</label>
-  <select id="option-select" [(ngModel)]="selectedOptionId"> <!-- Two-way data binding -->
-    <option value="" disabled selected>Select a category</option> <!-- Default option -->
-    <option *ngFor="let option of options" [value]="option._id">{{option.name}}</option>
+  <select id="option-select" [(ngModel)]="selectedOptionId">
+    <option value="" disabled selected>Select an option</option>
+    <option *ngFor="let option of getFilteredOptions()" [value]="option._id">{{ option.name }}</option>
   </select>
 </div>
-<h3>Posts</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Text</th>
-      <th>Author</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let post of posts">
-      <td>{{ post.text }}</td>
-      <td>{{ post.author }}</td>
-      <td>
-        <button (click)="deletePost(post._id)">X</button> <!-- Delete button -->
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+<!-- Container for adding new options and categories -->
+<div class="new-item-container">
+  <!-- Button to add new option -->
+  <div class="new-option">
+    <button (click)="toggleNewOptionInput()">Add New Option</button>
+    <div *ngIf="showNewOptionInput" class="input-group">
+      <label for="new-option-text">New Option Name:</label>
+      <input id="new-option-text" [(ngModel)]="newOptionText" placeholder="Enter new option..." />
+
+      <label for="new-option-url">Option URL:</label>
+      <input id="new-option-url" [(ngModel)]="newOptionUrl" placeholder="Enter option URL..." />
+
+      <label for="new-option-category">Select Category:</label>
+      <select id="new-option-category" [(ngModel)]="newOptionCategoryId">
+        <option value="" disabled selected>Select a category</option>
+        <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
+      </select>
+
+      <button (click)="submitNewOption()">Submit Option</button>
+    </div>
+  </div>
+
+  <!-- Button to add new category -->
+  <div class="new-category">
+    <button (click)="toggleNewCategoryInput()">Add New Category</button>
+    <div *ngIf="showNewCategoryInput" class="input-group">
+      <input [(ngModel)]="newCategoryText" placeholder="Enter new category..." />
+      <button (click)="submitNewCategory()">Submit Category</button>
+    </div>
+  </div>
+</div>

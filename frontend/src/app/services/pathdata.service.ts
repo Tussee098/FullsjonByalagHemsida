@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 })
 class CategoryService {
 
+
   BASE_URL = 'http://localhost:5000/api'; // Replace with your actual backend URL
 
 
@@ -113,7 +114,7 @@ class CategoryService {
   }
 
   // Add an option under a category
-  async addOption(categoryId: string, optionName: string) {
+  async addOption(optionName: string, optionUrl: string, categoryId: string) {
     const token = localStorage.getItem('token');
     const response = await fetch(`${this.BASE_URL}/options`, {
       method: 'POST',
@@ -121,7 +122,7 @@ class CategoryService {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ name: optionName, categoryId })
+      body: JSON.stringify({ name: optionName, path: optionUrl, categoryId })
     });
     if (!response.ok) throw new Error('Failed to add option');
     return await response.json();
@@ -139,6 +140,12 @@ class CategoryService {
     if (!response.ok) throw new Error('Failed to delete option');
     return await response.json();
   }
+
+  async submitNewCategory(newCategoryText: string) {
+    throw new Error('Method not implemented.');
+  }
+
+
 }
 
 // Export an instance of the service

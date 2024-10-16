@@ -22,6 +22,17 @@ export class AdminComponent implements OnInit {
   categories: any[] = [];
   selectedCategory: string = '';
   selectedOptionId: string = '';
+
+  // Variables to manage the visibility of input fields
+  showNewOptionInput: boolean = false;
+  showNewCategoryInput: boolean = false;
+
+  // Variables to hold new category and option text
+  newOptionText: string = '';
+  newOptionUrl: string = '';
+  newOptionCategoryId: string = '';
+  newCategoryText: string = '';
+
   constructor(private postService: PostService, private categoryService: CategoryService) {} // Inject PostService
 
   async ngOnInit() {
@@ -61,6 +72,51 @@ export class AdminComponent implements OnInit {
     const deleted = await this.postService.deletePost(postId); // Use service to delete post
     if (deleted) {
       this.posts = this.posts.filter(post => post._id !== postId);
+    }
+  }
+
+  getFilteredOptions() {
+    if (!this.selectedCategory) {
+      return []; // Return an empty array if no category is selected
+    }
+    return this.options.filter(option => option.categoryId === this.selectedCategory);
+  }
+
+  // Functions to toggle the visibility of input fields
+  toggleNewOptionInput() {
+    this.showNewOptionInput = !this.showNewOptionInput;
+  }
+
+  toggleNewCategoryInput() {
+    this.showNewCategoryInput = !this.showNewCategoryInput;
+  }
+
+  // Submit the new option
+  async submitNewOption() {
+    if (!this.newOptionText) {
+      console.error("No option text provided");
+      return;
+    }
+    const newOption = await this.categoryService.addOption(this.newOptionText, this.newOptionUrl, this.newOptionCategoryId); // Use service to submit new option
+    if (newOption) {
+      this.options.push(newOption);
+      this.newOptionText = ''; // Reset input
+      this.showNewOptionInput = false; // Hide input field
+    }
+  }
+
+  // Submit the new category
+  async submitNewCategory() {
+    if (!this.newCategoryText) {
+      console.error("No category text provided");
+      return;
+    }
+    console.log(this.newCategoryText)
+    const newCategory = await this.categoryService.addCategory(this.newCategoryText); // Use service to submit new category
+    if (newCategory) {
+      this.categories.push(newCategory);
+      this.newCategoryText = ''; // Reset input
+      this.showNewCategoryInput = false; // Hide input field
     }
   }
 }
