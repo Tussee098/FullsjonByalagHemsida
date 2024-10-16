@@ -141,9 +141,6 @@ class CategoryService {
     return await response.json();
   }
 
-  async submitNewCategory(newCategoryText: string) {
-    throw new Error('Method not implemented.');
-  }
 
 
 }
