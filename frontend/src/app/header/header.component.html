@@ -1,5 +1,7 @@
 <header>
-<button *ngIf="loggedIn" (click)="logout()" class="logoutButton">Logout</button>
+    <div *ngIf="!loading">
+      <button *ngIf="loggedIn" (click)="logout()" class="logoutButton">Logout</button>
+    </div>
     <div class="headerTitleContainer">
       <a class="headerTitle">Fullsjön</a>
     </div>

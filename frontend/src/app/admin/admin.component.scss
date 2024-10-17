@@ -2,6 +2,15 @@
   font-size: 16px; // 1 rem = 16px
 }
 
+h1 {
+  text-align: center;
+  top: 0; /* Places it at the top */
+  left: 50%; /* Moves the element to the center horizontally */
+  font-size: 30px; /* Sets the font size to 30px */
+  margin: 0; /* Removes default margin */
+  padding: 2em 0; /* Optional padding for spacing */
+}
+
 // Style for the dropdowns
 .dropdown {
   margin-bottom: 1.25rem; // 20px converted to rem

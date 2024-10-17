@@ -1,23 +1,23 @@
 <app-header></app-header>
-<h2>Admin Panel</h2>
+<h1>Admin Panel</h1>
 
-<!-- Dropdown for selecting categories -->
+<!-- Dropdown for selecting categories
 <div class="dropdown">
   <label for="category-select">Choose a category:</label>
   <select id="category-select" [(ngModel)]="selectedCategory">
     <option value="" disabled selected>Select a category</option>
     <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
   </select>
-</div>
+</div>-->
 
-<!-- Dropdown for selecting options -->
+<!-- Dropdown for selecting options
 <div class="dropdown">
   <label for="option-select">Choose an option:</label>
   <select id="option-select" [(ngModel)]="selectedOptionId">
     <option value="" disabled selected>Select an option</option>
     <option *ngFor="let option of getFilteredOptions()" [value]="option._id">{{ option.name }}</option>
   </select>
-</div>
+</div>-->
 
 <!-- Container for adding new options and categories -->
 <div class="new-item-container">

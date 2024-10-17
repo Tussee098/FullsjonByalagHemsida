@@ -49,14 +49,18 @@ export class LoginComponent {
   register(): void {
     if (this.registerForm.valid) {
       const { email, password } = this.registerForm.value;
-      this.authService.register(email, password).subscribe(
-        response => {
+      this.authService.register(email, password).subscribe({
+        next: (response) => {
           console.log('Registration successful!', response);
         },
-        error => {
+        error: (error) => {
           console.error('Registration failed:', error);
+        },
+        complete: () => {
+          console.log('Registration process complete');
         }
-      );
+      });
     }
   }
+
 }
