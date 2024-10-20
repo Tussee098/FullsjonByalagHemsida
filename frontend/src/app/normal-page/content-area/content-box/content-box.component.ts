@@ -43,4 +43,14 @@ export class ContentBoxComponent {
     const formattedText = text.replace(/\n/g, '<br>');
     return this.sanitizer.bypassSecurityTrustHtml(formattedText); // Bypass security for safe HTML
   }
+
+  moveUpInOrder(postId: string){
+    this.postService.movePostForward(postId);
+    window.location.reload();
+  }
+
+  moveDownInOrder(postId: string){
+    this.postService.movePostBackward(postId);
+    window.location.reload();
+  }
 }

@@ -2,7 +2,9 @@
   <h1 [innerHTML]="formatText(title)"></h1>
   <p [innerHTML]="formatText(text)"> </p>
   <div *ngIf="isAdmin" class="admin-actions">
+    <button (click)="moveUpInOrder(_id)">Upp</button>
+    <button (click)="moveDownInOrder(_id)">Ner</button>
     <button (click)="editPost()">Edit</button>
-    <button (click)="deletePost(this._id)">Delete</button>
+    <button (click)="deletePost(this._id)">Ta bort</button>
   </div>
 </div>

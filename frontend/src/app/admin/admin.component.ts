@@ -1,5 +1,5 @@
 import { DropdownService } from '../services/dropdown.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
@@ -102,6 +102,7 @@ export class AdminComponent implements OnInit {
       this.options.push(newOption);
       this.newOptionText = ''; // Reset input
       this.showNewOptionInput = false; // Hide input field
+      window.location.reload();
     }
   }
 
@@ -117,6 +118,8 @@ export class AdminComponent implements OnInit {
       this.categories.push(newCategory);
       this.newCategoryText = ''; // Reset input
       this.showNewCategoryInput = false; // Hide input field
+      window.location.reload();
     }
+
   }
 }

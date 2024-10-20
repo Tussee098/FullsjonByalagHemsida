@@ -72,6 +72,63 @@ router.patch('/:id', authorization, async (req, res) => {
   }
 });
 
+// Move a post forward (lower its order)
+router.patch('/:id/move-forward', authorization, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    // Check if the post can move forward
+    if (post.order > 0) {
+      // Find the post currently at the position of the post's order - 1
+      const postToSwap = await Post.findOne({ optionId: post.optionId, order: post.order - 1 });
+      if (postToSwap) {
+        // Swap the orders
+        post.order--;
+        postToSwap.order++;
+        await post.save();
+        await postToSwap.save();
+      }
+    }
+
+    res.status(200).json(post); // Return the updated post
+  } catch (error) {
+    res.status(500).json({ message: 'Error moving post forward', error });
+  }
+});
+
+// Move a post backward (increase its order)
+router.patch('/:id/move-backward', authorization, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    // Find the highest order for this category
+    const maxOrderPost = await Post.findOne({ optionId: post.optionId }).sort({ order: -1 });
+
+    // Check if the post can move backward
+    if (!maxOrderPost || post.order < maxOrderPost.order) {
+      // Find the post currently at the position of the post's order + 1
+      const postToSwap = await Post.findOne({ optionId: post.optionId, order: post.order + 1 });
+      if (postToSwap) {
+        // Swap the orders
+        post.order++;
+        postToSwap.order--;
+        await post.save();
+        await postToSwap.save();
+      }
+    }
+
+    res.status(200).json(post); // Return the updated post
+  } catch (error) {
+    res.status(500).json({ message: 'Error moving post backward', error });
+  }
+});
+
 // Add more routes as needed...
 
 export default router; // Export the router

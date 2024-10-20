@@ -39,6 +39,26 @@ export class PostService {
     }
   }
 
+  async editPost(title: string, text: string): Promise<any> {
+    const token = localStorage.getItem('token');
+    const response = await fetch(this.baseUrl, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({title, text}),
+    });
+
+    if (response.ok) {
+      return response.json(); // Return the newly created post
+    } else {
+      console.error('Error saving post:', response.statusText);
+      return null;
+    }
+  }
+
+
   // Submit a new post
   async submitPost(title: string, text: string, optionId: string, author: string = 'John Doe'): Promise<any> {
     const token = localStorage.getItem('token');
@@ -76,4 +96,42 @@ export class PostService {
       return false;
     }
   }
+
+
+  async movePostForward(postId: string): Promise<any> {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${this.baseUrl}/${postId}/move-forward`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (response.ok) {
+      return response.json(); // Return the updated post
+    } else {
+      console.error('Error moving post forward:', response.statusText);
+      return null;
+    }
+  }
+
+  async movePostBackward(postId: string): Promise<any> {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${this.baseUrl}/${postId}/move-backward`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (response.ok) {
+      return response.json(); // Return the updated post
+    } else {
+      console.error('Error moving post backward:', response.statusText);
+      return null;
+    }
+  }
+
 }

@@ -4,6 +4,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { RouterLink , Router} from '@angular/router';
 import { CategoryWithOptions } from '../../models/dropdownCategories';
 import CategoryService from '../../services/pathdata.service';
+import { AuthService } from '../../services/authService';
 
 interface Item {
   title: string; // Ensure this matches the JSON structure
@@ -32,13 +33,13 @@ export class NavComponent implements OnInit {
   loggedIn = false;
   loading = true;
 
-  constructor(private dropdownService: DropdownService, private cdr: ChangeDetectorRef, private router: Router, private categoryService: CategoryService) {}
+
+  constructor(private dropdownService: DropdownService, private cdr: ChangeDetectorRef, private router: Router, private categoryService: CategoryService, private authService: AuthService) {}
 
   async ngOnInit() {
     await this.loadItems(); // Load items when the component initializes
     this.list = this.convertToDropdownItems(this.categoriesWithOptions)
-    const token = localStorage.getItem('token');
-    this.loggedIn = !!token;
+    this.loggedIn = await this.authService.isLoggedIn();
 
     this.loading = false
   }
@@ -88,10 +89,10 @@ export class NavComponent implements OnInit {
 
           // 2. After deleting all the options, delete the category
           this.categoryService.deleteCategory(categoryId).then(() => {
-            console.log(`Deleted category with id: ${categoryId}`);
 
             // 3. Update the list to remove the deleted category
             this.list = this.list.filter(category => category.categoryId !== categoryId);
+            window.location.reload();
           }).catch(error => {
             console.error(`Error deleting category with id: ${categoryId}`, error);
           });
@@ -109,8 +110,8 @@ export class NavComponent implements OnInit {
   deleteOption(optionId: string) {
     const confirmed = window.confirm('Are you sure you want to delete this category?');
     if (confirmed) {
-      console.log(`Delete option with id: ${optionId}`);
       this.categoryService.deleteOption(optionId);
+      window.location.reload();
     }
 
   }
