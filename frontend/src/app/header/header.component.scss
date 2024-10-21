@@ -65,3 +65,14 @@ app-nav {
   display: flex;
   justify-content: center;
 }
+
+.logoContainer {
+  position: absolute;
+  top: 10px; /* Space from the top */
+  left: 10px; /* Space from the left */
+}
+
+.logo {
+  height: 10em; /* Adjust logo size as necessary */
+  width: auto;  /* Maintain aspect ratio */
+}
