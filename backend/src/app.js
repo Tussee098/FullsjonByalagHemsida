@@ -23,7 +23,7 @@ app.use(limiter);
 // Login rate limiter
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 2, // Max 5 login attempts per 15 minutes
+  max: 6, // Max 5 login attempts per 15 minutes
   message: {
     message: "Too many login attempts, please try again after 15 minutes."
   }

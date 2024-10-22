@@ -1,14 +1,34 @@
 <div class="content-area">
-  <!-- Loop through posts -->
-  <app-content-box
-    *ngFor="let post of posts"
-    [_id]="post._id"
-    [title]="post.title"
-    [text]="post.text"
-    [author]="post.author"
-    [isAdmin]="isAdmin"
-    (postDeleted)="onPostDeleted()">
-  </app-content-box>
+  <!-- Conditionally apply cdkDropList only if user is admin -->
+  <button *ngIf="hasChanged && isAdmin" (click)="saveOrder()">Uppdatera ordningen</button>
+  <div *ngIf="isAdmin; else normalList" cdkDropList (cdkDropListDropped)="drop($event)">
+    <!-- Loop through posts with drag functionality for admin -->
+    <app-content-box
+      *ngFor="let post of posts"
+      [_id]="post._id"
+      [title]="post.title"
+      [text]="post.text"
+      [author]="post.author"
+      [isAdmin]="isAdmin"
+      cdkDrag
+      (postDeleted)="onPostDeleted()">
+    </app-content-box>
+  </div>
+
+  <!-- Non-admin view without drag-and-drop -->
+  <ng-template #normalList>
+    <div>
+      <app-content-box
+        *ngFor="let post of posts"
+        [_id]="post._id"
+        [title]="post.title"
+        [text]="post.text"
+        [author]="post.author"
+        [isAdmin]="isAdmin"
+        (postDeleted)="onPostDeleted()">
+      </app-content-box>
+    </div>
+  </ng-template>
 
   <!-- Button to toggle the form visibility -->
   <div *ngIf="isAdmin" class="admin-section">

@@ -6,15 +6,16 @@ import { NgFor, NgIf, CommonModule } from '@angular/common';
 import { ContentBoxComponent } from './content-box/content-box.component';
 import CategoryService from '../../services/pathdata.service';
 import { FormsModule } from '@angular/forms';
+import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'app-content-area',
   standalone: true,
-  imports: [NgFor, NgIf, ContentBoxComponent, FormsModule],
+  imports: [NgFor, NgIf, ContentBoxComponent, FormsModule, CdkDropList, CdkDrag], // Include CDK modules
   templateUrl: './content-area.component.html',
   styleUrl: './content-area.component.scss'
 })
-
 export class ContentAreaComponent {
   title: string = "";
   posts: any[] = [];
@@ -24,6 +25,7 @@ export class ContentAreaComponent {
   currentRoute: any;
   inputTitle: string = '';
   showPostForm: boolean = false;
+  hasChanged: boolean = false;
 
   constructor(private postService: PostService, private route: ActivatedRoute, private authService: AuthService, private categoryService: CategoryService) {}
 
@@ -36,32 +38,36 @@ export class ContentAreaComponent {
       this.id = data['id'];
     });
     this.currentRoute = this.route.snapshot;
-    this.title = this.currentRoute.title || 'Default Title'; // Provide a default title
+    this.title = this.currentRoute.title || 'Default Title';
     this.posts = await this.postService.fetchPosts(this.id);
-    this.isAdmin = await this.authService.isLoggedIn(); // Extra stuff here, check if token is valid?
-    console.log("Content-area")
-    console.log(this.posts)
+    this.isAdmin = await this.authService.isLoggedIn();
   }
 
-// Event handler for post deletion
+  // Drag and Drop event handler
+  drop(event: CdkDragDrop<any[]>) {
+    this.hasChanged = true;
+    moveItemInArray(this.posts, event.previousIndex, event.currentIndex);
+  }
+
+  // Save the order to the database (We'll implement this part later)
+  async saveOrder() {
+    const newOrder = this.posts.map((post, index) => ({ id: post.id, order: index }));
+    await this.postService.updatePostsOrder(newOrder);
+  }
+
   async onPostDeleted() {
-    await this.loadPosts(); // Reload the posts after deletion
+    await this.loadPosts();
   }
-
 
   async submitPost(inputTitle: string, inputText: string): Promise<void> {
-
-    const newPost = await this.postService.submitPost(inputTitle, inputText, this.id); // Use service to submit post
-
+    const newPost = await this.postService.submitPost(inputTitle, inputText, this.id);
     if (newPost) {
       this.posts.push(newPost);
       this.inputText = '';
     }
   }
 
-
   togglePostForm(): void {
     this.showPostForm = !this.showPostForm;
   }
-
 }

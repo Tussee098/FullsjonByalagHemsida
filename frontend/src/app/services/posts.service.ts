@@ -5,6 +5,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root', // This makes the service available application-wide
 })
 export class PostService {
+
+
+  updatePostsOrder(newOrder: { id: any; order: number; }[]) {
+    throw new Error('Method not implemented.');
+  }
   private baseUrl = 'http://localhost:5000/api/posts';
 
   constructor() {}
