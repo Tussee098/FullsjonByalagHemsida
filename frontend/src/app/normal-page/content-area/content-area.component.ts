@@ -51,8 +51,9 @@ export class ContentAreaComponent {
 
   // Save the order to the database (We'll implement this part later)
   async saveOrder() {
-    const newOrder = this.posts.map((post, index) => ({ id: post.id, order: index }));
-    await this.postService.updatePostsOrder(newOrder);
+    const newOrder = this.posts.map((post, index) => ({ id: post._id, order: index }));
+    await this.postService.updatePostsOrder(newOrder, this.id);
+    window.location.reload();
   }
 
   async onPostDeleted() {

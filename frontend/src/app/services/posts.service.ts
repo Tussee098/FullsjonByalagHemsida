@@ -7,9 +7,7 @@ import { Injectable } from '@angular/core';
 export class PostService {
 
 
-  updatePostsOrder(newOrder: { id: any; order: number; }[]) {
-    throw new Error('Method not implemented.');
-  }
+
   private baseUrl = 'http://localhost:5000/api/posts';
 
   constructor() {}
@@ -102,6 +100,31 @@ export class PostService {
     }
   }
 
+  async updatePostsOrder(newOrder: { id: any; order: number; }[], optionId: string): Promise<any> {
+    const token = localStorage.getItem('token'); // Retrieve token for authorization
+    const body = JSON.stringify({ newOrder, optionId });
+
+    try {
+      const response = await fetch(`${this.baseUrl}/update-order`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: body
+      });
+
+      if (response.ok) {
+        return response.json(); // Return success message or updated posts
+      } else {
+        console.error('Error updating post order:', response.statusText);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error updating post order:', error);
+      return null;
+    }
+  }
 
   async movePostForward(postId: string): Promise<any> {
     const token = localStorage.getItem('token');

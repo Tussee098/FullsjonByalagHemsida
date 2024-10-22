@@ -72,6 +72,28 @@ router.patch('/:id', authorization, async (req, res) => {
   }
 });
 
+// Update the order of posts
+router.put('/update-order', authorization, async (req, res) => {
+  const { newOrder, optionId } = req.body; // Extract the new order array and optionId from the request body
+
+  if (!newOrder || !optionId) {
+    return res.status(400).json({ message: 'Invalid input data' });
+  }
+
+  try {
+    // Loop through the new order array and update each post's order
+    for (const postOrder of newOrder) {
+      const { id, order } = postOrder;  // Extract post ID and new order
+      await Post.findByIdAndUpdate(id, { order }, { new: true });
+    }
+
+    res.status(200).json({ message: 'Post order updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating post order', error });
+  }
+});
+
+
 // Move a post forward (lower its order)
 router.patch('/:id/move-forward', authorization, async (req, res) => {
   try {

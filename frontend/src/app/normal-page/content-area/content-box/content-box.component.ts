@@ -51,6 +51,5 @@ export class ContentBoxComponent {
 
   moveDownInOrder(postId: string){
     this.postService.movePostBackward(postId);
-    window.location.reload();
   }
 }
