@@ -63,9 +63,10 @@ export class ContentAreaComponent {
   async submitPost(inputTitle: string, inputText: string): Promise<void> {
     const newPost = await this.postService.submitPost(inputTitle, inputText, this.id);
     if (newPost) {
-      this.posts.push(newPost);
+      this.posts.unshift(newPost);
       this.inputText = '';
     }
+    this.togglePostForm();
   }
 
   togglePostForm(): void {

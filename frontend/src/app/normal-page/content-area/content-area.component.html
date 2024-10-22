@@ -1,4 +1,17 @@
 <div class="content-area">
+<!-- Button to toggle the form visibility -->
+  <div *ngIf="isAdmin" class="admin-section">
+    <button (click)="togglePostForm()">
+      {{ showPostForm ? 'Cancel' : 'Create new post' }}
+    </button>
+
+    <!-- Admin post creation form, only visible when 'showPostForm' is true -->
+    <div *ngIf="showPostForm" class="post-container">
+      <textarea [(ngModel)]="inputTitle" placeholder="Post title..."></textarea>
+      <textarea [(ngModel)]="inputText" placeholder="Write your post..."></textarea>
+      <button (click)="submitPost(inputTitle, inputText)">Submit Post</button>
+    </div>
+  </div>
   <!-- Conditionally apply cdkDropList only if user is admin -->
   <button *ngIf="hasChanged && isAdmin" (click)="saveOrder()">Uppdatera ordningen</button>
   <div *ngIf="isAdmin; else normalList" cdkDropList (cdkDropListDropped)="drop($event)">
@@ -30,17 +43,5 @@
     </div>
   </ng-template>
 
-  <!-- Button to toggle the form visibility -->
-  <div *ngIf="isAdmin" class="admin-section">
-    <button (click)="togglePostForm()">
-      {{ showPostForm ? 'Cancel' : 'Create new post' }}
-    </button>
 
-    <!-- Admin post creation form, only visible when 'showPostForm' is true -->
-    <div *ngIf="showPostForm" class="post-container">
-      <textarea [(ngModel)]="inputTitle" placeholder="Post title..."></textarea>
-      <textarea [(ngModel)]="inputText" placeholder="Write your post..."></textarea>
-      <button (click)="submitPost(inputTitle, inputText)">Submit Post</button>
-    </div>
-  </div>
 </div>
