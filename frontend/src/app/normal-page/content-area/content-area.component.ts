@@ -26,6 +26,7 @@ export class ContentAreaComponent {
   inputTitle: string = '';
   showPostForm: boolean = false;
   hasChanged: boolean = false;
+  selectedFile: File | null = null;
 
   constructor(private postService: PostService, private route: ActivatedRoute, private authService: AuthService, private categoryService: CategoryService) {}
 
@@ -72,4 +73,11 @@ export class ContentAreaComponent {
   togglePostForm(): void {
     this.showPostForm = !this.showPostForm;
   }
+
+  onFileSelected(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+        this.selectedFile = target.files[0];
+    }
+}
 }

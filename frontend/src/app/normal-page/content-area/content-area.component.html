@@ -8,6 +8,7 @@
     <!-- Admin post creation form, only visible when 'showPostForm' is true -->
     <div *ngIf="showPostForm" class="post-container">
       <textarea [(ngModel)]="inputTitle" placeholder="Post title..."></textarea>
+      <input type="file" (change)="onFileSelected($event)" />
       <textarea [(ngModel)]="inputText" placeholder="Write your post..."></textarea>
       <button (click)="submitPost(inputTitle, inputText)">Submit Post</button>
     </div>
