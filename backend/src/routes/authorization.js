@@ -33,7 +33,6 @@ router.post('/register', authorization, async (req, res) => {
 // Login User
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password)
   try {
     // Find user in the database
     const user = await User.findOne({ email });
@@ -46,10 +45,6 @@ router.post('/login', async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ error: 'Invalid credentials' });
     }
-
-    console.log("JWT_SECRET:", JWT_SECRET);
-    console.log("User ID:", user._id);
-
 
     // Create a JWT
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '5h' });
