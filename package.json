@@ -15,6 +15,7 @@
         "my-app": "file:"
     },
     "devDependencies": {
+        "@angular-devkit/build-angular": "^18.2.10",
         "typescript": "^5.2.2"
     }
 }
