@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import path from 'path';
-import config from './config.js';
+import config from './configs/config.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 

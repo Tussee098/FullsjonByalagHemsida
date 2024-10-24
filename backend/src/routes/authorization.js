@@ -3,7 +3,7 @@ import express from 'express';  // Import express
 import bcrypt from 'bcryptjs';  // Import bcrypt
 import jwt from 'jsonwebtoken';  // Import jsonwebtoken
 import User from '../models/User.js';  // Import User model (ensure the correct path and extension)
-import config from '../config.js';
+import config from '../configs/config.js';
 import authorization from '../middleware/authorization.js';
 
 

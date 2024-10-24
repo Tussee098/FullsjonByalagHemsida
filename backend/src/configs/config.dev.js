@@ -1,8 +1,7 @@
-// config.js
+// If not in production, load environment variables from .env file
 import dotenv from 'dotenv';
-
-// Load environment variables from .env file
 dotenv.config();
+
 
 // Export the configuration
 const config = {
@@ -12,4 +11,3 @@ const config = {
   // Add more variables as needed
 };
 
-export default config;
