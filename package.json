@@ -9,7 +9,8 @@
         "dev": "nodemon ./src/server.js"
     },
     "dependencies": {
-        "backend": "file:"
+        "backend": "file:",
+        "concurrently": "^9.0.1"
     },
     "devDependencies": {
         "concurrently": "^9.0.1"
