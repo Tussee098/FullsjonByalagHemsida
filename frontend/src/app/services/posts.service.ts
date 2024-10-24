@@ -8,7 +8,7 @@ export class PostService {
 
 
 
-  private baseUrl = 'http://localhost:5000/api/posts';
+  private baseUrl = '/api/posts'; //http://localhost:5000
 
   constructor() {}
 

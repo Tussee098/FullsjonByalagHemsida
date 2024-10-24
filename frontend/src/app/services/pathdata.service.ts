@@ -6,7 +6,7 @@ import { Injectable } from "@angular/core";
 class CategoryService {
 
 
-  BASE_URL = 'http://localhost:5000/api'; // Replace with your actual backend URL
+  BASE_URL = '/api'; // Replace with your actual backend URL  http://localhost:5000
 
 
   // Fetch all categories
