@@ -1,1 +1,17 @@
-{}
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "concurrently \"cd frontend && npm start\" \"cd backend && npm start\"",
+        "dev": "nodemon ./src/server.js"
+    },
+    "dependencies": {
+        "backend": "file:"
+    },
+    "devDependencies": {
+        "concurrently": "^9.0.1"
+    }
+}
