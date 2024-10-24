@@ -1,11 +1,12 @@
 {
     "name": "my-app",
     "version": "1.0.0",
+    "type": "module",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "cd backend && npm start",
+        "start": "cd backend && npm install && npm start",
+        "build": "cd frontend && npm run build",
         "heroku-postbuild": "cd frontend && npm install && npm run build",
-        "dev": "concurrently \"cd frontend && npm start\" \"cd backend && npm run dev\""
+        "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend"
     },
     "dependencies": {
         "@angular/animations": "^18.1.0",
