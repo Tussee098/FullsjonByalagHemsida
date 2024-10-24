@@ -21,7 +21,10 @@ mongoose.connect(DBUrl)
     app.use(express.json()); // Parse incoming requests
 
     // Serve static files from Angular app
-    const frontendPath = path.join(__dirname, '../../frontend/dist/frontend'); // Construct the path to your frontend files
+    const frontendPath = path.join(__dirname, '../../frontend/dist/'); // Construct the path to your frontend files
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '/client/dist', 'index.html'))
+    })
     app.use(express.static(frontendPath));
 
     // Handle all GET requests to serve the Angular app
