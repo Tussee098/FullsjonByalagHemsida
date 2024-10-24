@@ -2,12 +2,9 @@
     "name": "my-app",
     "version": "1.0.0",
     "scripts": {
-        "start": "node backend/src/server.js",
-        "build": "cd frontend && ng build --prod",
-        "heroku-postbuild": "npm run build",
-        "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
-        "frontend": "cd frontend && ng serve",
-        "backend": "cd backend && node server.js"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "concurrently \"npm install && cd frontend && npm run build && npm start\" \"cd backend && npm start\"",
+        "dev": "nodemon ./src/server.js"
     },
     "dependencies": {
         "backend": "file:",
