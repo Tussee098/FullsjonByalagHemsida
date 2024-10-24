@@ -5,7 +5,7 @@
     "scripts": {
         "start": "cd backend && npm install && npm start",
         "build": "cd frontend && npm run build",
-        "heroku-postbuild": "cd frontend && npm install && npm run build",
+        "heroku-poststart": "cd frontend && npm install && npm run build",
         "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend"
     },
     "dependencies": {
