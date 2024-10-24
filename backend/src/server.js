@@ -25,7 +25,7 @@ mongoose.connect(DBUrl)
 
     // Serve index.html for any other requests
     app.get('*', (req, res) => {
-      res.sendFile(path.join(frontendPath, 'index.html'));
+      res.sendFile(path.join(frontendPath, 'index.csr.html'));
     });
 
     app.listen(port, () => {
