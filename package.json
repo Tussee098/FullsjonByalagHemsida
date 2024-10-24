@@ -8,10 +8,11 @@
         "dev": "concurrently \"cd frontend && npm start\" \"cd backend && npm run dev\""
     },
     "dependencies": {
-        "concurrently": "^9.0.1",
         "@angular/animations": "^18.1.0",
         "@angular/cdk": "^18.2.9",
-        "@angular/cli": "^18.1.4"
+        "@angular/cli": "^18.1.4",
+        "concurrently": "^9.0.1",
+        "my-app": "file:"
     },
     "devDependencies": {
         "typescript": "^5.2.2"
