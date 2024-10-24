@@ -1,0 +1,44 @@
+.home-page-container {
+  position: relative;
+  height: 100vh; /* Full viewport height */
+  max-width: 100vw;
+  overflow: hidden; /* Prevent scrolling */
+  margin: 0; /* Make sure there's no default margin on the page */
+
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover; /* Ensure the image covers the screen */
+    background-position: center;
+    z-index: -1; /* Make sure the background is behind the text */
+  }
+
+  .text-area {
+    position: absolute;
+    width: 25vw; /* Adjust for your desired text box size */
+    padding: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for text readability */
+    border-radius: 8px;
+    box-sizing: border-box; /* Ensure padding doesn't exceed the box */
+  }
+
+  .text-area-1 {
+    top: 15%;
+    left: 10%;
+  }
+
+  .text-area-2 {
+    top: 50%;
+    right: 15%;
+    transform: translateY(-50%); /* Center vertically */
+  }
+
+  .text-area-3 {
+    bottom: 15%;
+    left: 25%;
+  }
+}

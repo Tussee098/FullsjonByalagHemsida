@@ -6,7 +6,7 @@ header {
   max-width: 100vw;
   box-sizing: border-box;
   height: 12rem; /* Adjust this as necessary */
-  background-color: gray; /* Matching background color */
+  background-color: rgb(122, 122, 122); /* Matching background color */
   display: flex;
   align-items: center;
   justify-content: center; /* Center items horizontally */
@@ -42,6 +42,8 @@ header {
   }
 }
 
+
+
 .headerTitle {
   font-size: 36px;
   color: black; /* White text for the title */
@@ -52,8 +54,11 @@ header {
 }
 
 .headerTitleContainer {
-  margin-bottom: 2%; /* Slight margin between title and nav */
+  margin-bottom: 2em; /* Slight margin between title and nav */
   text-align: center;
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center the flowers horizontally */
+  align-items: flex-end; /* Align flowers to the bottom */
 }
 
 /* Navigation container inside the header */

@@ -1,0 +1,99 @@
+.garden {
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center the flowers horizontally */
+  align-items: flex-end; /* Align flowers to the bottom */
+  gap: 1em; /* Space between flowers */
+  padding: 1em; /* Padding around the garden */
+}
+
+/* Base size of flower set to 3em */
+.flower {
+  position: relative;
+  width: 3em; /* Width of the flower */
+  height: 3em; /* Height of the flower */
+  max-width: 3em; /* Maximum width */
+  max-height: 3em; /* Maximum height */
+}
+
+/* Petal size set to 0.75em */
+.petal {
+  position: absolute;
+  width: 0.75em; /* Fixed width of petals */
+  height: 0.75em; /* Fixed height of petals */
+  background-color: yellow;
+  border-radius: 50px 50px 0 0; /* Rounded top for petals */
+  z-index: 1;
+}
+
+/* Positioning petals using `em` units */
+.petal:nth-child(1) {
+  transform: rotate(0deg);
+  top: -0.5em; /* Position petals above the stem */
+  left: 50%; /* Center the petals */
+  transform-origin: bottom center; /* Rotate around the bottom center */
+  margin-left: -0.375em; /* Half of petal width to center */
+}
+
+.petal:nth-child(2) {
+  transform: rotate(72deg);
+  top: -0.5em; /* Position petals above the stem */
+  left: 50%; /* Center the petals */
+  transform-origin: bottom center;
+  margin-left: -0.375em; /* Half of petal width to center */
+}
+
+.petal:nth-child(3) {
+  transform: rotate(144deg);
+  top: -0.5em; /* Position petals above the stem */
+  left: 50%; /* Center the petals */
+  transform-origin: bottom center;
+  margin-left: -0.375em; /* Half of petal width to center */
+}
+
+.petal:nth-child(4) {
+  transform: rotate(216deg);
+  top: -0.5em; /* Position petals above the stem */
+  left: 50%; /* Center the petals */
+  transform-origin: bottom center;
+  margin-left: -0.375em; /* Half of petal width to center */
+}
+
+.petal:nth-child(5) {
+  transform: rotate(288deg);
+  top: -0.5em; /* Position petals above the stem */
+  left: 50%; /* Center the petals */
+  transform-origin: bottom center;
+  margin-left: -0.375em; /* Half of petal width to center */
+}
+
+/* Stem size set to 0.2em width and 1em height */
+.stem {
+  position: absolute;
+  width: 0.2em; /* Width of the stem */
+  height: 2.5em; /* Height of stem */
+  background-color: green;
+  bottom: 0.5em; /* Position stem properly */
+  left: 50%; /* Center the stem */
+  transform: translateX(-50%); /* Center the stem */
+  z-index: 0;
+}
+
+/* Center of the flower set to 0.4em */
+.center {
+  position: absolute;
+  width: 0.4em; /* Size of the center */
+  height: 0.4em; /* Size of the center */
+  background-color: rgb(212, 158, 41); /* Center color */
+  border-radius: 50%; /* Make it a circle */
+  top: 0em; /* Position it in the middle */
+  left: 50%; /* Center the center */
+  transform: translateX(-50%); /* Center the center */
+  z-index: 2;
+}
+
+/* Media query to hide flowers on small screens */
+@media (max-width: 20em) {
+  .flower {
+    display: none; /* Hide flowers if the screen width is less than 20em */
+  }
+}

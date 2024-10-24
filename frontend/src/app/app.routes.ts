@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthGuard } from './guards/auth.guard.service';
 import CategoryService from './services/pathdata.service'
+import { HomePageComponent } from './home-page/home-page.component';
 
 export async function getDynamicRoutes(): Promise<Routes> {
   const categoryService = new CategoryService(); // Create an instance of CategoryService
@@ -16,7 +17,7 @@ export async function getDynamicRoutes(): Promise<Routes> {
     const paths = await categoryService.getAllPaths(); // Use async/await to fetch categories
     console.log(paths)
     const routes: Routes = [
-      { title: "main", path: '', component: NormalPage },
+      { title: "main", path: '', component: HomePageComponent },
       { title: "login", path: 'login', component: LoginComponent },
       { title: "admin", path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
       // { path: '**', component: NormalPage, title: "main" } // You can uncomment this if needed
