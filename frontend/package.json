@@ -5,7 +5,7 @@
     "ng": "ng",
     "build": "ng build --prod",
     "start": "ng serve --host 0.0.0.0 --port 8080",
-    "heroku-postbuild": "ng build --prod",
+    "heroku-postbuild": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
