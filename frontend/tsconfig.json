@@ -5,9 +5,11 @@
     "moduleResolution": "node",
     "strict": true,
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowJs": true
   },
   "angularCompilerOptions": {
     "strictTemplates": true
-  }
+  },
+
 }

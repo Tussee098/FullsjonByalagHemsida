@@ -5,7 +5,7 @@
     "ng": "ng",
     "build": "ng build",
     "start": "ng serve --host 0.0.0.0 --port 8080",
-    "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend",
+    "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
