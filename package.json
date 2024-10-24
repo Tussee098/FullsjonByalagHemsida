@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "type": "module",
     "scripts": {
-        "start": "cd backend && npm install && npm start",
         "build": "cd frontend && npm run build",
         "heroku-postbuild": "cd frontend && npm install && npm run build",
+        "start": "node backend/src/server.js",
         "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend"
     },
     "dependencies": {
