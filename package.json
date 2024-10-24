@@ -3,13 +3,12 @@
     "version": "1.0.0",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "concurrently \"npm install && cd frontend && npm run build && npm start\" \"cd backend && npm start\"",
-        "dev": "nodemon ./src/server.js"
+        "start": "cd backend && npm start",
+        "heroku-postbuild": "cd frontend && npm install && npm run build",
+        "dev": "concurrently \"cd frontend && npm start\" \"cd backend && npm run dev\""
     },
     "dependencies": {
-        "backend": "file:",
         "concurrently": "^9.0.1",
-        "full": "file:",
         "my-app": "file:"
     },
     "devDependencies": {
