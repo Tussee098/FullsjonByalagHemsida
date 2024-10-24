@@ -1,10 +1,21 @@
 // config.js
-let config;
+let config = {
+  port: process.env.PORT || 5000,
+  jwtSecret: process.env.JWT_SECRET,
+  dbUrl: process.env.DB_URL,
+  // Add more variables as needed
+};
 
+// Load dotenv only in non-production environments
 if (process.env.NODE_ENV !== 'production') {
-  config = require('./config.dev.js').default;
-} else {
-  config = require('./config.prod.js').default;
+  import('dotenv')
+    .then((dotenv) => {
+      dotenv.config(); // Load environment variables from .env file
+    })
+    .catch((error) => {
+      console.error('Error loading dotenv:', error);
+    });
 }
 
+// Export the configuration
 export default config;
