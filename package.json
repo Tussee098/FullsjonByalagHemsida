@@ -3,11 +3,10 @@
     "version": "1.0.0",
     "type": "module",
     "scripts": {
-        "ng": "ng",
-        "build": "ng build",
-        "start": "ng serve --host 0.0.0.0 --port 8080",
-        "watch": "ng build --watch --configuration development",
-        "test": "ng test"
+        "build": "npm run build --prefix frontend",
+        "heroku-postbuild": "cd frontend && npm install && npm run build --prod",
+        "start": " cd frontend && npm start && node ../backend/src/server.js",
+        "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend"
     },
     "dependencies": {
         "@angular/animations": "^18.1.0",
