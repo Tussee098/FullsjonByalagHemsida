@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { environment } from "../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +7,7 @@ import { Injectable } from "@angular/core";
 class CategoryService {
 
 
-  BASE_URL = '/api'; // Replace with your actual backend URL  http://localhost:5000
+  BASE_URL = environment.apiUrl; // Replace with your actual backend URL
 
 
   // Fetch all categories

@@ -1,5 +1,5 @@
 // If not in production, load environment variables from .env file
-import dotenv from 'dotenv';
+import { dotenv } from 'dotenv';
 dotenv.config();
 
 

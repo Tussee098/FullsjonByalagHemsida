@@ -1,5 +1,6 @@
 // src/app/services/post.service.ts
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root', // This makes the service available application-wide
@@ -8,7 +9,7 @@ export class PostService {
 
 
 
-  private baseUrl = '/api/posts'; //http://localhost:5000
+  private baseUrl = environment.baseUrl;
 
   constructor() {}
 

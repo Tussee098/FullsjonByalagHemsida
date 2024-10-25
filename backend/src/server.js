@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import { mongoose } from 'mongoose';
 import path from 'path';
 import config from './configs/config.js';
 import { fileURLToPath } from 'url';
@@ -12,6 +12,9 @@ const app = express();
 // Connect to MongoDB
 const DBUrl = config.dbUrl;
 const port = config.port;
+app.set('view engine', 'html');
+app.set('views', browserDistFolder);
+
 
 mongoose.connect(DBUrl)
   .then(() => {
