@@ -2,12 +2,9 @@
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "build": "ng build",
-    "start": "ng serve --host 0.0.0.0 --port 8080",
-    "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend --prod",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "build": "cd frontend && npm run build",
+    "heroku-postbuild": "cd frontend && npm install && npm run build --prod",
+    "start": "node backend/src/server.js"
   },
   "private": true,
   "dependencies": {

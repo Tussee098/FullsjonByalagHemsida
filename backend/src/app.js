@@ -33,7 +33,37 @@ const loginLimiter = rateLimit({
 app.use('/auth/login', loginLimiter, authRoutes); // Apply to login specifically
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      'http://localhost:8080',
+      'http://localhost:4200',
+      'https://fullsjon-website-59ddfac79ca1.herokuapp.com',
+      process.env.HEROKU_APP_URL, // Add this as an environment variable in Heroku
+      /\.herokuapp\.com$/ // This will allow any herokuapp.com subdomain
+    ];
+
+    // Check if the origin is allowed
+    const isAllowedOrigin = allowedOrigins.some(allowedOrigin => {
+      if (allowedOrigin instanceof RegExp) {
+        return allowedOrigin.test(origin);
+      }
+      return allowedOrigin === origin;
+    });
+
+    if (isAllowedOrigin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 

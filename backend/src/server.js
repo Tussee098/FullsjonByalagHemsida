@@ -4,11 +4,12 @@ import path from 'path';
 import config from './configs/config.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { app } from 'app.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const browserDistFolder = '../../frontend/dist/frontend/browser'
-const app = express();
+const app = app;
 
 // Connect to MongoDB
 const DBUrl = config.dbUrl;
@@ -34,7 +35,7 @@ mongoose.connect(DBUrl)
     });
 
     app.listen(port, () => {
-      console.log(`Backend is running on http://localhost:${port}`);
+      console.log(`Backend is running on port: ${port}`);
     });
   })
   .catch(err => console.error('MongoDB connection error: ' + DBUrl + '\n', err));
