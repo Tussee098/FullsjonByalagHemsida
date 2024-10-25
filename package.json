@@ -4,10 +4,14 @@
     "type": "module",
     "scripts": {
         "build": "npm run build --prefix frontend",
-        "heroku-postbuild": "cd frontend && npm install && npm run build --prod",
-        "start": " cd frontend && npm start && node ../backend/src/server.js",
-        "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend"
+        "heroku-postbuild": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+        "start": "node backend/src/server.js"
     },
+    "cacheDirectories": [
+        "node_modules",
+        "frontend/node_modules",
+        "backend/node_modules"
+    ],
     "dependencies": {
         "@angular/animations": "^18.1.0",
         "@angular/cdk": "^18.2.9",

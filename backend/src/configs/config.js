@@ -1,37 +1,14 @@
-import path from 'path';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-// config.js
-let config = {
-  port: process.env.PORT || 5000,
-  jwtSecret: process.env.JWT_SECRET,
-  dbUrl: process.env.DB_URL,
-  // Add more variables as needed
+import dotenv from 'dotenv';
+
+const loadConfig = () => {
+  dotenv.config();
+  
+  return {
+    port: process.env.PORT || 3000,
+    dbUrl: process.env.MONGODB_URI || 'your_default_mongodb_url',
+    // other config values...
+  };
 };
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const envPath = path.resolve(__dirname, '../../.env');
-
-const loadConfig = async () => {
-  if (process.env.NODE_ENV !== 'production') {
-    try {
-      const dotenv = await import('dotenv');
-      dotenv.config({ path: envPath }); // Load environment variables from .env file
-      config = {
-        port: process.env.PORT || 5000,
-        jwtSecret: process.env.JWT_SECRET,
-        dbUrl: process.env.DB_URL,
-        // Add more variables as needed
-      };
-    } catch (error) {
-      console.error('Error loading dotenv:', error);
-    }
-  }
-};
-
-// Call the loadConfig function
-await loadConfig();
-console.log(config)
-// Export the configuration
+const config = loadConfig();
 export default config;

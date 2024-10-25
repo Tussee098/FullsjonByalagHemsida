@@ -41,12 +41,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "../backend/src/server.js"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
