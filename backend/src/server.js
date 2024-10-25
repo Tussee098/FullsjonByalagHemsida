@@ -7,11 +7,13 @@ import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const browserDistFolder = '../../frontend/dist/frontend/browser'
 const app = express();
 
 // Connect to MongoDB
 const DBUrl = config.dbUrl;
 const port = config.port;
+
 app.set('view engine', 'html');
 app.set('views', browserDistFolder);
 
