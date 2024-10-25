@@ -4,7 +4,7 @@
     "type": "module",
     "scripts": {
         "build": "npm run build --prefix frontend",
-        "heroku-postbuild": "cd frontend && npm install && npm run build --prod",
+        "heroku-postbuild": "npm install && npm run build --prod",
         "start": " cd frontend && npm start && node ../backend/src/server.js",
         "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend"
     },
