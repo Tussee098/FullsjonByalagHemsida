@@ -13,7 +13,7 @@ const __dirname = dirname(__filename);
 // const app = app; // This was creating a circular reference
 
 // Use absolute path with path.join
-const browserDistFolder = path.join(__dirname, '../../frontend/dist/frontend/browser');
+const browserDistFolder = path.join(__dirname, '../../frontend/dist/frontend/');
 
 // Connect to MongoDB
 const DBUrl = config.dbUrl;
