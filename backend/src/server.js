@@ -4,38 +4,39 @@ import path from 'path';
 import config from './configs/config.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { app } from 'app.js'
+import app from './app.js'; // Changed from { app } to app since it's a default export
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const browserDistFolder = '../../frontend/dist/frontend/browser'
-const app = app;
+
+// Remove this line since 'app' is already imported
+// const app = app; // This was creating a circular reference
+
+// Use absolute path with path.join
+const browserDistFolder = path.join(__dirname, '../../frontend/dist/frontend/browser');
 
 // Connect to MongoDB
 const DBUrl = config.dbUrl;
-const port = config.port;
-
-app.set('view engine', 'html');
-app.set('views', browserDistFolder);
-
+const port = process.env.PORT || config.port; // Added process.env.PORT for Heroku
 
 mongoose.connect(DBUrl)
   .then(() => {
     console.log('MongoDB connected');
     
-    app.use(express.json()); // Parse incoming requests
+    // Remove this since it's already set up in app.js
+    // app.use(express.json()); 
 
     // Serve static files from Angular app
-    const frontendPath = path.join(__dirname, browserDistFolder); // Path to your Angular build
-    app.use(express.static(frontendPath));
+    app.use(express.static(browserDistFolder));
 
     // Serve index.html for any other requests
     app.get('*', (req, res) => {
-      res.sendFile(path.join(frontendPath));
+      // Fix the sendFile path
+      res.sendFile(path.join(browserDistFolder, 'index.html'));
     });
 
-    app.listen(port, () => {
+    app.listen(port, '0.0.0.0', () => { // Added '0.0.0.0' for Heroku
       console.log(`Backend is running on port: ${port}`);
     });
   })
-  .catch(err => console.error('MongoDB connection error: ' + DBUrl + '\n', err));
+  .catch(err => console.error('MongoDB connection error:', err));
