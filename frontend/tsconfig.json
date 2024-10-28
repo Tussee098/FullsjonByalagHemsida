@@ -7,7 +7,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowJs": true,
-    "outDir": "./dist"  // Set the output directory
+    "outDir": "./dist/frontend/"  // Set the output directory
   },
   "angularCompilerOptions": {
     "strictTemplates": true
