@@ -5,6 +5,9 @@ import bodyParser from 'body-parser';
 import postRoutes from './routes/postRoutes.js'; // Import your routes
 import authRoutes from './routes/authorization.js'
 import categoriesRoutes from './routes/categoriesRoutes.js'
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
