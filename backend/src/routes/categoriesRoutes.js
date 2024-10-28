@@ -50,10 +50,10 @@ router.delete('/categories/:id', authorization, async (req, res) => {
 
 // GET all options for a category by name
 router.get('/options/:name', async (req, res) => {
-  const { optionName } = req.params;
+  const {name: optionName } = req.params;
   try {
 
-    const options = await NavBarOption.find(optionName);
+    const options = await NavBarOption.find({name: optionName});
     res.status(200).json(options);
   } catch (error) {
     console.error('Error fetching options:', error);

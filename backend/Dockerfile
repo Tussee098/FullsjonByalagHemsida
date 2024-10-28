@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 5000
 
 # Start the application
-CMD ["node", "index.js"]  # Change 'index.js' to your entry point file
+CMD ["node", "index.ts"]  # Change 'index.ts' to your entry point file

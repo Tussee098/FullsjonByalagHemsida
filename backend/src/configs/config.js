@@ -1,9 +1,10 @@
 import path from 'path';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-// config.js
+
+// Initial config setup
 let config = {
-  port: process.env.PORT || 5000,
+  port: +(process.env.PORT || 5000), // Convert PORT to a number
   jwtSecret: process.env.JWT_SECRET,
   dbUrl: process.env.DB_URL,
   // Add more variables as needed
@@ -18,8 +19,10 @@ const loadConfig = async () => {
     try {
       const dotenv = await import('dotenv');
       dotenv.config({ path: envPath }); // Load environment variables from .env file
+
+      // Update config after loading environment variables, ensuring port is a number
       config = {
-        port: process.env.PORT || 5000,
+        port: +(process.env.PORT || 5000), // Convert PORT to a number
         jwtSecret: process.env.JWT_SECRET,
         dbUrl: process.env.DB_URL,
         // Add more variables as needed
@@ -32,6 +35,6 @@ const loadConfig = async () => {
 
 // Call the loadConfig function
 await loadConfig();
-console.log(config)
+
 // Export the configuration
 export default config;
