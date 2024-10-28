@@ -75,7 +75,7 @@ app.use('/api', categoriesRoutes);
 
 // Example route
 app.get('/', (req, res) => {
-  res.send('Hello from the backend!');
+  res.send('Hello from the backend! You see this from app.js!');
 });
 
 // Error handling middleware
