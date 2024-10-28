@@ -95,8 +95,11 @@ app.use(express.static(browserDistFolder));
 // Serve index.html for any other requests
 app.get('*', (req, res) => {
   // Fix the sendFile path
-  res.sendFile(path.join(browserDistFolder, '/browser/index.html'));
+  res.sendFile(path.join(browserDistFolder, '/index.html'));
 });
+
+
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
