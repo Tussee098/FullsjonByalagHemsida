@@ -7,6 +7,14 @@ import authRoutes from './routes/authorization.js'
 import categoriesRoutes from './routes/categoriesRoutes.js'
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Remove this line since 'app' is already imported
+// const app = app; // This was creating a circular reference
+
+// Use absolute path with path.join
+const browserDistFolder = path.join(__dirname, '../../frontend/dist/frontend/');
 
 // Works
 const limiter = rateLimit({
@@ -31,6 +39,8 @@ const loginLimiter = rateLimit({
 
 // Apply loginLimiter to the login route
 app.use('/auth/login', loginLimiter, authRoutes); // Apply to login specifically
+
+
 
 // Middleware
 const corsOptions = {
@@ -73,9 +83,14 @@ app.use('/api/posts', postRoutes);
 app.use('/auth', authRoutes);
 app.use('/api', categoriesRoutes);
 
-// Example route
-app.get('/', (req, res) => {
-  res.send('Hello from the backend! You see this from app.js!');
+
+// Serve static files from Angular app
+app.use(express.static(browserDistFolder));
+
+// Serve index.html for any other requests
+app.get('*', (req, res) => {
+  // Fix the sendFile path
+  res.sendFile(path.join(browserDistFolder, '/browser/index.html'));
 });
 
 // Error handling middleware
