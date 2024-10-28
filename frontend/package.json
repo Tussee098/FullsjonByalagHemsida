@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "build": "ng build --prod --base-href dist/frontend/browser",
+    "build": "ng build --base-href dist/frontend/browser",
     "start": "ng serve --host 0.0.0.0 --port 8080",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
