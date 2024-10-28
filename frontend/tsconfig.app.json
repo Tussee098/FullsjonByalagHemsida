@@ -15,10 +15,5 @@
   ],
   "include": [
     "src/**/*.d.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "backend",   // <- Add this line to exclude backend folder
-    "server.ts"  // <- Exclude server.ts file explicitly if necessary
   ]
 }
