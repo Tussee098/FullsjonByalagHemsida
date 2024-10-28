@@ -19,6 +19,8 @@ const __dirname = dirname(__filename);
 // Use absolute path with path.join
 const browserDistFolder = path.join(__dirname, '../../frontend/dist/frontend/');
 
+
+app.set('trust proxy', 1); // 1 indicates a single proxy, such as Heroku
 // Works
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
