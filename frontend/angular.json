@@ -20,6 +20,7 @@
             "outputPath": "dist/frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "server": "../backend/src/server.js",
             "polyfills": [
               "zone.js"
             ],
