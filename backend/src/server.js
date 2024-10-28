@@ -32,7 +32,7 @@ mongoose.connect(DBUrl)
     // Serve index.html for any other requests
     app.get('*', (req, res) => {
       // Fix the sendFile path
-      res.sendFile(path.join(browserDistFolder, '../frontend/dist/frontend/index.html'));
+      res.sendFile(path.join(browserDistFolder, '/browser/index.html'));
     });
 
     app.listen(port, '0.0.0.0', () => { // Added '0.0.0.0' for Heroku
