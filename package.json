@@ -5,8 +5,7 @@
     "scripts": {
         "build": "npm run build --prefix frontend",
         "heroku-postbuild": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
-        "start": "node backend/src/server.js",
-        "postinstall": "npm run build"
+        "start": "node backend/src/server.js"
     },
     "cacheDirectories": [
         "node_modules",
