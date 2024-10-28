@@ -6,7 +6,8 @@
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowJs": true
+    "allowJs": true,
+    "outDir": "./dist"  // Set the output directory
   },
   "angularCompilerOptions": {
     "strictTemplates": true
