@@ -17,7 +17,7 @@ const __dirname = dirname(__filename);
 // const app = app; // This was creating a circular reference
 
 // Use absolute path with path.join
-const browserDistFolder = path.join(__dirname, '../../frontend/dist/frontend/');
+const browserDistFolder = path.join(__dirname, '../../frontend/dist/frontend/browser');
 
 
 app.set('trust proxy', 1); // 1 indicates a single proxy, such as Heroku
@@ -90,13 +90,19 @@ app.use('/api', categoriesRoutes);
 
 
 // Serve static files from Angular app
-app.use(express.static(browserDistFolder));
+app.use(express.static(browserDistFolder, {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+    }
+}
+}));
 
 // Serve index.html for any other requests
 app.get('*', (req, res) => {
   // Fix the sendFile path
-  res.setHeader('Content-Type', 'application/javascript');
-  res.sendFile(path.join(browserDistFolder, 'browser/index.html'));
+  
+  res.sendFile(path.join(browserDistFolder, 'index.html'));
 });
 
 
