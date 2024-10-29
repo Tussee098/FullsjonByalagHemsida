@@ -95,6 +95,7 @@ app.use(express.static(browserDistFolder));
 // Serve index.html for any other requests
 app.get('*', (req, res) => {
   // Fix the sendFile path
+  res.setHeader('Content-Type', 'application/javascript');
   res.sendFile(path.join(browserDistFolder, 'browser/index.html'));
 });
 
