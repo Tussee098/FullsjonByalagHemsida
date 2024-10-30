@@ -12,10 +12,8 @@ export async function getDynamicRoutes(): Promise<Routes> {
   const categoryService = new CategoryService(); // Create an instance of CategoryService
 
   try {
-    console.log("Fetching dynamic routes...");
 
     const paths = await categoryService.getAllPaths(); // Use async/await to fetch categories
-    console.log(paths)
     const routes: Routes = [
       { title: "main", path: '', component: HomePageComponent },
       { title: "login", path: 'login', component: LoginComponent },
