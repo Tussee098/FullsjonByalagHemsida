@@ -122,4 +122,8 @@ export class AdminComponent implements OnInit {
     }
 
   }
+
+  sanitizeInput() {
+    this.newOptionUrl = this.newOptionUrl.replace(/[^a-zA-Z0-9]/g, ''); // Allows only alphanumeric characters
+  }
 }

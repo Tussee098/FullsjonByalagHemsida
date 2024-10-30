@@ -29,7 +29,7 @@
       <input id="new-option-text" [(ngModel)]="newOptionText" placeholder="Enter new option..." />
 
       <label for="new-option-url">Option URL:</label>
-      <input id="new-option-url" [(ngModel)]="newOptionUrl" placeholder="Enter option URL..." />
+      <input id="new-option-url" [(ngModel)]="newOptionUrl" (keyup)="sanitizeInput()" placeholder="Enter option URL..." />
 
       <label for="new-option-category">Select Category:</label>
       <select id="new-option-category" [(ngModel)]="newOptionCategoryId">
