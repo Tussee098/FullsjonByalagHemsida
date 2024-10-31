@@ -44,12 +44,4 @@ export class ContentBoxComponent {
     return this.sanitizer.bypassSecurityTrustHtml(formattedText); // Bypass security for safe HTML
   }
 
-  moveUpInOrder(postId: string){
-    this.postService.movePostForward(postId);
-    window.location.reload();
-  }
-
-  moveDownInOrder(postId: string){
-    this.postService.movePostBackward(postId);
-  }
 }

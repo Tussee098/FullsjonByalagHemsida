@@ -53,6 +53,15 @@ router.delete('/:id', authorization, async (req, res) => {
   }
 });
 
+// Delete a post by ID
+router.delete('options/:optionid', authorization, async (req, res) => {
+  try {
+    await Post.findByIdAndDelete(req.params.id);
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting post', error });
+  }
+});
+
 // Update specific fields of a post by ID (partial update)
 router.patch('/:id', authorization, async (req, res) => {
   try {

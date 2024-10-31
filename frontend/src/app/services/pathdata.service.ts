@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../environments/environment";
+import { PostService } from "./posts.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ class CategoryService {
   private optionsCache: { [key: string]: any[] } = {}; // Cache options by categoryId
   private lastCacheTime: number = 0;
   private cacheExpiry = 10 * 60 * 1000; // 10 minutes in milliseconds
+
+  constructor(private postService: PostService){};
 
   private async fetchWithCache<T>(url: string): Promise<T> {
     const response = await fetch(url);
@@ -184,6 +187,9 @@ class CategoryService {
   // Add an option under a category
   async addOption(optionName: string, optionUrl: string, categoryId: string) {
     const token = localStorage.getItem('token');
+    if(optionUrl == ''){
+      optionUrl = optionName.replace(/[^a-zA-Z0-9-_]/g, '').replace(/\s+/g, '-');
+    }
     const response = await fetch(`${this.BASE_URL}/options`, {
       method: 'POST',
       headers: {
@@ -207,7 +213,11 @@ class CategoryService {
       },
     });
     if (!response.ok) throw new Error('Failed to delete option');
+    console.log("Clearing cache")
     this.clearCache(); // Clear cache after deleting a category
+    await this.postService.deletePostsByOptionId(optionId); // Ensure PostService is injected in the constructor
+
+
     return await response.json();
   }
 

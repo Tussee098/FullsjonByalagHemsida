@@ -139,43 +139,16 @@ export class PostService {
     }
   }
 
-  // Move Post Forward
-  async movePostForward(postId: string): Promise<any> {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`${this.baseUrl}/${postId}/move-forward`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    });
 
-    if (response.ok) {
-      this.clearCache('all');
-      return response.json();
-    } else {
-      console.error('Error moving post forward:', response.statusText);
-      return null;
-    }
+    // Delete all posts by optionId
+  async deletePostsByOptionId(optionId: string): Promise<void> {
+    const posts = await this.fetchPosts(optionId); // Fetch posts by optionId
+    const deletionPromises = posts.map(post => this.deletePost(post.id)); // Map delete requests for each post
+    console.log("deleting all with options id")
+    console.log(optionId)
+    await Promise.all(deletionPromises); // Wait for all delete requests to complete
+    this.clearCache(optionId); // Clear cache for this optionId
+    this.clearCache('all'); // Optionally, clear 'all' cache if needed
   }
 
-  // Move Post Backward
-  async movePostBackward(postId: string): Promise<any> {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`${this.baseUrl}/${postId}/move-backward`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    });
-
-    if (response.ok) {
-      this.clearCache('all');
-      return response.json();
-    } else {
-      console.error('Error moving post backward:', response.statusText);
-      return null;
-    }
-  }
 }
