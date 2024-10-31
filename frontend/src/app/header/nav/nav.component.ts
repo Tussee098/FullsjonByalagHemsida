@@ -92,7 +92,7 @@ export class NavComponent implements OnInit {
 
             // 3. Update the list to remove the deleted category
             this.list = this.list.filter(category => category.categoryId !== categoryId);
-            this.router.navigate(['']);
+            window.location.reload();
           }).catch(error => {
             console.error(`Error deleting category with id: ${categoryId}`, error);
           });
@@ -111,7 +111,7 @@ export class NavComponent implements OnInit {
     const confirmed = window.confirm('Are you sure you want to delete this category?');
     if (confirmed) {
       this.categoryService.deleteOption(optionId);
-      this.router.navigate(['']);
+      window.location.reload();
     }
 
   }

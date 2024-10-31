@@ -58,7 +58,7 @@ export class ContentAreaComponent {
   }
 
   async onPostDeleted() {
-    await this.loadPosts();
+    await window.location.reload();
   }
 
   async submitPost(inputTitle: string, inputText: string): Promise<void> {
