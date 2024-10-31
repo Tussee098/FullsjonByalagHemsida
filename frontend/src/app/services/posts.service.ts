@@ -142,10 +142,10 @@ export class PostService {
 
     // Delete all posts by optionId
   async deletePostsByOptionId(optionId: string): Promise<void> {
+
     const posts = await this.fetchPosts(optionId); // Fetch posts by optionId
-    const deletionPromises = posts.map(post => this.deletePost(post.id)); // Map delete requests for each post
-    console.log("deleting all with options id")
-    console.log(optionId)
+    const deletionPromises = posts.map(post => this.deletePost(post._id)); // Map delete requests for each post
+
     await Promise.all(deletionPromises); // Wait for all delete requests to complete
     this.clearCache(optionId); // Clear cache for this optionId
     this.clearCache('all'); // Optionally, clear 'all' cache if needed
