@@ -16,8 +16,7 @@ export async function getDynamicRoutes(): Promise<Routes> {
 
     const paths = await categoryService.getAllPaths(); // Use async/await to fetch categories
     const routes: Routes = [
-      { title: "main", path: '', component: HomePageComponent },
-      { title: "main", path: '**', component: HomePageComponent },
+      { title: "Fullsjön", path: '', component: HomePageComponent },
       { title: "login", path: 'login', component: LoginComponent },
       { title: "admin", path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
       // { path: '**', component: NormalPage, title: "main" } // You can uncomment this if needed
@@ -27,7 +26,7 @@ export async function getDynamicRoutes(): Promise<Routes> {
     paths.forEach(path => {
       routes.push({title: path.name, path: path.path, component: NormalPage, data: {id: path._id}})
     });
-
+    routes.push({ title: "Fullsjön", path: '**', component: HomePageComponent,})
     console.log('Generated routes:', routes);
 
     return routes; // Resolve the promise with the generated routes
