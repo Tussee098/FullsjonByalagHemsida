@@ -5,6 +5,7 @@ import { RouterLink , Router} from '@angular/router';
 import { CategoryWithOptions } from '../../models/dropdownCategories';
 import CategoryService from '../../services/pathdata.service';
 import { AuthService } from '../../services/authService';
+import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 interface Item {
   title: string; // Ensure this matches the JSON structure
@@ -23,7 +24,7 @@ interface DropdownItem {
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [NgFor, NgIf, RouterLink],
+  imports: [NgFor, NgIf, RouterLink, CdkDropList, CdkDrag],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
@@ -32,6 +33,7 @@ export class NavComponent implements OnInit {
   list: DropdownItem[] = [];
   loggedIn = false;
   loading = true;
+  hasChanged = false;
 
 
   constructor(private dropdownService: DropdownService, private cdr: ChangeDetectorRef, private router: Router, private categoryService: CategoryService, private authService: AuthService) {}
@@ -53,6 +55,19 @@ export class NavComponent implements OnInit {
 
   }
 
+  // Drag and Drop event handler
+  drop(event: CdkDragDrop<DropdownItem[]>) {
+    this.hasChanged = true;
+    moveItemInArray(this.list, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.categoriesWithOptions, event.previousIndex, event.currentIndex);  // optional if you need this synced
+  }
+
+  // Save the order to the database (We'll implement this part later)
+  /*async saveOrder() {
+    const newOrder = this.categoriesWithOptions.map((post, index) => ({ id: post._id, order: index }));
+    await this.postService.updatePostsOrder(newOrder, this.id);
+    window.location.reload();
+  }*/
 
   convertToDropdownItems(categoriesWithOptions: any[]): DropdownItem[] {
     return categoriesWithOptions.map(category => ({

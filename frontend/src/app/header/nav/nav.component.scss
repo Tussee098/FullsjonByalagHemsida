@@ -85,3 +85,7 @@
   background-color: white; /* White background on hover */
   color: gray; /* Gray text on hover */
 }
+
+.cdk-drag-preview {
+  display: none !important; /* Hides the ghost preview completely */
+}

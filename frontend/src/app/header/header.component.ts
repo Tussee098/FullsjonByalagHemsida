@@ -29,7 +29,7 @@ export class HeaderComponent {
 
   logout(){
     this.authService.logout();
-    this.router.navigate(['/']);
+    window.location.reload();
   }
 
   admin(){
