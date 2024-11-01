@@ -25,19 +25,21 @@
   <div class="new-option">
     <button (click)="toggleNewOptionInput()">Add New Option</button>
     <div *ngIf="showNewOptionInput" class="input-group">
+    <label for="new-option-category">Select Category:</label>
+      <select id="new-option-category" [(ngModel)]="newOptionCategoryId">
+        <option value="" disabled selected>Select a category</option>
+        <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
+      </select>
       <label for="new-option-text">New Option Name:</label>
       <input id="new-option-text" [(ngModel)]="newOptionText" placeholder="Enter new option..." />
 
       <label for="new-option-url">Option URL:</label>
       <input id="new-option-url" [(ngModel)]="newOptionUrl" (keyup)="sanitizeInput()" placeholder="Enter option URL..." />
 
-      <label for="new-option-category">Select Category:</label>
-      <select id="new-option-category" [(ngModel)]="newOptionCategoryId">
-        <option value="" disabled selected>Select a category</option>
-        <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
-      </select>
 
-      <button (click)="submitNewOption()">Submit Option</button>
+
+
+      <button class="submitButton" (click)="submitNewOption()">Submit Option</button>
     </div>
   </div>
 
@@ -45,21 +47,24 @@
   <div class="new-category">
     <button (click)="toggleNewCategoryInput()">Add New Category</button>
     <div *ngIf="showNewCategoryInput" class="input-group">
+    <label for="edit-category">New category Name:</label>
       <input [(ngModel)]="newCategoryText" placeholder="Enter new category..." />
-      <button (click)="submitNewCategory()">Submit Category</button>
+      <button class="submitButton" (click)="submitNewCategory()">Submit Category</button>
     </div>
   </div>
 
   <div class="edit-category">
-    <button (click)="toggleEditCategory()">Add New Category</button>
+    <button (click)="toggleEditCategory()">Edit a Category</button>
     <div *ngIf="showEditCategoryInput" class="input-group">
-
-      <input [(ngModel)]="editedCategoryText" placeholder="Enter new name for category..." />
+      <label for="edit-category">Select Category:</label>
       <select id="edit-category-selection" [(ngModel)]="editCategoryId">
         <option value="" disabled selected>Select a category</option>
         <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
       </select>
-      <button (click)="submitEditCategory()">Save Changes</button>
+      <label for="edit-category">New category Name:</label>
+      <input [(ngModel)]="editedCategoryText" placeholder="Enter new name for category..." />
+
+      <button class="submitButton" (click)="submitEditCategory()">Save Changes</button>
     </div>
   </div>
 </div>

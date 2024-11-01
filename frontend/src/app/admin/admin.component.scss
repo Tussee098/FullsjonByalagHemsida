@@ -36,6 +36,7 @@ h1 {
 
   // Individual button/input sections
   .new-option,
+  .edit-category,
   .new-category {
     display: flex;
     flex-direction: column; // Stack button and input vertically
@@ -53,6 +54,10 @@ h1 {
       &:hover {
         background-color: #0056b3; // Darker blue on hover
       }
+    }
+    .submitButton {
+      background-color: #088026; // Bootstrap primary color
+      color: white;
     }
 
     // Input group for new option/category

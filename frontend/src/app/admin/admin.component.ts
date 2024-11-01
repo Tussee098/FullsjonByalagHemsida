@@ -88,14 +88,26 @@ export class AdminComponent implements OnInit {
   // Functions to toggle the visibility of input fields
   toggleNewOptionInput() {
     this.showNewOptionInput = !this.showNewOptionInput;
+    if(this.showNewOptionInput == true){
+      this.showEditCategoryInput = false;
+      this.showNewCategoryInput= false;
+    }
   }
 
   toggleNewCategoryInput() {
     this.showNewCategoryInput = !this.showNewCategoryInput;
+    if(this.showNewCategoryInput == true){
+      this.showEditCategoryInput = false;
+      this.showNewOptionInput= false;
+    }
   }
 
   toggleEditCategory(){
-    this.showEditCategoryInput = true;
+    this.showEditCategoryInput = !this.showEditCategoryInput;
+    if(this.showEditCategoryInput == true){
+      this.showNewCategoryInput = false;
+      this.showNewOptionInput= false;
+    }
   }
 
   // Submit the new option
