@@ -49,4 +49,17 @@
       <button (click)="submitNewCategory()">Submit Category</button>
     </div>
   </div>
+
+  <div class="edit-category">
+    <button (click)="toggleEditCategory()">Add New Category</button>
+    <div *ngIf="showEditCategoryInput" class="input-group">
+
+      <input [(ngModel)]="editedCategoryText" placeholder="Enter new name for category..." />
+      <select id="edit-category-selection" [(ngModel)]="editCategoryId">
+        <option value="" disabled selected>Select a category</option>
+        <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
+      </select>
+      <button (click)="submitEditCategory()">Save Changes</button>
+    </div>
+  </div>
 </div>

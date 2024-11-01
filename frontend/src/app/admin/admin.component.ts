@@ -22,16 +22,19 @@ export class AdminComponent implements OnInit {
   categories: any[] = [];
   selectedCategory: string = '';
   selectedOptionId: string = '';
+  editCategoryId: string = '';
 
   // Variables to manage the visibility of input fields
   showNewOptionInput: boolean = false;
   showNewCategoryInput: boolean = false;
+  showEditCategoryInput: boolean = false;
 
   // Variables to hold new category and option text
   newOptionText: string = '';
   newOptionUrl: string = '';
   newOptionCategoryId: string = '';
   newCategoryText: string = '';
+  editedCategoryText: string = '';
 
   constructor(private postService: PostService, private categoryService: CategoryService) {} // Inject PostService
 
@@ -91,6 +94,10 @@ export class AdminComponent implements OnInit {
     this.showNewCategoryInput = !this.showNewCategoryInput;
   }
 
+  toggleEditCategory(){
+    this.showEditCategoryInput = true;
+  }
+
   // Submit the new option
   async submitNewOption() {
     if (!this.newOptionText) {
@@ -123,7 +130,23 @@ export class AdminComponent implements OnInit {
 
   }
 
+  // Submit the new option
+  async submitEditCategory() {
+    if (!this.editedCategoryText) {
+      console.error("No new name provided");
+      return;
+    }
+    const editedCategory = await this.categoryService.editCategoryName(this.editedCategoryText, this.editCategoryId); // Use service to submit new option
+    if (editedCategory) {
+      this.editedCategoryText = ''; // Reset input
+      this.showEditCategoryInput = false; // Hide input field
+      window.location.reload();
+    }
+  }
+
   sanitizeInput() {
     this.newOptionUrl = this.newOptionUrl.replace(/[^a-zA-Z0-9]/g, ''); // Allows only alphanumeric characters
   }
+
+
 }

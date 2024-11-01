@@ -7,6 +7,7 @@ import { PostService } from "./posts.service";
 })
 class CategoryService {
 
+
   BASE_URL = environment.apiUrl; // Replace with your actual backend URL
 
   // In-memory cache
@@ -194,7 +195,34 @@ class CategoryService {
     return await response.json();
   }
 
+  async editCategoryName(editedCategoryText: string, editCategoryId: string): Promise<any> {
+    const token = localStorage.getItem('token'); // Retrieve token for authentication
+    const payload = {
+      name: editedCategoryText // The new name for the category
+    };
 
+    try {
+      const response = await fetch(`${this.BASE_URL}/categories/${editCategoryId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Include the token for authorization
+        },
+        body: JSON.stringify(payload) // Send the new name as part of the request body
+      });
+
+      if (response.ok) {
+        const updatedCategory = await response.json(); // Parse the JSON response
+        return updatedCategory; // Return the updated category
+      } else {
+        console.error('Error updating category:', response.statusText);
+        throw new Error(`Error updating category: ${response.statusText}`); // Throw an error if the update fails
+      }
+    } catch (error) {
+      console.error('Error in editCategoryName:', error);
+      throw error; // Propagate the error for further handling if needed
+    }
+  }
 
 }
 
