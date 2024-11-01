@@ -3,9 +3,33 @@
     <p>Loading navbar...</p>
   </div>
 
-  <ul *ngIf="!loading" class="listContainer" cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListOrientation="horizontal">
-    <!-- Each category list item should be draggable -->
+  <!-- Admin-only: Draggable List -->
+  <ul *ngIf="!loading && loggedIn" class="listContainer" cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListOrientation="horizontal">
     <li *ngFor="let category of list; let i = index" class="listItem" cdkDrag>
+      <div class="categoryHeader">
+        <a class="listText">{{ category.category }}</a>
+
+        <!-- Delete button if logged in -->
+        <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteCategory(category.categoryId)">X</button>
+      </div>
+
+      <!-- Options under the category -->
+      <ul class="hoverList">
+        <li *ngFor="let option of category.items" class="hoverListItem">
+          <div class="optionHeader">
+            <a class="hoverListText" [routerLink]="'/' + option.path">
+              {{ option.title }}
+            </a>
+            <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteOption(option.optionId)">X</button>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <!-- Non-admin: Static List -->
+  <ul *ngIf="!loading && !loggedIn" class="listContainer">
+    <li *ngFor="let category of list; let i = index" class="listItem">
       <div class="categoryHeader">
         <a class="listText">{{ category.category }}</a>
 
