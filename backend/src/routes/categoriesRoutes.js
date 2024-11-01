@@ -114,6 +114,28 @@ router.delete('/options/:id', authorization, async (req, res) => {
   }
 });
 
+// PUT - Update category name
+router.put('/categories/:id', authorization, async (req, res) => {
+  const categoryId = req.params.id;
+  const { name } = req.body; // New name for the category
+
+  try {
+    const updatedCategory = await NavBarCategory.findByIdAndUpdate(
+      categoryId,
+      { name },
+      { new: true } // Return the updated category
+    );
+
+    if (!updatedCategory) {
+      return res.status(404).json({ message: 'Category not found' });
+    }
+
+    res.status(200).json(updatedCategory); // Send the updated category
+  } catch (error) {
+    console.error('Error updating category:', error);
+    res.status(500).json({ error: 'Failed to update category' });
+  }
+});
 
 router.put('/categories/order', async (req, res) => {
   try {
