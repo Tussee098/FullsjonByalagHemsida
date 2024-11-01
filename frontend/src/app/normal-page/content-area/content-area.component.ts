@@ -6,13 +6,13 @@ import { NgFor, NgIf, CommonModule } from '@angular/common';
 import { ContentBoxComponent } from './content-box/content-box.component';
 import CategoryService from '../../services/pathdata.service';
 import { FormsModule } from '@angular/forms';
-import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 
 @Component({
   selector: 'app-content-area',
   standalone: true,
-  imports: [NgFor, NgIf, ContentBoxComponent, FormsModule, CdkDropList, CdkDrag], // Include CDK modules
+  imports: [NgFor, NgIf, ContentBoxComponent, FormsModule, CdkDropList, CdkDrag, CdkDragHandle], // Include CDK modules
   templateUrl: './content-area.component.html',
   styleUrl: './content-area.component.scss'
 })

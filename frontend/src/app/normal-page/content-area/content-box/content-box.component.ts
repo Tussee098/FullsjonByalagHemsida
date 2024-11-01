@@ -2,13 +2,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { PostService } from '../../../services/posts.service'; // Import the PostService
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-content-box',
   standalone: true,
   templateUrl: './content-box.component.html',
   styleUrls: ['./content-box.component.scss'],
-  imports: [NgIf]
+  imports: [FormsModule, NgIf, CdkDropList, CdkDrag, CdkDragHandle]
 })
 export class ContentBoxComponent {
   @Input() _id: string = '';
@@ -17,17 +19,48 @@ export class ContentBoxComponent {
   @Input() author: string = '';
   @Input() isAdmin: boolean = false;  // Input to check if the user is admin
 
+  editedTitle: string;
+  editedText: string;
+  isEditing: boolean = false; // Flag to toggle edit mode
+
 
   @Output() postDeleted: EventEmitter<void> = new EventEmitter();
 
-  constructor(private postService: PostService, private sanitizer: DomSanitizer) {} // Inject PostService
+  constructor(private postService: PostService, private sanitizer: DomSanitizer) {
+    this.editedTitle = this.title;
+    this.editedText = this.text;
+  } // Inject PostService
 
 
 
   // Function to handle edit
   editPost() {
     console.log('Editing post:', this.text);
-    // Add edit logic here
+    this.isEditing = true; // Show the edit form
+    // Initialize the edited fields with the current values
+    this.editedTitle = this.title;
+    this.editedText = this.text;
+  }
+
+  submitEdit() {
+    console.log('Submitting edited post:', {
+      title: this.editedTitle,
+      text: this.editedText
+    });
+
+    // You can call a service method here to save the changes
+    // Example:
+    // this.postService.updatePost(this._id, this.editedTitle, this.editedText).subscribe(response => {
+    //   console.log('Post updated successfully', response);
+    //   this.title = this.editedTitle; // Update the local title
+    //   this.text = this.editedText;   // Update the local text
+    //   this.isEditing = false;         // Hide the edit form
+    // });
+
+    // For now, let's just simulate the update
+    this.title = this.editedTitle; // Update the local title
+    this.text = this.editedText;   // Update the local text
+    this.isEditing = false;         // Hide the edit form
   }
 
   // Function to handle delete

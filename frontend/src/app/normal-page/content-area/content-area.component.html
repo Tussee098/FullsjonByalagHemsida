@@ -16,16 +16,19 @@
   <!-- Conditionally apply cdkDropList only if user is admin -->
   <button *ngIf="hasChanged && isAdmin" (click)="saveOrder()">Uppdatera ordningen</button>
   <div *ngIf="isAdmin; else normalList" cdkDropList (cdkDropListDropped)="drop($event)">
+
     <!-- Loop through posts with drag functionality for admin -->
+
     <app-content-box
+
       *ngFor="let post of posts"
       [_id]="post._id"
       [title]="post.title"
       [text]="post.text"
       [author]="post.author"
       [isAdmin]="isAdmin"
-      cdkDrag
       (postDeleted)="onPostDeleted()">
+
     </app-content-box>
   </div>
 
