@@ -14,6 +14,7 @@ import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray, CdkDragHandle } fro
 })
 export class ContentBoxComponent {
   @Input() _id: string = '';
+  @Input() optionId: string = '';
   @Input() title: string = '';
   @Input() text: string = '';
   @Input() author: string = '';
@@ -49,7 +50,7 @@ export class ContentBoxComponent {
     });
 
     try {
-      const response = await this.postService.editPost(this._id, this.editedTitle, this.editedText);
+      const response = await this.postService.editPost(this._id, this.editedTitle, this.editedText, this.optionId);
       if (response) {
           // Update the local title and text if the post was updated successfully
           this.title = this.editedTitle;
@@ -67,7 +68,7 @@ export class ContentBoxComponent {
 
   // Function to handle delete
   async deletePost(postId: string): Promise<void> {
-    const deleted = await this.postService.deletePost(postId); // Use service to delete post
+    const deleted = await this.postService.deletePost(postId, this.optionId); // Use service to delete post
     if (deleted) {
       this.postDeleted.emit();
     }

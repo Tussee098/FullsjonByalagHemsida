@@ -54,7 +54,7 @@ export class PostService {
 
 
   // post.service.ts (or your service file)
-  async editPost(postId: string, title: string, text: string): Promise<any> {
+  async editPost(postId: string, title: string, text: string, optionId: string): Promise<any> {
     const token = localStorage.getItem('token');
     const response = await fetch(`${this.baseUrl}/${postId}`, { // Include postId in the URL
         method: 'PATCH',
@@ -66,7 +66,7 @@ export class PostService {
     });
 
     if (response.ok) {
-        this.clearCache('all'); // Clear cache for 'all' posts or specific category if needed
+        this.clearCache(optionId);
         return response.json();
     } else {
         console.error('Error saving post:', response.statusText);
@@ -88,7 +88,6 @@ export class PostService {
     });
 
     if (response.ok) {
-      this.clearCache('all'); // Clear cache to ensure new data is fetched
       this.clearCache(optionId); // Clear specific category cache
       return response.json();
     } else {
@@ -98,7 +97,7 @@ export class PostService {
   }
 
   // Delete Post
-  async deletePost(postId: string): Promise<boolean> {
+  async deletePost(postId: string, optionId: string): Promise<boolean> {
     const token = localStorage.getItem('token');
     const response = await fetch(`${this.baseUrl}/${postId}`, {
       method: 'DELETE',
@@ -108,7 +107,7 @@ export class PostService {
     });
 
     if (response.ok) {
-      this.clearCache('all');
+      this.clearCache(optionId);
       return true;
     } else {
       console.error('Error deleting post:', response.statusText);
@@ -129,7 +128,6 @@ export class PostService {
     });
 
     if (response.ok) {
-      this.clearCache('all');
       this.clearCache(optionId);
       return response.json();
     } else {
@@ -143,11 +141,10 @@ export class PostService {
   async deletePostsByOptionId(optionId: string): Promise<void> {
 
     const posts = await this.fetchPosts(optionId); // Fetch posts by optionId
-    const deletionPromises = posts.map(post => this.deletePost(post._id)); // Map delete requests for each post
+    const deletionPromises = posts.map(post => this.deletePost(post._id, optionId)); // Map delete requests for each post
 
     await Promise.all(deletionPromises); // Wait for all delete requests to complete
     this.clearCache(optionId); // Clear cache for this optionId
-    this.clearCache('all'); // Optionally, clear 'all' cache if needed
   }
 
   // Clear cache for affected optionId

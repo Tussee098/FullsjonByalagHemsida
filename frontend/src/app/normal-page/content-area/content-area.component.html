@@ -22,6 +22,7 @@
     <app-content-box
 
       *ngFor="let post of posts"
+      [optionId]="id"
       [_id]="post._id"
       [title]="post.title"
       [text]="post.text"
