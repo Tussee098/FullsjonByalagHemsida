@@ -71,12 +71,6 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  async deletePost(postId: string): Promise<void> {
-    const deleted = await this.postService.deletePost(postId); // Use service to delete post
-    if (deleted) {
-      this.posts = this.posts.filter(post => post._id !== postId);
-    }
-  }
 
   getFilteredOptions() {
     if (!this.selectedCategory) {
