@@ -23,8 +23,6 @@ export class HeaderComponent {
   async ngOnInit() {
     this.loggedIn = await this.authService.isLoggedIn(); // Use await to handle the promise
     this.loading = false;
-    console.log("Header")
-    console.log(this.loggedIn); // Log the status
   }
 
   logout(){

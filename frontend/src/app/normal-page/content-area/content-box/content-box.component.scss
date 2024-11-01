@@ -54,4 +54,49 @@
     position:absolute;
     right: 5%;
   }
+
+  .edit-form {
+    background-color: #f9f9f9; // Light background for the form
+    border: 1px solid #ddd;    // Subtle border around the form
+    border-radius: 4px;        // Rounded corners
+    padding: 20px;             // Padding around the content
+    margin-top: 15px;          // Space above the form
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Soft shadow for depth
+
+    // Input field styles
+    input, textarea {
+      width: 100%;             // Full width
+      padding: 10px;          // Padding inside the fields
+      border: 1px solid #ccc; // Light gray border
+      border-radius: 4px;     // Rounded corners
+      font-size: 1rem;        // Base font size
+      margin-bottom: 15px;    // Space below each field
+      transition: border-color 0.2s; // Smooth transition for border color
+      resize: vertical;
+
+      &:focus {
+        border-color: #007bff; // Change border color on focus
+        outline: none;          // Remove outline
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); // Subtle shadow on focus
+      }
+
+    }
+
+    // Button styles
+    button {
+      background-color: #007bff; // Bootstrap primary color
+      color: white;              // White text
+      border: none;              // No border
+      border-radius: 4px;       // Rounded corners
+      padding: 10px 15px;       // Padding inside the button
+      cursor: pointer;           // Pointer cursor
+      font-size: 1rem;          // Base font size
+      transition: background-color 0.2s; // Smooth transition for background color
+
+      &:hover {
+        background-color: #0056b3; // Darker blue on hover
+      }
+    }
+  }
+
 }

@@ -6,6 +6,7 @@ import { environment } from '../environments/environment';
   providedIn: 'root', // This makes the service available application-wide
 })
 export class PostService {
+
   private baseUrl = environment.baseUrl;
   private cache: { [optionId: string]: { data: any[]; timestamp: number } } = {}; // Cache store
   private cacheDuration = 10 * 60 * 1000; // Cache expiration time in milliseconds (e.g., 10 minutes)
@@ -50,31 +51,29 @@ export class PostService {
     }
   }
 
-  // Clear cache for affected optionId
-  private clearCache(optionId: string) {
-    delete this.cache[optionId];
-  }
 
-  // Edit Post
-  async editPost(title: string, text: string): Promise<any> {
+
+  // post.service.ts (or your service file)
+  async editPost(postId: string, title: string, text: string): Promise<any> {
     const token = localStorage.getItem('token');
-    const response = await fetch(this.baseUrl, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ title, text }),
+    const response = await fetch(`${this.baseUrl}/${postId}`, { // Include postId in the URL
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ title, text }),
     });
 
     if (response.ok) {
-      this.clearCache('all'); // Clear cache for 'all' posts or specific category if needed
-      return response.json();
+        this.clearCache('all'); // Clear cache for 'all' posts or specific category if needed
+        return response.json();
     } else {
-      console.error('Error saving post:', response.statusText);
-      return null;
+        console.error('Error saving post:', response.statusText);
+        return null; // Return null if the update failed
     }
   }
+
 
   // Submit Post
   async submitPost(title: string, text: string, optionId: string, author: string = 'John Doe'): Promise<any> {
@@ -149,6 +148,19 @@ export class PostService {
     await Promise.all(deletionPromises); // Wait for all delete requests to complete
     this.clearCache(optionId); // Clear cache for this optionId
     this.clearCache('all'); // Optionally, clear 'all' cache if needed
+  }
+
+  // Clear cache for affected optionId
+  private clearCache(optionId: string) {
+    if (optionId === 'all') {
+      // Clear the entire cache
+      this.cache = {};
+      console.log('All cache cleared');
+  } else {
+      // Clear the specific entry in the cache
+      delete this.cache[optionId];
+      console.log(`Cache for ${optionId} cleared`);
+  }
   }
 
 }

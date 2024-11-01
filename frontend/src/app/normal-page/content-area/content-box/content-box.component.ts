@@ -36,31 +36,33 @@ export class ContentBoxComponent {
   // Function to handle edit
   editPost() {
     console.log('Editing post:', this.text);
-    this.isEditing = true; // Show the edit form
+    this.isEditing = !this.isEditing; // Show the edit form
     // Initialize the edited fields with the current values
     this.editedTitle = this.title;
     this.editedText = this.text;
   }
 
-  submitEdit() {
+  async submitEdit() {
     console.log('Submitting edited post:', {
       title: this.editedTitle,
       text: this.editedText
     });
 
-    // You can call a service method here to save the changes
-    // Example:
-    // this.postService.updatePost(this._id, this.editedTitle, this.editedText).subscribe(response => {
-    //   console.log('Post updated successfully', response);
-    //   this.title = this.editedTitle; // Update the local title
-    //   this.text = this.editedText;   // Update the local text
-    //   this.isEditing = false;         // Hide the edit form
-    // });
-
-    // For now, let's just simulate the update
-    this.title = this.editedTitle; // Update the local title
-    this.text = this.editedText;   // Update the local text
-    this.isEditing = false;         // Hide the edit form
+    try {
+      const response = await this.postService.editPost(this._id, this.editedTitle, this.editedText);
+      if (response) {
+          // Update the local title and text if the post was updated successfully
+          this.title = this.editedTitle;
+          this.text = this.editedText;
+          this.isEditing = false;         // Hide the edit form
+      } else {
+          console.error('Failed to update the post. Please try again.');
+          // Optionally show an error message to the user
+      }
+    } catch (error) {
+        console.error('An error occurred while updating the post:', error);
+        // Optionally show an error message to the user
+    }
   }
 
   // Function to handle delete

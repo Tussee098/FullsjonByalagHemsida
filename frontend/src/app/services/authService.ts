@@ -26,8 +26,6 @@ export class AuthService {
     if (!token) return false;
     try {
       const response: any = await firstValueFrom(this.http.post(`${this.apiUrl}/validate-token`, { token }));
-      console.log("response.isValid")
-      console.log(response.isValid)
       return response.isValid; // Return the result from the server
     } catch (error) {
       return false; // If there's an error, assume the token is invalid

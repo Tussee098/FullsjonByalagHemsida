@@ -17,7 +17,7 @@
 
   <!-- Edit form -->
   <div *ngIf="isEditing" class="edit-form">
-    <input [(ngModel)]="editedTitle" placeholder="Edit Title" />
+    <textarea [(ngModel)]="editedTitle" placeholder="Edit Title"></textarea>
     <textarea [(ngModel)]="editedText" placeholder="Edit Text"></textarea>
     <button (click)="submitEdit()">Submit</button>
   </div>
