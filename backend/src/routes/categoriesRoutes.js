@@ -9,7 +9,7 @@ const router = express.Router();
 // GET all categories
 router.get('/categories', async (req, res) => {
   try {
-    const categories = await NavBarCategory.find();
+    const categories = await NavBarCategory.find().sort({order:1});
     res.status(200).json(categories);
   } catch (error) {
     console.error('Error fetching categories:', error);
@@ -111,6 +111,24 @@ router.delete('/options/:id', authorization, async (req, res) => {
   } catch (error) {
     console.error('Error deleting option:', error);
     res.status(500).json({ error: 'Failed to delete option' });
+  }
+});
+
+
+router.put('/categories/order', async (req, res) => {
+  try {
+    console.log("recorderCategories")
+    const reorderedCategories = req.body; // Expecting [{ categoryId: '1', order: 0 }, { categoryId: '2', order: 1 }, ...]
+    console.log(reorderedCategories)
+    for (const { categoryId, order } of reorderedCategories) {
+      // Logic to update the category order in your database
+      await NavBarCategory.updateOne({ _id: categoryId }, { order: order });
+    }
+
+    res.status(200).send({ message: 'Category order updated successfully' });
+  } catch (error) {
+    console.error('Error updating category order:', error);
+    res.status(500).send({ message: 'Error updating category order' });
   }
 });
 

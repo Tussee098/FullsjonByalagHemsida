@@ -6,11 +6,16 @@ import { CategoryWithOptions, Option } from './../models/dropdownCategories';
   providedIn: 'root',
 })
 export class DropdownService {
+
   private categoryOptionsCache: CategoryWithOptions[] | null = null;
   private cacheExpiry = 10 * 60 * 1000; // Cache expiry time: 10 minutes (in milliseconds)
   private lastCacheTime: number = 0;
 
   constructor(private categoryService: CategoryService) {}
+
+
+
+
 
   // Method to fetch categories with options and use caching
   async getCategoriesWithOptions(): Promise<CategoryWithOptions[]> {

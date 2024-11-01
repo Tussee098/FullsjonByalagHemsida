@@ -26,7 +26,7 @@
       </ul>
     </li>
   </ul>
-
+  <button *ngIf="hasChanged" class="updateBtn" (click)="saveOrder()">Uppdatera Ordningen</button>
   <!-- Non-admin: Static List -->
   <ul *ngIf="!loading && !loggedIn" class="listContainer">
     <li *ngFor="let category of list; let i = index" class="listItem">

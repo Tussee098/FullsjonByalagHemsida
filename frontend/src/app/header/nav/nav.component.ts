@@ -62,12 +62,25 @@ export class NavComponent implements OnInit {
     moveItemInArray(this.categoriesWithOptions, event.previousIndex, event.currentIndex);  // optional if you need this synced
   }
 
-  // Save the order to the database (We'll implement this part later)
-  /*async saveOrder() {
-    const newOrder = this.categoriesWithOptions.map((post, index) => ({ id: post._id, order: index }));
-    await this.postService.updatePostsOrder(newOrder, this.id);
-    window.location.reload();
-  }*/
+  async saveOrder() {
+    // Prepare the reordered list with only category IDs and their new order index
+    const reorderedCategories = this.list.map((category, index) => ({
+      categoryId: category.categoryId,
+      order: index
+    }));
+
+    try {
+      // Call the updateCategoryOrder function from your service, passing the reordered list
+      await this.categoryService.updateCategoryOrder(reorderedCategories);
+      this.hasChanged = false;
+      console.log("Category order saved successfully");
+      // Optionally, you can set a flag or show a message to indicate success
+    } catch (error) {
+      console.error("Error saving category order:", error);
+      // Optionally, handle the error, e.g., show an error message to the user
+    }
+  }
+
 
   convertToDropdownItems(categoriesWithOptions: any[]): DropdownItem[] {
     return categoriesWithOptions.map(category => ({

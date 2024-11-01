@@ -76,54 +76,27 @@ class CategoryService {
   // Other methods for adding, deleting categories and options (unchanged)...
 
 
-  // Fetch all categories
-  /*async getAllPaths() {
-    try {
-      // Step 1: Fetch all categories
-      const categoriesResponse = await fetch(`${this.BASE_URL}/categories`);
-      if (!categoriesResponse.ok) throw new Error('Failed to fetch categories');
-      const categories = await categoriesResponse.json(); // Categories list
+  async updateCategoryOrder(reorderedCategories: { categoryId: string; order: number; }[]): Promise<any> {
+    const token = localStorage.getItem('token'); // Retrieve token from local storage
+    const response = await fetch(`${this.BASE_URL}/categories/order`, { // Update with your actual endpoint
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(reorderedCategories) // Send the reordered categories
+    });
 
-      // Step 2: Initialize an array to store all options
-      const allOptions: any[] = [];
-
-      // Step 3: Iterate over each category and fetch its options
-      for (const category of categories) {
-
-        // Fetch options for each category by category name or ID (depending on your API)
-        const optionsResponse = await this.getOptionsByCategoryId(category._id)
-
-        // Add all options to the allOptions array
-        allOptions.push(...optionsResponse);
-      }
-      console.log(allOptions)
-      // Step 4: Return all options
-      return allOptions;
-
-    } catch (error) {
-      console.error('Error in getAllPaths:', error);
-      throw error; // Rethrow the error so it can be handled further up the call chain
+    if (response.ok) {
+      // Optionally clear cache if necessary (depending on your application logic)
+      this.clearCache(); // Modify this as needed for your cache strategy
+      return response.json(); // Return the JSON response from the server
+    } else {
+      console.error('Error updating category order:', response.statusText);
+      return null; // Return null or handle the error as needed
     }
   }
 
-  async getAllCategories() {
-    try {
-      const categoriesResponse = await fetch(`${this.BASE_URL}/categories`);
-
-      // Check if the response is ok (status code 200-299)
-      if (!categoriesResponse.ok) {
-        throw new Error(`Error: ${categoriesResponse.status}`);
-      }
-
-      // Parse the response as JSON
-      const categories = await categoriesResponse.json();
-
-      // Return the parsed JSON data
-      return categories;
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    }
-  }*/
 
   // Fetch all options for a specific category
   async getCategoryByName(categoryName: string) {
