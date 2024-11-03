@@ -1,42 +1,44 @@
 /* Ensure the nav container is properly styled and blends with the header */
 .navContainer {
-  display: flex;
-  justify-content: center; /* Centers the list horizontally */
+  display: grid;
+  place-items: center; /* Centers items both horizontally and vertically */
   padding: 0;
-  background-color: transparent; /* Matches header background */
+  background-color: transparent;
+  width: 100%;
 }
 
 .listContainer {
   display: flex;
   list-style: none;
-  margin: 0;
   padding: 0;
-  gap: 30px; /* Space between each category */
+  max-width: 800px; /* Adjust as needed */
+  width: 100%;
+  justify-content: center;
+  bottom: 0%;
 }
+
 
 /* The listItem itself will act as a box */
 .listItem {
-  position: relative;
-  padding: 10px 20px; /* Add padding to create the box around the text */
-  border: 2px solid white; /* White borders around the nav items */
-  background-color: transparent; /* Transparent background to blend with the header */
-  border-radius: 8px; /* Rounded corners for a nicer look */
-  cursor: pointer; /* Entire box is clickable */
-  transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  padding: 1.5%;
+  border: 1px solid white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-/* Style the text inside the listItem */
 .listText {
-  font-size: 18px;
   font-weight: bold;
-  color: black; /* Darker text color */
+  color: black;
   text-decoration: none;
 }
 
 /* Hover effect for the entire listItem (box around the text) */
 .listItem:hover {
   background-color: white; /* Change background on hover */
-  transform: translateY(-3px); /* Slightly lift the item on hover */
+  transform: translateY(-0px); /* Slightly lift the item on hover */
   color: gray; /* Change text color */
 }
 
