@@ -1,5 +1,5 @@
 <h2>Login</h2>
-<!--<button onClick()>Back</button>-->
+
 
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <label for="email">email</label>
@@ -20,7 +20,7 @@
 <h2>Register</h2>
 
 <!-- Registration Form -->
-<form [formGroup]="registerForm" (ngSubmit)="register()">
+<form *ngIf="isLoggedIn" [formGroup]="registerForm" (ngSubmit)="register()">
   <label for="register-email">Email</label>
   <input id="register-email" formControlName="email" type="email">
   <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
@@ -35,3 +35,5 @@
 
   <button type="submit" [disabled]="registerForm.invalid">Register</button>
 </form>
+
+<button class='backBtn' (click)="back()">Back</button>

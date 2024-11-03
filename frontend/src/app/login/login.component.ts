@@ -15,6 +15,7 @@ export class LoginComponent {
 
   loginForm: FormGroup;
   registerForm: FormGroup;
+  isLoggedIn: boolean = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -25,6 +26,12 @@ export class LoginComponent {
       email: ['', Validators.email],
       password: ['', Validators.required]
     });
+
+  }
+
+  async ngOnInit(){
+    this.isLoggedIn = await this.authService.isLoggedIn();
+    console.log(this.isLoggedIn);
   }
 
   onSubmit() {
@@ -61,6 +68,10 @@ export class LoginComponent {
         }
       });
     }
+  }
+
+  back(): void {
+    this.router.navigateByUrl('');
   }
 
 }

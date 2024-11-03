@@ -74,4 +74,30 @@ form {
     margin-bottom: 10px; // Space below error message
     font-size: 14px; // Smaller font for error messages
   }
+
+
+}
+
+.backBtn {
+  position:relative;
+  height: 3%;
+  left: 35%;
+  width: 30%; // Full width for the button
+  padding: 2%;
+  background-color: $primary-color; // Primary button color
+  color: white; // White text
+  border: none; // No border
+  border-radius: $border-radius; // Rounded corners
+  font-size: 16px; // Font size for the button
+  cursor: pointer; // Pointer cursor on hover
+  transition: background-color 0.3s; // Smooth transition
+
+  &:hover {
+    background-color: darken($primary-color, 10%); // Darker on hover
+  }
+
+  &:disabled {
+    background-color: gray; // Disabled button styling
+    cursor: not-allowed; // Not-allowed cursor
+  }
 }
