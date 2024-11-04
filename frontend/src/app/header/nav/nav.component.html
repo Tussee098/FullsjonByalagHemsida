@@ -1,53 +1,78 @@
 <nav class="navContainer">
-  <div *ngIf="loading" class="loading-container">
-    <p>Loading navbar...</p>
+  <div class="navInner">
+    <div *ngIf="loading" class="loading-container">
+      <p>Loading navbar...</p>
+    </div>
+
+    <button class="mobileMenuBtn" (click)="toggleMobileMenu()">
+      <span>Menu</span>
+      <!-- Menu Icon (Hamburger) -->
+      <svg *ngIf="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <!-- Close Icon (X) -->
+      <svg *ngIf="isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Admin-only: Draggable List -->
+    <ul *ngIf="!loading && loggedIn"
+        class="listContainer"
+        [class.open]="isMobileMenuOpen"
+        cdkDropList
+        (cdkDropListDropped)="drop($event)"
+        cdkDropListOrientation="horizontal">
+      <li *ngFor="let category of list; let i = index"
+          class="listItem"
+          cdkDrag
+          (click)="toggleCategory(category)">
+        <div class="categoryHeader">
+          <a class="listText">{{ category.category }}</a>
+          <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteCategory(category.categoryId)">X</button>
+        </div>
+
+        <ul class="hoverList" [class.active]="category.isOpen">
+          <li *ngFor="let option of category.items" class="hoverListItem">
+            <div class="optionHeader">
+              <a class="hoverListText" [routerLink]="'/' + option.path" (click)="handleOptionClick()">
+                {{ option.title }}
+              </a>
+              <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteOption(option.optionId)">X</button>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Non-admin: Static List -->
+    <ul *ngIf="!loading && !loggedIn"
+        class="listContainer"
+        [class.open]="isMobileMenuOpen">
+      <li *ngFor="let category of list"
+          class="listItem"
+          (click)="toggleCategory(category)">
+        <div class="categoryHeader">
+          <a class="listText">{{ category.category }}</a>
+        </div>
+
+        <ul class="hoverList" [class.active]="category.isOpen">
+          <li *ngFor="let option of category.items" class="hoverListItem">
+            <div class="optionHeader">
+              <a class="hoverListText" [routerLink]="'/' + option.path" (click)="handleOptionClick()">
+                {{ option.title }}
+              </a>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <button *ngIf="hasChanged" class="updateBtn" (click)="saveOrder()">
+      Uppdatera Ordningen
+    </button>
   </div>
-
-  <!-- Admin-only: Draggable List -->
-  <ul *ngIf="!loading && loggedIn" class="listContainer" cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListOrientation="horizontal">
-    <li *ngFor="let category of list; let i = index" class="listItem" cdkDrag>
-      <div class="categoryHeader">
-        <a class="listText">{{ category.category }}</a>
-
-        <!-- Delete button if logged in -->
-        <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteCategory(category.categoryId)">X</button>
-      </div>
-
-      <!-- Options under the category -->
-      <ul class="hoverList">
-        <li *ngFor="let option of category.items" class="hoverListItem">
-          <div class="optionHeader">
-            <a class="hoverListText" [routerLink]="'/' + option.path">
-              {{ option.title }}
-            </a>
-            <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteOption(option.optionId)">X</button>
-          </div>
-        </li>
-      </ul>
-    </li>
-  </ul>
-  <button *ngIf="hasChanged" class="updateBtn" (click)="saveOrder()">Uppdatera Ordningen</button>
-  <!-- Non-admin: Static List -->
-  <ul *ngIf="!loading && !loggedIn" class="listContainer">
-    <li *ngFor="let category of list; let i = index" class="listItem">
-      <div class="categoryHeader">
-        <a class="listText">{{ category.category }}</a>
-
-        <!-- Delete button if logged in -->
-        <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteCategory(category.categoryId)">X</button>
-      </div>
-
-      <!-- Options under the category -->
-      <ul class="hoverList">
-        <li *ngFor="let option of category.items" class="hoverListItem">
-          <div class="optionHeader">
-            <a class="hoverListText" [routerLink]="'/' + option.path">
-              {{ option.title }}
-            </a>
-            <button *ngIf="loggedIn" class="deleteBtn" (click)="deleteOption(option.optionId)">X</button>
-          </div>
-        </li>
-      </ul>
-    </li>
-  </ul>
 </nav>

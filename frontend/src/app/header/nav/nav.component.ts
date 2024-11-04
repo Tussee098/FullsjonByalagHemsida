@@ -1,24 +1,24 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { DropdownService } from '../../services/dropdown.service'; // Adjust the import as necessary
+import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
+import { DropdownService } from '../../services/dropdown.service';
 import { NgFor, NgIf } from '@angular/common';
-import { RouterLink , Router} from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { CategoryWithOptions } from '../../models/dropdownCategories';
 import CategoryService from '../../services/pathdata.service';
 import { AuthService } from '../../services/authService';
 import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 interface Item {
-  title: string; // Ensure this matches the JSON structure
-  path: string;  // Ensure this matches the JSON structure
+  title: string;
+  path: string;
   parentCategoryId: string;
   optionId: string;
 }
 
 interface DropdownItem {
-  category: string; // Represents the category name
+  category: string;
   categoryId: string;
-  items: Item[];    // Array of items under this category
-  showDropdown?: boolean; // New property to track dropdown visibility
+  items: Item[];
+  isOpen?: boolean;
 }
 
 @Component({
@@ -34,16 +34,56 @@ export class NavComponent implements OnInit {
   loggedIn = false;
   loading = true;
   hasChanged = false;
+  isMobileMenuOpen = false;
 
+  constructor(
+    private dropdownService: DropdownService,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private categoryService: CategoryService,
+    private authService: AuthService
+  ) {}
 
-  constructor(private dropdownService: DropdownService, private cdr: ChangeDetectorRef, private router: Router, private categoryService: CategoryService, private authService: AuthService) {}
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    if (window.innerWidth > 768 && this.isMobileMenuOpen) {
+      this.isMobileMenuOpen = false;
+      this.resetCategories();
+    }
+  }
 
   async ngOnInit() {
-    await this.loadItems(); // Load items when the component initializes
-    this.list = this.convertToDropdownItems(this.categoriesWithOptions)
+    await this.loadItems();
+    this.list = this.convertToDropdownItems(this.categoriesWithOptions);
     this.loggedIn = await this.authService.isLoggedIn();
+    this.loading = false;
+  }
 
-    this.loading = false
+  // Reset all categories to closed state
+  resetCategories() {
+    this.list.forEach(category => category.isOpen = false);
+  }
+
+  // Toggle specific category
+  toggleCategory(category: DropdownItem) {
+    if (window.innerWidth <= 768) {
+      category.isOpen = !category.isOpen;
+    }
+  }
+
+  // Handle option click (close mobile menu)
+  handleOptionClick() {
+    if (window.innerWidth <= 768) {
+      this.isMobileMenuOpen = false;
+      this.resetCategories();
+    }
+  }
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    if (!this.isMobileMenuOpen) {
+      this.resetCategories();
+    }
   }
 
   async loadItems() {

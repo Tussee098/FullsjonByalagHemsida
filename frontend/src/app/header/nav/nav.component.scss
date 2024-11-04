@@ -1,93 +1,275 @@
-/* Ensure the nav container is properly styled and blends with the header */
+// Variables
+$primary-color: #2563eb;
+$hover-color: #1d4ed8;
+$text-color: #1f2937;
+$light-text: #6b7280;
+$border-color: #e5e7eb;
+$background-color: #ffffff;
+$hover-background: #f3f4f6;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$mobile-breakpoint: 768px;
+
+// Global reset for box-sizing
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden; // Prevents horizontal overflow
+}
+
 .navContainer {
-  display: grid;
-  place-items: center; /* Centers items both horizontally and vertically */
-  padding: 0;
-  background-color: transparent;
   width: 100%;
+  background-color: $background-color;
+  border-bottom: 1px solid $border-color;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 4px $shadow-color;
+
+  // Full width for smaller screens
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0; // Ensure no padding around the container
+  }
+}
+
+.navInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  // Ensure no extra padding on mobile
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0;
+    width: 100%; // Use full width for small screens
+  }
+}
+
+.loading-container {
+  padding: 1rem;
+  text-align: center;
+  color: $light-text;
+}
+
+.mobileMenuBtn {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  color: $text-color;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  span {
+    font-weight: 500;
+  }
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    display: flex;
+    margin: 1rem 0;
+  }
 }
 
 .listContainer {
   display: flex;
   list-style: none;
+  margin: 0;
   padding: 0;
-  max-width: 800px; /* Adjust as needed */
-  width: 100%;
-  justify-content: center;
-  bottom: 0%;
+  gap: 0; // Removed gap to accommodate borders
+
+  @media (max-width: $mobile-breakpoint) {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+
+    &.open {
+      display: flex;
+    }
+  }
 }
 
-
-/* The listItem itself will act as a box */
 .listItem {
-  padding: 1.5%;
-  border: 1px solid white;
-  cursor: pointer;
+  position: relative;
+  border-right: 1px solid $border-color; // Added border between categories
+
+  &:first-child {
+    border-left: 1px solid $border-color; // Added border for first category
+  }
+
+  &:hover .hoverList {
+    @media (min-width: $mobile-breakpoint) {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    border-right: none;
+    border-bottom: 1px solid $border-color;
+
+    &:first-child {
+      border-left: none;
+      border-top: 1px solid $border-color;
+    }
+  }
+}
+
+.categoryHeader {
   display: flex;
-  justify-content: center;
   align-items: center;
-  text-align: center;
+  gap: 0.5rem;
+  padding: 1rem 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    color: $primary-color;
+    background-color: $hover-background;
+  }
 }
 
 .listText {
-  font-weight: bold;
-  color: black;
+  font-weight: 500;
+  color: $text-color;
   text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $primary-color;
+  }
 }
 
-/* Hover effect for the entire listItem (box around the text) */
-.listItem:hover {
-  background-color: white; /* Change background on hover */
-  transform: translateY(-0px); /* Slightly lift the item on hover */
-  color: gray; /* Change text color */
-}
-
-/* Initially hide the dropdown */
 .hoverList {
-  display: none;
   position: absolute;
   top: 100%;
   left: 0;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  background-color: grey; /* Grey background for the dropdown */
-  border: 2px solid white;
-  border-radius: 4px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the dropdown */
-  z-index: 1000;
-  min-width: 150px;
+  min-width: 200px;
+  background-color: $background-color;
+  border: 1px solid $border-color;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px -1px $shadow-color;
   opacity: 0;
-  transform: translateY(5px); /* Start with a slight offset */
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s;
+  z-index: 20;
 
-/* Show the dropdown when hovering over the parent listItem */
-.listItem:hover .hoverList {
-  display: block;
-  opacity: 1;
-  transform: translateY(0); /* Smooth entrance */
-  pointer-events: auto; /* Allows interaction with dropdown */
+  @media (max-width: $mobile-breakpoint) {
+    position: static;
+    opacity: 0;
+    visibility: hidden;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+      max-height: 500px;
+    }
+  }
 }
 
 .hoverListItem {
-  padding: 8px 12px;
+  margin: 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $border-color;
+  }
+}
+
+.optionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  transition: background-color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $hover-background;
+  }
 }
 
 .hoverListText {
+  color: $text-color;
   text-decoration: none;
-  color: white; /* White text for dropdown items */
-  background-color: gray; /* Match background to header */
-  font-size: 16px;
+  font-size: 0.875rem;
+  display: block;
+  width: 100%;
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.deleteBtn {
+  padding: 0.25rem 0.5rem;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  z-index: 2;
+
+  &:hover {
+    background-color: #dc2626;
+  }
+}
+
+.updateBtn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 0.75rem 1.5rem;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
   font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 4px $shadow-color;
+
+  &:hover {
+    background-color: $hover-color;
+  }
 }
 
-/* Hover effect for dropdown items */
-.hoverListItem:hover .hoverListText {
-  background-color: white; /* White background on hover */
-  color: gray; /* Gray text on hover */
-}
-
+// Drag and drop styles
 .cdk-drag-preview {
-  display: none !important; /* Hides the ghost preview completely */
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.listContainer.cdk-drop-list-dragging .listItem:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
