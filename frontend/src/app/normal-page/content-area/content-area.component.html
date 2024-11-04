@@ -23,6 +23,7 @@
 
       *ngFor="let post of posts"
       [optionId]="id"
+      cdkDrag
       [_id]="post._id"
       [title]="post.title"
       [text]="post.text"
