@@ -45,6 +45,11 @@ class CategoryService {
     return await this.fetchWithCache<any[]>(`${this.BASE_URL}/options/id/${categoryId}`);
   }
 
+  async getAllOptions() {
+    // Fetch all options using the fetchWithCache method
+    return await this.fetchWithCache<any[]>(`${this.BASE_URL}/options`);
+  }
+
   async getAllPaths() {
     try {
       const categories = await this.getAllCategories();
