@@ -1,3 +1,4 @@
+// src/app/services/category.service.ts
 import { Injectable } from "@angular/core";
 import { environment } from "../environments/environment";
 import { PostService } from "./posts.service";
@@ -7,57 +8,50 @@ import { PostService } from "./posts.service";
 })
 class CategoryService {
 
-
   BASE_URL = environment.apiUrl; // Replace with your actual backend URL
-
-  // In-memory cache
-  private categoriesCache: any[] | null = null;
-  private optionsCache: { [key: string]: any[] } = {}; // Cache options by categoryId
-  private lastCacheTime: number = 0;
   private cacheExpiry = 10 * 60 * 1000; // 10 minutes in milliseconds
 
-  constructor(private postService: PostService){};
+  constructor(private postService: PostService) {}
 
+  // General method for fetching data with cache handling
   private async fetchWithCache<T>(url: string): Promise<T> {
+    // Check if the response is already in local storage
+    const cachedResponse = this.getCacheFromLocalStorage(url);
+    const now = Date.now();
+
+    // If cache exists and is still valid, return it
+    if (cachedResponse && now - cachedResponse.timestamp < this.cacheExpiry) {
+      console.log(`Serving data from cache for ${url}`);
+      return cachedResponse.data;
+    }
+
+    // If not cached or expired, fetch from the API
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Failed to fetch data from ${url}`);
-    return await response.json();
+
+    const data = await response.json();
+    // Cache the new response
+    this.setCacheToLocalStorage(url, data);
+    return data;
   }
 
   async getAllCategories() {
-    // Check if the categories cache is valid
-    const now = Date.now();
-    if (this.categoriesCache && now - this.lastCacheTime < this.cacheExpiry) {
-      return this.categoriesCache; // Return cached categories
-    }
-
-    // Fetch categories and update the cache
-    this.categoriesCache = await this.fetchWithCache<any[]>(`${this.BASE_URL}/categories`);
-    this.lastCacheTime = now;
-    return this.categoriesCache;
+    // Fetch categories using the fetchWithCache method
+    return await this.fetchWithCache<any[]>(`${this.BASE_URL}/categories`);
   }
 
   async getOptionsByCategoryId(categoryId: string) {
-    // Check if options for this category are cached
-    const now = Date.now();
-    if (this.optionsCache[categoryId] && now - this.lastCacheTime < this.cacheExpiry) {
-      return this.optionsCache[categoryId]; // Return cached options
-    }
-
-    // Fetch options and update the cache
-    const options = await this.fetchWithCache<any[]>(`${this.BASE_URL}/options/id/${categoryId}`);
-    this.optionsCache[categoryId] = options;
-    this.lastCacheTime = now;
-    return options;
+    // Fetch options using the fetchWithCache method
+    return await this.fetchWithCache<any[]>(`${this.BASE_URL}/options/id/${categoryId}`);
   }
 
   async getAllPaths() {
     try {
-      const categories = await this.getAllCategories(); // Use cached categories
+      const categories = await this.getAllCategories();
       const allOptions: any[] = [];
 
       for (const category of categories) {
-        const options = await this.getOptionsByCategoryId(category._id); // Use cached options by category
+        const options = await this.getOptionsByCategoryId(category._id);
         allOptions.push(...options);
       }
       return allOptions;
@@ -67,68 +61,51 @@ class CategoryService {
     }
   }
 
-  // Clear the cache (useful when data has been updated or explicitly refreshed)
-  clearCache() {
-    this.categoriesCache = null;
-    this.optionsCache = {};
-    this.lastCacheTime = 0;
+  // Utility functions for local storage cache handling
+  private getCacheFromLocalStorage(key: string) {
+    const cachedData = localStorage.getItem(key);
+    return cachedData ? JSON.parse(cachedData) : null;
   }
 
-  // Other methods for adding, deleting categories and options (unchanged)...
+  private setCacheToLocalStorage(key: string, data: any) {
+    const cacheEntry = {
+      data,
+      timestamp: Date.now()
+    };
+    localStorage.setItem(key, JSON.stringify(cacheEntry));
+  }
 
+  clearCache() {
+    // Remove all relevant local storage cache keys
+    localStorage.removeItem('categoriesCache');
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith('optionsCache_')) {
+        localStorage.removeItem(key);
+      }
+    });
+    console.log('All category-related cache cleared');
+  }
 
   async updateCategoryOrder(reorderedCategories: { categoryId: string; order: number; }[]): Promise<any> {
-    const token = localStorage.getItem('token'); // Retrieve token from local storage
-    const response = await fetch(`${this.BASE_URL}/categories/order`, { // Update with your actual endpoint
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${this.BASE_URL}/categories/order`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(reorderedCategories) // Send the reordered categories
+      body: JSON.stringify(reorderedCategories)
     });
 
     if (response.ok) {
-      // Optionally clear cache if necessary (depending on your application logic)
-      this.clearCache(); // Modify this as needed for your cache strategy
-      return response.json(); // Return the JSON response from the server
+      this.clearCache(); // Clear cache after reordering
+      return response.json();
     } else {
       console.error('Error updating category order:', response.statusText);
-      return null; // Return null or handle the error as needed
+      return null;
     }
   }
 
-
-  // Fetch all options for a specific category
-  async getCategoryByName(categoryName: string) {
-    const response = await fetch(`${this.BASE_URL}/category/${categoryName}`);
-    if (!response.ok) throw new Error('Failed to fetch options');
-    return await response.json();
-  }
-
-
-
-  async getAllOptions(){
-    const response = await fetch(`${this.BASE_URL}/options`);
-    if (!response.ok) throw new Error('Failed to fetch options');
-    return await response.json();
-  }
-
-  // Fetch all options for a specific category
-  async getOptionsByName(optionName: string) {
-    const response = await fetch(`${this.BASE_URL}/options/${optionName}`);
-    if (!response.ok) throw new Error('Failed to fetch options');
-    return await response.json();
-  }
-
-  // Fetch all options for a specific category
-  /*async getOptionsByCategoryId(categoryId: string) {
-    const response = await fetch(`${this.BASE_URL}/options/id/${categoryId}`);
-    if (!response.ok) throw new Error('Failed to fetch options');
-    return await response.json();
-  }*/
-
-  // Add a new category
   async addCategory(categoryName: string) {
     const token = localStorage.getItem('token');
     const response = await fetch(`${this.BASE_URL}/categories`, {
@@ -140,11 +117,10 @@ class CategoryService {
       body: JSON.stringify({ name: categoryName })
     });
     if (!response.ok) throw new Error('Failed to add category');
-    this.clearCache(); // Clear cache after deleting a category
+    this.clearCache(); // Clear cache after adding a category
     return await response.json();
   }
 
-  // Delete a category
   async deleteCategory(categoryId: string) {
     const token = localStorage.getItem('token');
     const response = await fetch(`${this.BASE_URL}/categories/${categoryId}`, {
@@ -158,10 +134,31 @@ class CategoryService {
     return await response.json();
   }
 
-  // Add an option under a category
+  async editCategoryName(editedCategoryText: string, editCategoryId: string): Promise<any> {
+    const token = localStorage.getItem('token');
+    const payload = { name: editedCategoryText };
+
+    const response = await fetch(`${this.BASE_URL}/categories/${editCategoryId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+      this.clearCache(); // Clear cache after editing a category
+      return await response.json();
+    } else {
+      console.error('Error updating category:', response.statusText);
+      throw new Error(`Error updating category: ${response.statusText}`);
+    }
+  }
+
   async addOption(optionName: string, optionUrl: string, categoryId: string) {
     const token = localStorage.getItem('token');
-    if(optionUrl == ''){
+    if (optionUrl === '') {
       optionUrl = optionName.replace(/[^a-zA-Z0-9-_]/g, '').replace(/\s+/g, '-');
     }
     const response = await fetch(`${this.BASE_URL}/options`, {
@@ -173,11 +170,10 @@ class CategoryService {
       body: JSON.stringify({ name: optionName, path: optionUrl, categoryId })
     });
     if (!response.ok) throw new Error('Failed to add option');
-    this.clearCache(); // Clear cache after deleting a category
+    this.clearCache(); // Clear cache after adding an option
     return await response.json();
   }
 
-  // Delete an option
   async deleteOption(optionId: string) {
     const token = localStorage.getItem('token');
     const response = await fetch(`${this.BASE_URL}/options/${optionId}`, {
@@ -187,43 +183,10 @@ class CategoryService {
       },
     });
     if (!response.ok) throw new Error('Failed to delete option');
-    console.log("Clearing cache")
-    this.clearCache(); // Clear cache after deleting a category
-    await this.postService.deletePostsByOptionId(optionId); // Ensure PostService is injected in the constructor
-
-
+    this.clearCache(); // Clear cache after deleting an option
+    await this.postService.deletePostsByOptionId(optionId);
     return await response.json();
   }
-
-  async editCategoryName(editedCategoryText: string, editCategoryId: string): Promise<any> {
-    const token = localStorage.getItem('token'); // Retrieve token for authentication
-    const payload = {
-      name: editedCategoryText // The new name for the category
-    };
-
-    try {
-      const response = await fetch(`${this.BASE_URL}/categories/${editCategoryId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` // Include the token for authorization
-        },
-        body: JSON.stringify(payload) // Send the new name as part of the request body
-      });
-
-      if (response.ok) {
-        const updatedCategory = await response.json(); // Parse the JSON response
-        return updatedCategory; // Return the updated category
-      } else {
-        console.error('Error updating category:', response.statusText);
-        throw new Error(`Error updating category: ${response.statusText}`); // Throw an error if the update fails
-      }
-    } catch (error) {
-      console.error('Error in editCategoryName:', error);
-      throw error; // Propagate the error for further handling if needed
-    }
-  }
-
 }
 
 // Export an instance of the service

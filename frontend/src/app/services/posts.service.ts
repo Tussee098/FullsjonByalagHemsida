@@ -8,7 +8,6 @@ import { environment } from '../environments/environment';
 export class PostService {
 
   private baseUrl = environment.baseUrl;
-  private cache: { [optionId: string]: { data: any[]; timestamp: number } } = {}; // Cache store
   private cacheDuration = 10 * 60 * 1000; // Cache expiration time in milliseconds (e.g., 10 minutes)
 
   constructor() {}
@@ -16,13 +15,13 @@ export class PostService {
   async fetchPosts(optionId: string): Promise<any[]> {
     const currentTime = Date.now();
 
+    // Retrieve cache from local storage
+    const cachedData = this.getCacheFromLocalStorage(optionId);
+
     // Check if the data is in cache and not expired
-    if (
-      this.cache[optionId] &&
-      currentTime - this.cache[optionId].timestamp < this.cacheDuration
-    ) {
-      console.log('Serving data from cache');
-      return this.cache[optionId].data;
+    if (cachedData && currentTime - cachedData.timestamp < this.cacheDuration) {
+      console.log('Serving data from local storage cache');
+      return cachedData.data;
     }
 
     // Fetch new data from the server if not in cache or expired
@@ -37,9 +36,9 @@ export class PostService {
 
       if (response.ok) {
         const data = await response.json();
-        // Update the cache with new data
-        this.cache[optionId] = { data, timestamp: currentTime };
-        console.log('Fetching data from API and updating cache');
+        // Update the cache with new data in local storage
+        this.setCacheToLocalStorage(optionId, data);
+        console.log('Fetching data from API and updating local storage cache');
         return data;
       } else {
         console.error('Error fetching posts:', response.statusText);
@@ -51,31 +50,26 @@ export class PostService {
     }
   }
 
-
-
-  // post.service.ts (or your service file)
   async editPost(postId: string, title: string, text: string, optionId: string): Promise<any> {
     const token = localStorage.getItem('token');
-    const response = await fetch(`${this.baseUrl}/${postId}`, { // Include postId in the URL
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ title, text }),
+    const response = await fetch(`${this.baseUrl}/${postId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ title, text }),
     });
 
     if (response.ok) {
-        this.clearCache(optionId);
-        return response.json();
+      this.clearCache(optionId); // Clear cache on update
+      return response.json();
     } else {
-        console.error('Error saving post:', response.statusText);
-        return null; // Return null if the update failed
+      console.error('Error saving post:', response.statusText);
+      return null;
     }
   }
 
-
-  // Submit Post
   async submitPost(title: string, text: string, optionId: string, author: string = 'John Doe'): Promise<any> {
     const token = localStorage.getItem('token');
     const response = await fetch(this.baseUrl, {
@@ -88,7 +82,7 @@ export class PostService {
     });
 
     if (response.ok) {
-      this.clearCache(optionId); // Clear specific category cache
+      this.clearCache(optionId); // Clear cache on new post
       return response.json();
     } else {
       console.error('Error saving post:', response.statusText);
@@ -96,7 +90,6 @@ export class PostService {
     }
   }
 
-  // Delete Post
   async deletePost(postId: string, optionId: string): Promise<boolean> {
     const token = localStorage.getItem('token');
     const response = await fetch(`${this.baseUrl}/${postId}`, {
@@ -107,7 +100,7 @@ export class PostService {
     });
 
     if (response.ok) {
-      this.clearCache(optionId);
+      this.clearCache(optionId); // Clear cache on delete
       return true;
     } else {
       console.error('Error deleting post:', response.statusText);
@@ -115,7 +108,6 @@ export class PostService {
     }
   }
 
-  // Update Posts Order
   async updatePostsOrder(newOrder: { id: any; order: number; }[], optionId: string): Promise<any> {
     const token = localStorage.getItem('token');
     const response = await fetch(`${this.baseUrl}/update-order`, {
@@ -128,7 +120,7 @@ export class PostService {
     });
 
     if (response.ok) {
-      this.clearCache(optionId);
+      this.clearCache(optionId); // Clear cache on reorder
       return response.json();
     } else {
       console.error('Error updating post order:', response.statusText);
@@ -136,10 +128,7 @@ export class PostService {
     }
   }
 
-
-    // Delete all posts by optionId
   async deletePostsByOptionId(optionId: string): Promise<void> {
-
     const posts = await this.fetchPosts(optionId); // Fetch posts by optionId
     const deletionPromises = posts.map(post => this.deletePost(post._id, optionId)); // Map delete requests for each post
 
@@ -147,17 +136,33 @@ export class PostService {
     this.clearCache(optionId); // Clear cache for this optionId
   }
 
-  // Clear cache for affected optionId
-  private clearCache(optionId: string) {
-    if (optionId === 'all') {
-      // Clear the entire cache
-      this.cache = {};
-      console.log('All cache cleared');
-  } else {
-      // Clear the specific entry in the cache
-      delete this.cache[optionId];
-      console.log(`Cache for ${optionId} cleared`);
-  }
+  // Helper methods to manage local storage cache
+  private getCacheFromLocalStorage(optionId: string): { data: any[], timestamp: number } | null {
+    const cachedData = localStorage.getItem(`postCache_${optionId}`);
+    return cachedData ? JSON.parse(cachedData) : null;
   }
 
+  private setCacheToLocalStorage(optionId: string, data: any[]): void {
+    const cacheEntry = {
+      data,
+      timestamp: Date.now()
+    };
+    localStorage.setItem(`postCache_${optionId}`, JSON.stringify(cacheEntry));
+  }
+
+  private clearCache(optionId: string) {
+    if (optionId === 'all') {
+      // Clear all cache entries in local storage
+      for (let key in localStorage) {
+        if (key.startsWith('postCache_')) {
+          localStorage.removeItem(key);
+        }
+      }
+      console.log('All local storage cache cleared');
+    } else {
+      // Clear specific cache entry
+      localStorage.removeItem(`postCache_${optionId}`);
+      console.log(`Local storage cache for ${optionId} cleared`);
+    }
+  }
 }
