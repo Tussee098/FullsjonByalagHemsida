@@ -1,3 +1,6 @@
+// ==============================================
+// nav.component.ts
+// ==============================================
 import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { DropdownService } from '../../services/dropdown.service';
 import { NgFor, NgIf } from '@angular/common';
@@ -59,19 +62,24 @@ export class NavComponent implements OnInit {
     this.loading = false;
   }
 
-  // Reset all categories to closed state
+  async loadItems() {
+    try {
+      this.categoriesWithOptions = await this.dropdownService.getCategoriesWithOptions();
+    } catch (error) {
+      console.error('Error loading categories with options:', error);
+    }
+  }
+
   resetCategories() {
     this.list.forEach(category => category.isOpen = false);
   }
 
-  // Toggle specific category
   toggleCategory(category: DropdownItem) {
     if (window.innerWidth <= 768) {
       category.isOpen = !category.isOpen;
     }
   }
 
-  // Handle option click (close mobile menu)
   handleOptionClick() {
     if (window.innerWidth <= 768) {
       this.isMobileMenuOpen = false;
@@ -86,54 +94,38 @@ export class NavComponent implements OnInit {
     }
   }
 
-  async loadItems() {
-    try {
-      this.categoriesWithOptions = await this.dropdownService.getCategoriesWithOptions();
-    } catch (error) {
-      console.error('Error loading categories with options:', error);
-    }
-
-  }
-
-  // Drag and Drop event handler
   drop(event: CdkDragDrop<DropdownItem[]>) {
     this.hasChanged = true;
     moveItemInArray(this.list, event.previousIndex, event.currentIndex);
-    moveItemInArray(this.categoriesWithOptions, event.previousIndex, event.currentIndex);  // optional if you need this synced
+    moveItemInArray(this.categoriesWithOptions, event.previousIndex, event.currentIndex);
   }
 
   async saveOrder() {
-    // Prepare the reordered list with only category IDs and their new order index
     const reorderedCategories = this.list.map((category, index) => ({
       categoryId: category.categoryId,
       order: index
     }));
 
     try {
-      // Call the updateCategoryOrder function from your service, passing the reordered list
       await this.categoryService.updateCategoryOrder(reorderedCategories);
       this.hasChanged = false;
       console.log("Category order saved successfully");
-      // Optionally, you can set a flag or show a message to indicate success
     } catch (error) {
       console.error("Error saving category order:", error);
-      // Optionally, handle the error, e.g., show an error message to the user
     }
   }
 
-
   convertToDropdownItems(categoriesWithOptions: any[]): DropdownItem[] {
     return categoriesWithOptions.map(category => ({
-
-      category: category.category,       // Map the 'category' field directly
+      category: category.category,
       categoryId: category.categoryId,
       items: category.options.map((option: { name: string; path: string; parentCategoryId: string, optionId: string}) => ({
-        title: option.name,               // Map 'name' to 'title'
+        title: option.name,
         path: option.path,
         parentCategoryId: option.parentCategoryId,
-        optionId: option.optionId             // Map 'path' directly
+        optionId: option.optionId
       })),
-      showDropdown: false                 // Initialize showDropdown as false
+      isOpen: false
     }));
   }
 
@@ -141,12 +133,10 @@ export class NavComponent implements OnInit {
     const confirmed = window.confirm('Are you sure you want to delete this category and all of its options?');
 
     if (confirmed) {
-      // Find the category in the 'list' array
       const categoryToDelete = this.list.find(category => category.categoryId === categoryId);
 
       if (categoryToDelete) {
         try {
-          // 1. Delete each option under the category
           for (const option of categoryToDelete.items) {
             this.categoryService.deleteOption(option.optionId).then(() => {
               console.log(`Deleted option with id: ${option.optionId}`);
@@ -155,10 +145,7 @@ export class NavComponent implements OnInit {
             });
           }
 
-          // 2. After deleting all the options, delete the category
           this.categoryService.deleteCategory(categoryId).then(() => {
-
-            // 3. Update the list to remove the deleted category
             this.list = this.list.filter(category => category.categoryId !== categoryId);
             window.location.reload();
           }).catch(error => {
@@ -174,15 +161,11 @@ export class NavComponent implements OnInit {
     }
   }
 
-
   deleteOption(optionId: string) {
     const confirmed = window.confirm('Are you sure you want to delete this category?');
     if (confirmed) {
       this.categoryService.deleteOption(optionId);
       window.location.reload();
     }
-
   }
-
-
 }

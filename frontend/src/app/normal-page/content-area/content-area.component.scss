@@ -1,39 +1,118 @@
+.content-title-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;
+  padding: 2rem 10%;
+  margin-bottom: 2vh;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: center; /* Ensure text is centered */
+
+  h1 {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0; /* Remove default margins */
+    line-height: 1.2;
+
+    /* Gradient effect centered */
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Rest of the styles remain the same */
 .content-area {
   display: flex;
   flex-wrap: nowrap;
-  flex-direction: column; /* Stack items vertically */
-  align-items: stretch; /* Center horizontally */
-  padding: 0 10%; /* 20% space from left and right */
-  margin-top: 2vh; /* Optional margin from the top */
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0 10%;
+  margin-top: 0;
   margin-bottom: 2vh;
+  background-color: #ffffff;
 }
-
 
 .post-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 1rem;
 
   textarea {
     width: 100%;
     height: 100px;
-    margin-bottom: 10px;
-    padding: 10px;
+    margin-bottom: 1rem;
+    padding: 1rem;
     font-size: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    resize: vertical;
+
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+    }
   }
 
   button {
-    padding: 8px 16px;
+    padding: 0.75rem 1.5rem;
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
 
     &:hover {
       background-color: #0056b3;
+      transform: translateY(-1px);
     }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px dashed #e5e7eb;
+  border-radius: 6px;
+  background-color: #ffffff;
+
+  &:hover {
+    border-color: #007bff;
+  }
+}
+
+.admin-section button {
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }
