@@ -1,0 +1,42 @@
+.side-panel {
+  height: 100%;
+  border-right: 1px solid #e5e7eb;
+  padding: 1.5rem;
+
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    img {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 0.75rem;
+    }
+
+    .swish-description {
+      color: #4b5563;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .swish-price {
+      color: #4b5563;
+      font-weight: 500;
+    }
+  }
+
+  .heartstarter-container {
+    img {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 0.75rem;
+    }
+
+    .heartstarter-description {
+      color: #4b5563;
+      font-weight: 500;
+    }
+  }
+}

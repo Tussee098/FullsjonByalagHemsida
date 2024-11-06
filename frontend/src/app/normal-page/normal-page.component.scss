@@ -1,0 +1,44 @@
+.app-container {
+  display: flex;
+  flex-direction: column; /* Stack header on top */
+  height: 100vh; /* Full viewport height */
+}
+
+.app-header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-content {
+  display: flex; /* Flex to align contentarea and sidepanel side by side */
+  flex: 1; /* Take up remaining space below the header */
+  height: 100%; /* Ensure it fills the container's height */
+}
+
+.content-area {
+  display: flex;
+  flex-direction: column;
+  flex: 4; /* Occupy 3 parts of the available width */
+  padding: 0; /* Remove padding to prevent extra spacing */
+  height: 100%; /* Ensure it fills the container's height */
+  border-right: 1px solid #000000af;
+}
+
+.side-panel {
+  display: flex;
+  flex: 1; /* Occupy 1 part of the available width */
+  background-color: #fff;
+
+  height: 100%; /* Ensure it fills the container's height */
+
+
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    flex: 1 0 100%; /* Full width on smaller screens */
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+  }
+}
+

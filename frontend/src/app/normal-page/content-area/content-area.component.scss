@@ -1,21 +1,20 @@
 .content-title-container {
   display: flex;
-  justify-content: center; /* Center horizontally */
+  justify-content: space-between;
   align-items: center;
-  padding: 2rem 10%;
+  padding: 0 10%; /* Match content-area padding */
   margin-bottom: 2vh;
   background-color: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-  text-align: center; /* Ensure text is centered */
 
   h1 {
-    font-size: 2.25rem;
+    font-size: 2.25rem; /* 36px */
     font-weight: 600;
     color: #111827;
-    margin: 0; /* Remove default margins */
+    margin: 1.5rem 0;
     line-height: 1.2;
 
-    /* Gradient effect centered */
+    /* Add a subtle text gradient for visual interest */
     background: linear-gradient(45deg, #007bff, #0056b3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -23,14 +22,14 @@
   }
 }
 
-/* Rest of the styles remain the same */
+/* Update existing styles to ensure consistency */
 .content-area {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
   align-items: stretch;
   padding: 0 10%;
-  margin-top: 0;
+  margin-top: 0; /* Remove top margin since title container has margin */
   margin-bottom: 2vh;
   background-color: #ffffff;
 }
@@ -83,6 +82,7 @@
   }
 }
 
+/* Style the file input to match the design */
 input[type="file"] {
   width: 100%;
   padding: 0.75rem;
@@ -96,6 +96,7 @@ input[type="file"] {
   }
 }
 
+/* Style the admin section buttons */
 .admin-section button {
   padding: 0.75rem 1.5rem;
   background-color: #007bff;

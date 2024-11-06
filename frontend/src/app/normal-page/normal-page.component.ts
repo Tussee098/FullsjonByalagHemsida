@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { ContentAreaComponent } from './content-area/content-area.component';
+import { SidepanelComponent } from '../sidepanel/sidepanel.component';
+
 
 @Component({
   selector: 'app-normal-page',
   standalone: true,
-  imports: [HeaderComponent, ContentAreaComponent],
+  imports: [HeaderComponent, ContentAreaComponent, SidepanelComponent],
   templateUrl: './normal-page.component.html',
   styleUrl: './normal-page.component.scss'
 })
