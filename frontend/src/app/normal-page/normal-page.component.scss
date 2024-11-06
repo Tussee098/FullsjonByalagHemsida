@@ -1,7 +1,8 @@
 .app-container {
+  width: 100%;
   display: flex;
-  flex-direction: column; /* Stack header on top */
-  height: 100vh; /* Full viewport height */
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the container takes at least full viewport height */
 }
 
 .app-header {
@@ -10,35 +11,52 @@
 }
 
 .app-content {
-  display: flex; /* Flex to align contentarea and sidepanel side by side */
-  flex: 1; /* Take up remaining space below the header */
-  height: 100%; /* Ensure it fills the container's height */
+  display: flex;
+  flex: 1; /* Takes up the remaining space after the header */
+  min-height: 0; /* Allow for content to grow beyond the initial size */
+  align-items: stretch;
 }
 
 .content-area {
   display: flex;
   flex-direction: column;
-  flex: 4; /* Occupy 3 parts of the available width */
-  padding: 0; /* Remove padding to prevent extra spacing */
-  height: 100%; /* Ensure it fills the container's height */
-  border-right: 1px solid #000000af;
+  flex: 3; /* Occupy more width than side-panel */
+  padding: 0;
+  min-height: 0; /* Allow the content to grow */
 }
 
 .side-panel {
   display: flex;
-  flex: 1; /* Occupy 1 part of the available width */
+  flex: 1; /* Occupy remaining width */
   background-color: #fff;
-
-  height: 100%; /* Ensure it fills the container's height */
-
-
   font-size: 1.5rem;
   font-weight: bold;
+  border-left: 1px solid #000000af;
+  /* Removed redundant height: 100%; */
+}
 
-  @media (max-width: 768px) {
-    flex: 1 0 100%; /* Full width on smaller screens */
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .app-content {
+    flex-direction: column; /* Stack content area and side panel vertically */
+  }
+
+  .side-panel {
+    flex: 1 0 auto; /* Takes up full width */
     border-left: none;
     border-top: 1px solid #e5e7eb;
   }
 }
 
+@media (max-width: 320px) {
+  .side-panel {
+    display: none;
+  }
+}
+
+/* Footer Styling */
+.footer {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: auto; /* Ensure the footer is pushed to the bottom */
+}

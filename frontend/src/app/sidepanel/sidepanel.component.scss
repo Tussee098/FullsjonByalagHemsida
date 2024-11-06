@@ -1,6 +1,4 @@
 .side-panel {
-  height: 100%;
-  border-right: 1px solid #e5e7eb;
   padding: 1.5rem;
 
   .logo-container {
@@ -19,6 +17,7 @@
       color: #4b5563;
       font-weight: 500;
       margin-bottom: 0.5rem;
+      text-align: center;
     }
 
     .swish-price {
@@ -40,3 +39,42 @@
     }
   }
 }
+
+/* Medium screens - Adjust layout for tablets */
+@media (max-width: 768px) {
+  .side-panel {
+
+    .logo-container img,
+    .heartstarter-container img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .swish-description {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+/* Small screens - Adjust layout for mobile phones */
+@media (max-width: 480px) {
+  .side-panel {
+    width: 100%;
+    padding: 0.75rem;
+    border-right: none; /* Remove border to save space */
+    border-bottom: 1px solid #e5e7eb; /* Optional: add border at the bottom */
+
+    .logo-container img,
+    .heartstarter-container img {
+      width: 80px;
+      height: 80px;
+    }
+
+    .swish-description {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+/* Extra small screens - Convert side panel to a drawer */
+
