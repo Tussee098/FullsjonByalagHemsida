@@ -4,17 +4,16 @@
       <img src="assets/images/fullsjonLogo.jpg" alt="Logo" class="logo">
     </a>
   </div>
-    <div *ngIf="!loading">
-      <button *ngIf="loggedIn" (click)="logout()" class="logoutButton">Logout</button>
-    </div>
-    <div *ngIf="!loading">
-      <button *ngIf="loggedIn" (click)="admin()" class="adminButton">Admin</button>
-    </div>
-    <div class="headerTitleContainer">
-      <!--<app-garden></app-garden>-->
-      <a class="headerTitle">Fullsjön</a>
-      <!--<app-garden></app-garden>-->
-    </div>
-    <app-nav></app-nav>
-
+  <div *ngIf="!loading">
+    <button *ngIf="loggedIn" (click)="logout()" class="logoutButton">Logout</button>
+  </div>
+  <div *ngIf="!loading">
+    <button *ngIf="loggedIn" (click)="admin()" class="adminButton">Admin</button>
+  </div>
+  <div class="headerTitleContainer">
+    <!--<app-garden></app-garden>-->
+    <a class="headerTitle">Fullsjön</a>
+    <!--<app-garden></app-garden>-->
+  </div>
+<app-nav></app-nav>
 </header>

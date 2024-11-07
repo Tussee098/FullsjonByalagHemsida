@@ -36,18 +36,37 @@ body {
 }
 
 .navInner {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 1280px; // Maintain max-width for larger screens
   padding: 0 1rem;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 
-  // Ensure no extra padding on mobile
+  @media (max-width: 1258px) {
+    max-width: 90%; // Allow the navInner to use 90% of the screen width on tablets
+    padding: 0.5rem; // Reduce padding for smaller screens
+  }
+}
+
+// Add additional breakpoints for tablets if needed
+@media (max-width: 992px) {
+  .navInner {
+    max-width: 100%;
+  }
+}
+
+// Ensure no overflow in the body
+body {
+  overflow-x: hidden;
+}
+
+// Ensure full-width responsiveness for .listContainer and .hoverList on mobile
+.listContainer {
   @media (max-width: $mobile-breakpoint) {
-    padding: 0;
-    width: 100%; // Use full width for small screens
+    width: 100%; // Ensure list container takes full width on mobile
+  }
+}
+
+.hoverList {
+  @media (max-width: $mobile-breakpoint) {
+    max-width: 100%; // Make sure dropdowns fit fully on mobile
   }
 }
 

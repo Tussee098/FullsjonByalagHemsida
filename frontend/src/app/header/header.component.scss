@@ -107,16 +107,6 @@ header {
   transform: scale(1.02);
 }
 
-/* Navigation styles */
-.navContainer {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  backdrop-filter: blur(5px);
-}
 
 .listContainer {
   display: flex;
@@ -251,12 +241,6 @@ header {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* Responsive design */
-@media (max-width: 1200px) {
-  .navContainer {
-    margin: 0 1rem;
-  }
-}
 
 @media (max-width: 992px) {
   .headerTitle {
@@ -277,7 +261,7 @@ header {
     position: relative;
     top: 0;
     left: 0;
-    margin: 0 auto;
+    margin: 0;
     text-align: center;
   }
 
