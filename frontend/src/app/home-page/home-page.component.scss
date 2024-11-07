@@ -1,44 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling */
+}
+
 .home-page-container {
   position: relative;
-  height: 100vh; /* Full viewport height */
+  height: 100vh;
   max-width: 100vw;
-  overflow: hidden; /* Prevent scrolling */
-  margin: 0; /* Make sure there's no default margin on the page */
+  overflow: hidden;
+}
 
-  .background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: cover; /* Ensure the image covers the screen */
-    background-position: center;
-    z-index: -1; /* Make sure the background is behind the text */
-  }
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
 
+.text-area {
+  position: absolute;
+  width: 25vw;
+  max-width: 300px;
+  padding: 20px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for better readability */
+  text-align: center;
+  transition: all 0.3s ease; /* Smooth transitions for hover effects */
+}
+
+.text-area-1 {
+  top: 15%;
+  left: 10%;
+}
+
+.text-area-2 {
+  top: 50%;
+  right: 15%;
+  transform: translateY(-50%);
+}
+
+.text-area-3 {
+  bottom: 15%;
+  left: 25%;
+}
+
+/* Hover effect for text areas */
+.text-area:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: scale(1.05);
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
   .text-area {
-    position: absolute;
-    width: 25vw; /* Adjust for your desired text box size */
-    padding: 20px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for text readability */
-    border-radius: 8px;
-    box-sizing: border-box; /* Ensure padding doesn't exceed the box */
+    width: 30vw;
+    padding: 15px;
+    font-size: 1.1em;
   }
 
   .text-area-1 {
-    top: 15%;
-    left: 10%;
+    top: 10%;
+    left: 5%;
+  }
+
+  .text-area-2 {
+    top: 40%;
+    right: 10%;
+  }
+
+  .text-area-3 {
+    bottom: 10%;
+    left: 15%;
+  }
+}
+
+@media (max-width: 768px) {
+  .text-area {
+    width: 40vw;
+    font-size: 1em;
+  }
+
+  .text-area-1 {
+    top: 8%;
+    left: 5%;
   }
 
   .text-area-2 {
     top: 50%;
-    right: 15%;
-    transform: translateY(-50%); /* Center vertically */
+    right: 5%;
+    transform: translateY(-50%);
   }
 
   .text-area-3 {
-    bottom: 15%;
-    left: 25%;
+    bottom: 8%;
+    left: 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-area {
+    width: 80vw;
+    font-size: 1em;
+  }
+
+  .text-area-1,
+  .text-area-2,
+  .text-area-3 {
+    position: relative;
+    margin: 10px auto;
+    left: 0;
+    right: 0;
+    transform: none;
+    text-align: center;
+  }
+
+  .text-area-1 {
+    top: 5%;
+  }
+
+  .text-area-2 {
+    top: 10%;
+  }
+
+  .text-area-3 {
+    bottom: 5%;
   }
 }
