@@ -39,6 +39,7 @@ export class NavComponent implements OnInit {
   hasChanged = false;
   isMobileMenuOpen = false;
 
+
   constructor(
     private dropdownService: DropdownService,
     private cdr: ChangeDetectorRef,

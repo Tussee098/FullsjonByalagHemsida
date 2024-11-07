@@ -16,9 +16,6 @@ $mobile-breakpoint: 768px;
   box-sizing: border-box;
 }
 
-body {
-  overflow-x: hidden; // Prevents horizontal overflow
-}
 
 .navContainer {
   width: 100%;
@@ -36,37 +33,18 @@ body {
 }
 
 .navInner {
-  max-width: 1280px; // Maintain max-width for larger screens
+  max-width: 1280px;
+  margin: 0 auto;
   padding: 0 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  @media (max-width: 1258px) {
-    max-width: 90%; // Allow the navInner to use 90% of the screen width on tablets
-    padding: 0.5rem; // Reduce padding for smaller screens
-  }
-}
-
-// Add additional breakpoints for tablets if needed
-@media (max-width: 992px) {
-  .navInner {
-    max-width: 100%;
-  }
-}
-
-// Ensure no overflow in the body
-body {
-  overflow-x: hidden;
-}
-
-// Ensure full-width responsiveness for .listContainer and .hoverList on mobile
-.listContainer {
+  // Ensure no extra padding on mobile
   @media (max-width: $mobile-breakpoint) {
-    width: 100%; // Ensure list container takes full width on mobile
-  }
-}
-
-.hoverList {
-  @media (max-width: $mobile-breakpoint) {
-    max-width: 100%; // Make sure dropdowns fit fully on mobile
+    padding: 0;
+    width: 100%; // Use full width for small screens
   }
 }
 
@@ -87,7 +65,7 @@ body {
   cursor: pointer;
 
   span {
-    font-weight: 500;
+    font-weight: 800;
   }
 
   svg {
@@ -97,7 +75,7 @@ body {
 
   @media (max-width: $mobile-breakpoint) {
     display: flex;
-    margin: 1rem 0;
+    margin: 0rem 0;
   }
 }
 
@@ -120,6 +98,7 @@ body {
 }
 
 .listItem {
+
   position: relative;
   border-right: 1px solid $border-color; // Added border between categories
 
@@ -161,7 +140,7 @@ body {
 }
 
 .listText {
-  font-weight: 500;
+  font-weight: 700;
   color: $text-color;
   text-decoration: none;
   transition: color 0.2s;

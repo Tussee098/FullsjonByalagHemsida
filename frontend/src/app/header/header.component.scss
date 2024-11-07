@@ -107,6 +107,16 @@ header {
   transform: scale(1.02);
 }
 
+/* Navigation styles */
+.navContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
 
 .listContainer {
   display: flex;
@@ -261,7 +271,7 @@ header {
     position: relative;
     top: 0;
     left: 0;
-    margin: 0;
+    margin: 0 auto;
     text-align: center;
   }
 

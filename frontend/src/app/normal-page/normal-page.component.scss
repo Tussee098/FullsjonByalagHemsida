@@ -20,7 +20,7 @@
 .content-area {
   display: flex;
   flex-direction: column;
-  flex: 3; /* Occupy more width than side-panel */
+  flex: 4; /* Occupy more width than side-panel */
   padding: 0;
   min-height: 0; /* Allow the content to grow */
 }
