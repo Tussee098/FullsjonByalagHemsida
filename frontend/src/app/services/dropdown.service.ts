@@ -7,21 +7,13 @@ import { CategoryWithOptions, Option } from './../models/dropdownCategories';
 })
 export class DropdownService {
 
-  private categoryOptionsCache: CategoryWithOptions[] | null = null;
-  private cacheExpiry = 10 * 60 * 1000; // Cache expiry time: 10 minutes (in milliseconds)
-  private lastCacheTime: number = 0;
 
   constructor(private categoryService: CategoryService) {}
 
 
   // Method to fetch categories with options and use caching
   async getCategoriesWithOptions(): Promise<CategoryWithOptions[]> {
-    const now = Date.now();
 
-    // Check if cached data exists and is still valid
-    if (this.categoryOptionsCache && now - this.lastCacheTime < this.cacheExpiry) {
-      return this.categoryOptionsCache;
-    }
 
     // If cache is missing or expired, fetch fresh data from CategoryService
     const categoryOptionsList: CategoryWithOptions[] = [];
@@ -49,9 +41,7 @@ export class DropdownService {
         });
       }
 
-      // Update the cache with the new data and timestamp
-      this.categoryOptionsCache = categoryOptionsList;
-      this.lastCacheTime = now;
+
 
       return categoryOptionsList;
 
@@ -61,9 +51,5 @@ export class DropdownService {
     }
   }
 
-  // Method to clear the cache, useful when data updates occur
-  clearCache() {
-    this.categoryOptionsCache = null;
-    this.lastCacheTime = 0;
-  }
+
 }

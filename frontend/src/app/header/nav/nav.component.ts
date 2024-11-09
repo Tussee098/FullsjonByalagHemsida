@@ -162,7 +162,7 @@ export class NavComponent implements OnInit {
   }
 
   deleteOption(optionId: string) {
-    const confirmed = window.confirm('Are you sure you want to delete this category?');
+    const confirmed = window.confirm('Are you sure you want to delete this option?');
     if (confirmed) {
       this.categoryService.deleteOption(optionId);
       window.location.reload();

@@ -40,8 +40,10 @@ class CategoryService {
   }
 
   async getOptionsByCategoryId(categoryId: string) {
-    // Fetch options using the fetchWithCache method
-    return await this.fetchWithCache<any[]>(`${this.BASE_URL}/options/id/${categoryId}`);
+    const allOptions = await this.getAllOptions();
+
+    // Filter options by category ID from the cached `getAllOptions` data
+    return allOptions.filter(option => option.categoryId === categoryId);
   }
 
   async getAllOptions() {
@@ -80,10 +82,10 @@ class CategoryService {
   }
 
 
-  clearCache() {
-    console.log(`${this.BASE_URL}/categories`);
+  clearCache(url: string) {
+    console.log(`${this.BASE_URL}/${url}`);
     // Remove all relevant local storage cache keys
-    localStorage.removeItem(`${this.BASE_URL}/categories`);
+    localStorage.removeItem(`${this.BASE_URL}/${url}`);
     /*Object.keys(localStorage).forEach(key => {
       if (key.startsWith('optionsCache_')) {
         localStorage.removeItem(key);
@@ -92,9 +94,7 @@ class CategoryService {
     console.log('All category-related cache cleared');
   }
 
-  clearOptionCache(categoryId: string){
 
-  }
 
   async updateCategoryOrder(reorderedCategories: { categoryId: string; order: number; }[]): Promise<any> {
     const token = localStorage.getItem('token');
@@ -108,7 +108,7 @@ class CategoryService {
     });
 
     if (response.ok) {
-      this.clearCache(); // Clear cache after reordering
+      this.clearCache('categories'); // Clear cache after reordering
       return response.json();
     } else {
       console.error('Error updating category order:', response.statusText);
@@ -128,7 +128,7 @@ class CategoryService {
     });
     if (!response.ok) throw new Error('Failed to add category');
     console.log("Clearing in 1 row")
-    this.clearCache(); // Clear cache after adding a category
+    this.clearCache('categories'); // Clear cache after adding a category
     return await response.json();
   }
 
@@ -141,7 +141,7 @@ class CategoryService {
       },
     });
     if (!response.ok) throw new Error('Failed to delete category');
-    this.clearCache(); // Clear cache after deleting a category
+    this.clearCache('categories'); // Clear cache after deleting a category
     return await response.json();
   }
 
@@ -159,7 +159,7 @@ class CategoryService {
     });
 
     if (response.ok) {
-      this.clearCache(); // Clear cache after editing a category
+      this.clearCache('categories'); // Clear cache after editing a category
       return await response.json();
     } else {
       console.error('Error updating category:', response.statusText);
@@ -181,7 +181,8 @@ class CategoryService {
       body: JSON.stringify({ name: optionName, path: optionUrl, categoryId })
     });
     if (!response.ok) throw new Error('Failed to add option');
-    this.clearOptionCache(categoryId); // Clear cache after adding an option
+    this.clearCache('options'); // Clear cache after adding an option
+    this.clearCache('categories'); // Clear cache after adding an option
     return await response.json();
   }
 
@@ -194,7 +195,7 @@ class CategoryService {
       },
     });
     if (!response.ok) throw new Error('Failed to delete option');
-    this.clearOptionCache(optionId); // Clear cache after deleting an option
+    this.clearCache('options'); // Clear cache after deleting an option
     await this.postService.deletePostsByOptionId(optionId);
     return await response.json();
   }
