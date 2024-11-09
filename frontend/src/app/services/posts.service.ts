@@ -20,7 +20,6 @@ export class PostService {
 
     // Check if the data is in cache and not expired
     if (cachedData && currentTime - cachedData.timestamp < this.cacheDuration) {
-      console.log('Serving data from local storage cache');
       return cachedData.data;
     }
 
@@ -38,7 +37,6 @@ export class PostService {
         const data = await response.json();
         // Update the cache with new data in local storage
         this.setCacheToLocalStorage(optionId, data);
-        console.log('Fetching data from API and updating local storage cache');
         return data;
       } else {
         console.error('Error fetching posts:', response.statusText);

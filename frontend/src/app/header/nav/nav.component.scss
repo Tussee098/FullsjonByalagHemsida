@@ -13,7 +13,7 @@ $mobile-breakpoint: 768px;
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  box-sizing: content-box;
 }
 
 

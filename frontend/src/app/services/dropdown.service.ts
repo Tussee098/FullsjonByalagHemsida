@@ -14,9 +14,6 @@ export class DropdownService {
   constructor(private categoryService: CategoryService) {}
 
 
-
-
-
   // Method to fetch categories with options and use caching
   async getCategoriesWithOptions(): Promise<CategoryWithOptions[]> {
     const now = Date.now();

@@ -14,7 +14,7 @@ $color-light-text: #F8F9FA;  /* Light text color */
 
 header {
   width: 100%;
-  box-sizing: border-box;
+  box-sizing: content-box;
   min-height: 160px;
   background: linear-gradient(135deg, $color-lake 0%, $color-forest 100%);
   display: flex;
@@ -110,7 +110,7 @@ header {
 /* Navigation styles */
 .navContainer {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0.5rem;
   background-color: rgba(255, 255, 255, 0.1);

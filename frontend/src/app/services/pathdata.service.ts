@@ -21,7 +21,6 @@ class CategoryService {
 
     // If cache exists and is still valid, return it
     if (cachedResponse && now - cachedResponse.timestamp < this.cacheExpiry) {
-      console.log(`Serving data from cache for ${url}`);
       return cachedResponse.data;
     }
 
@@ -80,15 +79,21 @@ class CategoryService {
     localStorage.setItem(key, JSON.stringify(cacheEntry));
   }
 
+
   clearCache() {
+    console.log(`${this.BASE_URL}/categories`);
     // Remove all relevant local storage cache keys
-    localStorage.removeItem('categoriesCache');
-    Object.keys(localStorage).forEach(key => {
+    localStorage.removeItem(`${this.BASE_URL}/categories`);
+    /*Object.keys(localStorage).forEach(key => {
       if (key.startsWith('optionsCache_')) {
         localStorage.removeItem(key);
       }
-    });
+    });*/
     console.log('All category-related cache cleared');
+  }
+
+  clearOptionCache(categoryId: string){
+
   }
 
   async updateCategoryOrder(reorderedCategories: { categoryId: string; order: number; }[]): Promise<any> {
@@ -122,6 +127,7 @@ class CategoryService {
       body: JSON.stringify({ name: categoryName })
     });
     if (!response.ok) throw new Error('Failed to add category');
+    console.log("Clearing in 1 row")
     this.clearCache(); // Clear cache after adding a category
     return await response.json();
   }
@@ -175,7 +181,7 @@ class CategoryService {
       body: JSON.stringify({ name: optionName, path: optionUrl, categoryId })
     });
     if (!response.ok) throw new Error('Failed to add option');
-    this.clearCache(); // Clear cache after adding an option
+    this.clearOptionCache(categoryId); // Clear cache after adding an option
     return await response.json();
   }
 
@@ -188,7 +194,7 @@ class CategoryService {
       },
     });
     if (!response.ok) throw new Error('Failed to delete option');
-    this.clearCache(); // Clear cache after deleting an option
+    this.clearOptionCache(optionId); // Clear cache after deleting an option
     await this.postService.deletePostsByOptionId(optionId);
     return await response.json();
   }
