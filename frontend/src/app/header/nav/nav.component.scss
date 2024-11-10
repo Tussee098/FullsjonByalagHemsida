@@ -19,18 +19,33 @@ $mobile-breakpoint: 768px;
 
 .navContainer {
   width: 100%;
+  max-width: 95%;
   background-color: $background-color;
   border-bottom: 1px solid $border-color;
   position: sticky;
   top: 0;
   z-index: 50;
   box-shadow: 0 2px 4px $shadow-color;
+  font-size: calc(1vw + 2px); // Initial scaling based on viewport width
 
-  // Full width for smaller screens
-  @media (max-width: $mobile-breakpoint) {
-    padding: 0; // Ensure no padding around the container
+  .listText,
+  .hoverListText {
+    font-size: 1em; // Use 1em so that it scales with .navContainer's font size
+  }
+
+  // Media query for very large screens
+  @media (min-width: 1200px) {
+    font-size: calc(1vw + 8px); // Further reduce scaling on larger screens
+  }
+
+  // Media query to handle smaller screens, where the text needs to stay readable
+  @media (max-width: 600px) {
+    font-size: 16px; // Set a fixed font size for readability on smaller devices
   }
 }
+
+
+
 
 .navInner {
   max-width: 1280px;
@@ -40,6 +55,7 @@ $mobile-breakpoint: 768px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
 
   // Ensure no extra padding on mobile
   @media (max-width: $mobile-breakpoint) {
@@ -82,15 +98,13 @@ $mobile-breakpoint: 768px;
 .listContainer {
   display: flex;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   gap: 0; // Removed gap to accommodate borders
 
   @media (max-width: $mobile-breakpoint) {
     display: none;
     flex-direction: column;
-    width: 100%;
-
     &.open {
       display: flex;
     }
@@ -98,7 +112,8 @@ $mobile-breakpoint: 768px;
 }
 
 .listItem {
-
+  flex-grow: 1; // Makes each list item take equal space
+  flex-basis: 0; // Allows flex-grow to distribute width equally
   position: relative;
   border-right: 1px solid $border-color; // Added border between categories
 

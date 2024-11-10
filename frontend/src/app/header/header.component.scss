@@ -13,7 +13,6 @@ $color-light-text: #F8F9FA;  /* Light text color */
 
 
 header {
-  width: 100%;
   box-sizing: content-box;
   min-height: 160px;
   background: linear-gradient(135deg, $color-lake 0%, $color-forest 100%);
@@ -107,15 +106,11 @@ header {
   transform: scale(1.02);
 }
 
+
+
 /* Navigation styles */
 .navContainer {
-  width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  backdrop-filter: blur(5px);
+
 }
 
 .listContainer {
@@ -156,6 +151,7 @@ header {
 
 /* Dropdown menu */
 .hoverList {
+
   display: none;
   position: absolute;
   top: 100%;
@@ -184,9 +180,12 @@ header {
 
 .listItem:hover .hoverList {
   display: block;
+
 }
 
 .hoverListItem {
+  overflow-x: hidden;
+  overflow-y: visible;
   padding: 0.5rem;
 }
 
