@@ -115,7 +115,7 @@ router.delete('/options/:id', authorization, async (req, res) => {
 });
 
 // PUT - Update category name
-router.put('/categories/:id', authorization, async (req, res) => {
+router.put('/categories/name/:id', authorization, async (req, res) => {
   const categoryId = req.params.id;
   const { name } = req.body; // New name for the category
 
@@ -138,13 +138,15 @@ router.put('/categories/:id', authorization, async (req, res) => {
 });
 
 router.put('/categories/order', async (req, res) => {
+  console.log("req.bodyasdsdfsdfdsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+  
   try {
     console.log("recorderCategories")
     const reorderedCategories = req.body; // Expecting [{ categoryId: '1', order: 0 }, { categoryId: '2', order: 1 }, ...]
     console.log(reorderedCategories)
     for (const { categoryId, order } of reorderedCategories) {
       // Logic to update the category order in your database
-      await NavBarCategory.updateOne({ _id: categoryId }, { order: order });
+      await NavBarCategory.findOneAndUpdate({ _id: categoryId }, { order: order });
     }
 
     res.status(200).send({ message: 'Category order updated successfully' });
@@ -153,5 +155,7 @@ router.put('/categories/order', async (req, res) => {
     res.status(500).send({ message: 'Error updating category order' });
   }
 });
+
+
 
 export default router;

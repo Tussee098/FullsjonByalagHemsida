@@ -105,6 +105,7 @@ class CategoryService {
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(reorderedCategories)
+
     });
 
     if (response.ok) {
@@ -149,7 +150,7 @@ class CategoryService {
     const token = localStorage.getItem('token');
     const payload = { name: editedCategoryText };
 
-    const response = await fetch(`${this.BASE_URL}/categories/${editCategoryId}`, {
+    const response = await fetch(`${this.BASE_URL}/categories/name/${editCategoryId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
