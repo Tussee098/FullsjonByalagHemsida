@@ -110,7 +110,8 @@ header {
 
 /* Navigation styles */
 .navContainer {
-
+  width: 60%;
+  max-width: 60%;
 }
 
 .listContainer {
@@ -184,8 +185,6 @@ header {
 }
 
 .hoverListItem {
-  overflow-x: hidden;
-  overflow-y: visible;
   padding: 0.5rem;
 }
 
