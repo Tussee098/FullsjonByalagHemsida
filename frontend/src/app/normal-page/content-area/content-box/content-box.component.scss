@@ -48,9 +48,8 @@
     }
   }
 
-  .example-handle {
-    position: absolute;
-    right: 5%; /* 5% from the right edge */
+  .handle {
+    position: relative;
   }
 
   .edit-form {
