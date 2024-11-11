@@ -38,9 +38,10 @@ $mobile-breakpoint: 768px;
   }
 
   // Media query to handle smaller screens, where the text needs to stay readable
-  @media (max-width: 600px) {
+  @media (max-width: $mobile-breakpoint) {
     font-size: 16px; // Set a fixed font size for readability on smaller devices
   }
+
 }
 
 
