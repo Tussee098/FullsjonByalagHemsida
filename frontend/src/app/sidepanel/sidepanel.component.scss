@@ -1,79 +1,89 @@
+/* Main Panel Styling */
 .side-panel {
-  padding: 1.5rem;
-
-  .logo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1.5rem;
-
-    img {
-      width: 100px;
-      margin-bottom: 0.75rem;
-    }
-
-    .swish-description {
-      color: #4b5563;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      text-align: center;
-    }
-
-    .swish-price {
-      color: #4b5563;
-      font-weight: 500;
-    }
-  }
-
-  .heartstarter-container {
-    img {
-      width: 150px;
-      height: 150px;
-      margin-bottom: 0.75rem;
-    }
-
-    .heartstarter-description {
-      color: #4b5563;
-      font-weight: 500;
-    }
-  }
+  padding: 2rem;
+  max-width: 400px;
 }
 
-/* Medium screens - Adjust layout for tablets */
+p{
+  margin: 1px;
+  padding: 1px;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.logo-container img {
+  width: 80px;
+  margin-bottom: 1rem;
+}
+
+/* Description Text Styling */
+.swish-description,
+.heartstarter-description {
+  color: #4b5563; /* Softer gray for a balanced contrast */
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 0.4rem;
+  text-align: center;
+  max-width: 90%; /* Center text better on narrow screens */
+}
+
+/* Price Text Styling */
+.swish-price {
+  color: #1f2937; /* Darker color for emphasis */
+  font-size: 1.3rem; /* Slightly larger for emphasis */
+  font-weight: 700; /* Bolder for prominence */
+  text-align: center;
+  margin: 0.7rem 0;
+  text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Responsive Styling */
 @media (max-width: 768px) {
   .side-panel {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .logo-container img,
-    .heartstarter-container img {
-      width: 100px;
-    }
+    padding: 1.5rem;
+  }
 
-    .swish-description {
-      font-size: 0.9rem;
-    }
+  .logo-container img {
+    width: 70px;
+  }
+
+  .swish-description,
+  .heartstarter-description {
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .swish-price {
+    font-size: 1.2rem;
   }
 }
 
-/* Small screens - Adjust layout for mobile phones */
 @media (max-width: 480px) {
   .side-panel {
-    width: 100%;
-    border-right: none; /* Remove border to save space */
-    border-bottom: 1px solid #e5e7eb; /* Optional: add border at the bottom */
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
 
-    .logo-container img,
-    .heartstarter-container img {
-      width: 75px;
-    }
+  .logo-container img {
+    width: 60px;
+  }
 
-    .swish-description {
-      font-size: 0.8rem;
-    }
+  .swish-description,
+  .heartstarter-description {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .swish-price {
+    font-size: 1.1rem;
   }
 }
-
-/* Extra small screens - Convert side panel to a drawer */
-
