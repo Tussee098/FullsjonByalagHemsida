@@ -55,6 +55,7 @@ const corsOptions = {
     
     const allowedOrigins = [
       'http://localhost:8080',
+      // For testing'http://localhost:5000',
       'http://localhost:4200',
       'https://fullsjon-website-59ddfac79ca1.herokuapp.com',
       process.env.HEROKU_APP_URL, // Add this as an environment variable in Heroku
