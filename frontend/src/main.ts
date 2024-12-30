@@ -17,6 +17,5 @@ bootstrapApplication(AppComponent, {
       deps: [CategoryService, Router],
       multi: true
     },
-    provideRouter([]), // Initially provide an empty router array
   ]
 }).catch(err => console.error(err));
