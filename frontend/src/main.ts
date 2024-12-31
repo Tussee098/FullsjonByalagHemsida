@@ -17,5 +17,6 @@ bootstrapApplication(AppComponent, {
       deps: [CategoryService, Router],
       multi: true
     },
+    provideRouter([]),
   ]
 }).catch(err => console.error(err));
