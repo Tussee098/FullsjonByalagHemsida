@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { PostService } from '../services/posts.service'; // Import the PostService
 import CategoryService from '../services/pathdata.service'
+import { FooterComponent } from '../footer/footer.component';
 
 
 @Component({
@@ -12,7 +13,7 @@ import CategoryService from '../services/pathdata.service'
   standalone: true,
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
-  imports: [FormsModule, HeaderComponent, CommonModule]
+  imports: [FormsModule, HeaderComponent, CommonModule,FooterComponent]
 })
 
 export class AdminComponent implements OnInit {
@@ -79,30 +80,6 @@ export class AdminComponent implements OnInit {
     return this.options.filter(option => option.categoryId === this.selectedCategory);
   }
 
-  // Functions to toggle the visibility of input fields
-  toggleNewOptionInput() {
-    this.showNewOptionInput = !this.showNewOptionInput;
-    if(this.showNewOptionInput == true){
-      this.showEditCategoryInput = false;
-      this.showNewCategoryInput= false;
-    }
-  }
-
-  toggleNewCategoryInput() {
-    this.showNewCategoryInput = !this.showNewCategoryInput;
-    if(this.showNewCategoryInput == true){
-      this.showEditCategoryInput = false;
-      this.showNewOptionInput= false;
-    }
-  }
-
-  toggleEditCategory(){
-    this.showEditCategoryInput = !this.showEditCategoryInput;
-    if(this.showEditCategoryInput == true){
-      this.showNewCategoryInput = false;
-      this.showNewOptionInput= false;
-    }
-  }
 
   // Submit the new option
   async submitNewOption() {
@@ -110,6 +87,7 @@ export class AdminComponent implements OnInit {
       console.error("No option text provided");
       return;
     }
+    console.log(this.newOptionCategoryId)
     const newOption = await this.categoryService.addOption(this.newOptionText, this.newOptionUrl, this.newOptionCategoryId); // Use service to submit new option
     if (newOption) {
       this.options.push(newOption);

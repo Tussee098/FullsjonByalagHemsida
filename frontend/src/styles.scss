@@ -1,4 +1,5 @@
 // styling reset so that there arent any inconcistancies with browsers and stuff
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -25,13 +26,34 @@ html, body{
   margin: 0;
   padding: 0;
 }
+:root {
+	--primary-color: #007bff;
+	--primary-color-dark: #0056b3;
+	--secondary-color: #6c757d;
+	--background-color: #f8f9fa;
+	--text-color: #343a40;
+	--light-text-color: #ffffff;
+	--border-radius: 0.25rem;
+
+	/* Swedish nature-inspired color palette */
+	--color-lake: #507B8C;        /* Deep lake blue */
+	--color-forest: #2F5233;      /* Forest green */
+	--color-bark: #8B7355;        /* Tree bark brown */
+	--color-sky: #C5D5E4;         /* Swedish sky blue */
+	--color-sand: #F4E9D8;        /* Beach sand */
+	--color-stone: #8A8C89;       /* Swedish granite */
+	--color-text: #2C3338;        /* Dark text color */
+	--color-light-text: #F8F9FA;  /* Light text color */
+  
+  }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
+	font-family: 'Roboto', sans-serif;
+
 }
 ol, ul {
 	list-style: none;

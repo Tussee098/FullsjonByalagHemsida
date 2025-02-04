@@ -1,19 +1,9 @@
-/* Swedish nature-inspired color palette */
-$color-lake: #507B8C;        /* Deep lake blue */
-$color-forest: #2F5233;      /* Forest green */
-$color-bark: #8B7355;        /* Tree bark brown */
-$color-sky: #C5D5E4;         /* Swedish sky blue */
-$color-sand: #F4E9D8;        /* Beach sand */
-$color-stone: #8A8C89;       /* Swedish granite */
-$color-text: #2C3338;        /* Dark text color */
-$color-light-text: #F8F9FA;  /* Light text color */
-
 .footer-content {
-  background: linear-gradient(135deg, $color-sand, $color-lake);
+  background: linear-gradient(135deg, var(--color-sand), var(--color-lake));
   display: flex;
   justify-content: space-between;
   width: 100%;
-  border-top: 4px solid $color-forest;
+  border-top: 4px solid var(--color-forest);
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
   transition: background 0.3s ease;
 
@@ -32,20 +22,20 @@ $color-light-text: #F8F9FA;  /* Light text color */
   width: 100%;
   max-width: 280px;
   border-radius: 8px;
-  background-color: $color-sky;
+  background-color: var(--color-sky);
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, background-color 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
-    background-color: $color-lake;
+    background-color: var(--color-lake);
   }
 
   h2 {
     font-size: 1.25rem;
     font-weight: 600;
-    color: $color-forest;
+    color: var(--color-forest);
     margin-top: 0;
     margin-bottom: 0.5rem;
     text-transform: uppercase;
@@ -55,21 +45,21 @@ $color-light-text: #F8F9FA;  /* Light text color */
     margin: 0.25rem 0;
     font-size: 1rem;
     line-height: 1.5;
-    color: $color-text;
+    color: var(--color-text);
   }
 
   strong {
-    color: $color-forest;
+    color: var(--color-forest);
   }
 }
 
 .footer-link {
-  color: $color-bark;
+  color: var(--color-bark);
   font-weight: 600;
   text-decoration: none;
   transition: color 0.3s ease;
 
   &:hover {
-    color: $color-stone;
+    color: var(--color-stone);
   }
 }

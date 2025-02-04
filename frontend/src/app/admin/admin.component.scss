@@ -1,77 +1,89 @@
-:root {
-  font-size: 16px; // 1 rem = 16px
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-h1 {
-  text-align: center;
-  top: 0; /* Places it at the top */
-  left: 50%; /* Moves the element to the center horizontally */
-  font-size: 30px; /* Sets the font size to 30px */
-  margin: 0; /* Removes default margin */
-  padding: 2em 0; /* Optional padding for spacing */
+.content {
+  background-color: #373741;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  padding: 2rem;
 }
 
-// Style for the dropdowns
-.dropdown {
-  margin-bottom: 1.25rem; // 20px converted to rem
+.section {
+  background-color: #282838;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+    color: #ffffff;
+    font-size: 1.25rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+  }
+
   label {
     display: block;
-    margin-bottom: 0.3125rem; // 5px converted to rem
+    margin-bottom: 0.75rem;
     font-weight: bold;
+    color: #a8a8b3;
+
+    input, select {
+      width: calc(100% - 20px);
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #3e3e5e;
+      border-radius: 8px;
+      background-color: #1f1f3c;
+      color: #cfcfe2;
+      font-size: 1rem;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #6272a4;
+        outline: none;
+      }
+    }
   }
-  select {
+
+  .submit-btn {
     width: 100%;
-    padding: 0.625rem; // 10px converted to rem
-    border: 1px solid #ccc;
-    border-radius: 0.25rem; // 4px converted to rem
-    font-size: 1rem; // 16px as base font size
+    padding: 0.75rem 1.5rem;
+    background-color: #5c5cff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s, box-shadow 0.3s;
+
+    &:hover {
+      background-color: #4141d5;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
   }
 }
 
-// Container for the new item buttons and inputs
-.new-item-container {
-  display: flex;
-  flex-direction: column; // Stack buttons and inputs vertically
-  gap: 1.25rem; // 20px converted to rem
-
-  // Individual button/input sections
-  .new-option,
-  .edit-category,
-  .new-category {
-    display: flex;
-    flex-direction: column; // Stack button and input vertically
-
-    // Button style
-    button {
-      background-color: #007bff; // Bootstrap primary color
-      color: white;
-      border: none;
-      padding: 0.625rem; // 10px converted to rem
-      cursor: pointer;
-      font-size: 1rem; // 16px as base font size
-      border-radius: 0.25rem; // 4px converted to rem
-
-      &:hover {
-        background-color: #0056b3; // Darker blue on hover
-      }
-    }
-    .submitButton {
-      background-color: #088026; // Bootstrap primary color
-      color: white;
-    }
-
-    // Input group for new option/category
-    .input-group {
-      display: flex;
-      flex-direction: column; // Stack inputs vertically
-      gap: 0.625rem; // Space between inputs
-
-      input, select {
-        padding: 0.625rem; // 10px converted to rem
-        border: 1px solid #ccc;
-        border-radius: 0.25rem; // 4px converted to rem
-        font-size: 1rem; // 16px as base font size
-      }
-    }
-  }
+footer {
+  background-color: #282838;
+  color: #d1d1e0;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
 }

@@ -19,63 +19,59 @@ h2 {
 
 form {
   max-width: 400px;
-  margin: 50px auto; // Center the form on the page
+  margin: 50px auto;
   padding: 20px;
-  background: white; // White background for the form
-  border-radius: $border-radius;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Subtle shadow
-  border: 1px solid #e0e0e0; // Light gray border
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   label {
-    display: block; // Make labels block elements
-    margin-bottom: 5px; // Space between label and input
-    color: $secondary-color; // Darker color for the label
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
   }
 
   input {
-    width: 100%; // Full width for inputs
-    padding: 10px; // Padding for the input fields
-    margin-bottom: 20px; // Space below inputs
-    border: 1px solid #ccc; // Gray border for inputs
-    border-radius: $border-radius; // Rounded corners
-    transition: border-color 0.3s; // Smooth transition on focus
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    transition: border-color 0.3s;
 
     &:focus {
-      border-color: $primary-color; // Change border color on focus
-      outline: none; // Remove default outline
+      border-color: var(--primary-color);
+      outline: none;
     }
   }
 
   button {
-    width: 100%; // Full width for the button
+    width: 100%;
     padding: 10px;
-    background-color: $primary-color; // Primary button color
-    color: white; // White text
-    border: none; // No border
-    border-radius: $border-radius; // Rounded corners
-    font-size: 16px; // Font size for the button
-    cursor: pointer; // Pointer cursor on hover
-    transition: background-color 0.3s; // Smooth transition
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 
     &:hover {
-      background-color: darken($primary-color, 10%); // Darker on hover
+      background-color: var(--primary-color-dark);
     }
 
     &:disabled {
-      background-color: gray; // Disabled button styling
-      cursor: not-allowed; // Not-allowed cursor
+      background-color: gray;
+      cursor: not-allowed;
     }
   }
 
-  // Styling for error messages
   .error-message {
-    color: $error-color; // Red color for error messages
-    margin-top: -15px; // Move up to be closer to the input
-    margin-bottom: 10px; // Space below error message
-    font-size: 14px; // Smaller font for error messages
+    color: var(--error-color);
+    margin-top: -15px;
+    margin-bottom: 10px;
+    font-size: 14px;
   }
-
-
 }
 
 .backBtn {
