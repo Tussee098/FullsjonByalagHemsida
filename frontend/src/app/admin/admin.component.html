@@ -1,46 +1,49 @@
-<app-header></app-header>
-<div class="content">
-  <div class="section add-option">
-    <h2>Add new option</h2>
-    <label>
-      Category
-      <select [(ngModel)]="newOptionCategoryId">
-        <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
-      </select>
-    </label>
-    <label>
-      Option
-      <input type="text" [(ngModel)]="newOptionText" placeholder="Option Text">
-    </label>
-    <label>
-      Option URL
-      <input type="text" [(ngModel)]="newOptionUrl" placeholder="Option URL" (input)="sanitizeInput()">
-    </label>
-    <button class="submit-btn" (click)="submitNewOption()">Submit Option</button>
+
+  <app-header></app-header>
+
+  <div class="content">
+    <div class="section add-option">
+      <h2>Add new option</h2>
+      <label>
+        Category
+        <select [(ngModel)]="newOptionCategoryId">
+          <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
+        </select>
+      </label>
+      <label>
+        Option
+        <input type="text" [(ngModel)]="newOptionText" placeholder="Option Text">
+      </label>
+      <label>
+        Option URL
+        <input type="text" [(ngModel)]="newOptionUrl" placeholder="Option URL" (input)="sanitizeInput()">
+      </label>
+      <button class="submit-btn" (click)="submitNewOption()">Submit Option</button>
+    </div>
+
+    <div class="section add-category">
+      <h2>Add new category</h2>
+      <label>
+        Category Name
+        <input type="text" [(ngModel)]="newCategoryText" placeholder="Category Name">
+      </label>
+      <button class="submit-btn" (click)="submitNewCategory()">Submit Category</button>
+    </div>
+
+    <div class="section edit-category">
+      <h2>Edit a category</h2>
+      <label>
+        Category
+        <select [(ngModel)]="editCategoryId">
+          <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
+        </select>
+      </label>
+      <label>
+        New Category Name
+        <input type="text" [(ngModel)]="editedCategoryText" placeholder="New Category Name">
+      </label>
+      <button class="submit-btn" (click)="submitEditCategory()">Save Changes</button>
+    </div>
   </div>
 
-  <div class="section add-category">
-    <h2>Add new category</h2>
-    <label>
-      Category Name
-      <input type="text" [(ngModel)]="newCategoryText" placeholder="Category Name">
-    </label>
-    <button class="submit-btn" (click)="submitNewCategory()">Submit Category</button>
-  </div>
-
-  <div class="section edit-category">
-    <h2>Edit a category</h2>
-    <label>
-      Category
-      <select [(ngModel)]="editCategoryId">
-        <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
-      </select>
-    </label>
-    <label>
-      New Category Name
-      <input type="text" [(ngModel)]="editedCategoryText" placeholder="New Category Name">
-    </label>
-    <button class="submit-btn" (click)="submitEditCategory()">Save Changes</button>
-  </div>
-</div>
-<app-footer></app-footer>
+  <app-footer></app-footer>
